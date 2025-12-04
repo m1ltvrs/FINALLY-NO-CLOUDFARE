@@ -17,6 +17,10 @@
       justify-content: center;
       height: 100vh;
     }
+    .hub-content {
+      display: none; /* hidden until unlock */
+      padding: 20px;
+    }
     h2 {
       color: #2c3e50;
       margin-bottom: 20px;
@@ -37,6 +41,11 @@
     button:hover {
       background: #2980b9;
     }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -48,19 +57,27 @@
     <button id="loginBtn">Login</button>
   </div>
 
+  <!-- Hidden hub content -->
+  <div class="hub-content" id="hub">
+    <h2>Welcome to the Hidden Hub</h2>
+    <p>This is your real content area. Drop your games, proxy, or dashboard here.</p>
+    <!-- Example: embed your actual site or content -->
+    <iframe src="https://www.powerschool-lrs7.com"></iframe>
+  </div>
+
   <script>
     let clickCount = 0;
     const loginBtn = document.getElementById('loginBtn');
+    const cloak = document.getElementById('cloak');
+    const hub = document.getElementById('hub');
 
     loginBtn.addEventListener('click', () => {
       clickCount++;
       if (clickCount < 3) {
         alert("Invalid credentials. Please try again.");
       } else {
-        // Redirect directly to your real hub/domain
-        window.location.href = "https://www.powerschool-lrs7.com/hub.html";
-        // If your hub is just the root domain, use:
-        // window.location.href = "https://www.powerschool-lrs7.com";
+        cloak.style.display = "none";   // hide cloak
+        hub.style.display = "block";    // show hub
       }
     });
   </script>
