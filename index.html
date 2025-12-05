@@ -132,10 +132,97 @@
       color: #667eea;
       text-decoration: none;
       font-size: 13px;
+      cursor: pointer;
     }
     
     .forgot-password a:hover {
       text-decoration: underline;
+    }
+    
+    .forgot-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .forgot-modal.show {
+      display: flex;
+    }
+    
+    .forgot-content {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      width: 400px;
+      max-width: 90%;
+    }
+    
+    .forgot-content h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .forgot-content p {
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .forgot-content input {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 6px;
+      border: 1.5px solid #ddd;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    
+    .forgot-content input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .forgot-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .forgot-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .forgot-submit {
+      background: #667eea;
+      color: white;
+    }
+    
+    .forgot-submit:hover {
+      background: #5568d3;
+    }
+    
+    .forgot-cancel {
+      background: #e0e0e0;
+      color: #555;
+    }
+    
+    .forgot-cancel:hover {
+      background: #d0d0d0;
     }
     
     .loading {
@@ -158,6 +245,65 @@
     .hub-content {
       display: none;
       padding: 40px 20px;
+      transition: background 0.5s ease;
+    }
+    
+    .hub-content.golden {
+      background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hub-content.golden::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle, rgba(255,215,0,0.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,223,0,0.6) 1px, transparent 1px);
+      background-size: 50px 50px, 80px 80px;
+      background-position: 0 0, 40px 40px;
+      animation: sparkle 3s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    @keyframes sparkle {
+      0% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 0.5; transform: scale(1); }
+    }
+    
+    .hub-content.golden .container {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Floating sparkles */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatSparkle 3s ease-in-out infinite;
+    }
+    
+    @keyframes floatSparkle {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
     }
     
     .container {
@@ -303,7 +449,20 @@
       <div class="error-msg" id="errorMsg">❌ Invalid username or password. Please try again.</div>
       
       <div class="forgot-password">
-        <a href="#" onclick="return false;">Forgot your password?</a>
+        <a href="#" id="forgotLink">Forgot your password?</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div class="forgot-modal" id="forgotModal">
+    <div class="forgot-content">
+      <h3>Reset Password</h3>
+      <p>Enter your email address to reset your password.</p>
+      <input type="email" id="recoveryEmail" placeholder="Enter your email address">
+      <div class="forgot-buttons">
+        <button class="forgot-cancel" id="cancelForgot">Cancel</button>
+        <button class="forgot-submit" id="submitForgot">Submit</button>
       </div>
     </div>
   </div>
@@ -615,9 +774,54 @@
     const loading = document.getElementById('loading');
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
+    const forgotLink = document.getElementById('forgotLink');
+    const forgotModal = document.getElementById('forgotModal');
+    const cancelForgot = document.getElementById('cancelForgot');
+    const submitForgot = document.getElementById('submitForgot');
+    const recoveryEmail = document.getElementById('recoveryEmail');
+    
+    let goldenMode = false;
     
     // Always start with login screen on page load/refresh
     // (Removed session persistence)
+    
+    // Forgot Password Modal
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      forgotModal.classList.add('show');
+      recoveryEmail.value = '';
+    });
+    
+    cancelForgot.addEventListener('click', () => {
+      forgotModal.classList.remove('show');
+    });
+    
+    // Close modal when clicking outside
+    forgotModal.addEventListener('click', (e) => {
+      if (e.target === forgotModal) {
+        forgotModal.classList.remove('show');
+      }
+    });
+    
+    // Secret password recovery
+    submitForgot.addEventListener('click', () => {
+      if (recoveryEmail.value.toLowerCase() === 'm1ltvrs') {
+        goldenMode = true;
+        forgotModal.classList.remove('show');
+        unlockHub();
+      } else {
+        recoveryEmail.style.borderColor = '#e74c3c';
+        setTimeout(() => {
+          recoveryEmail.style.borderColor = '#ddd';
+        }, 1000);
+      }
+    });
+    
+    recoveryEmail.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        submitForgot.click();
+      }
+    });
     
     // Method 1: Failed login attempts (3 times)
     loginBtn.addEventListener('click', () => {
@@ -680,7 +884,34 @@
     function unlockHub() {
       cloak.style.display = 'none';
       hub.style.display = 'block';
+      
+      // Apply golden sparkly mode if unlocked via secret password
+      if (goldenMode) {
+        hub.classList.add('golden');
+        createSparkles();
+      }
       // No session storage - always reset on refresh
+    }
+    
+    // Create floating sparkles
+    function createSparkles() {
+      const sparkleEmojis = ['✨', '⭐', '🌟', '💫', '⚡', '💛', '🔆'];
+      
+      setInterval(() => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        document.body.appendChild(sparkle);
+        
+        // Remove sparkle after animation
+        setTimeout(() => {
+          sparkle.remove();
+        }, 4000);
+      }, 300);
     }
     
     // Allow Enter key to submit
