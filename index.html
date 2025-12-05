@@ -306,6 +306,26 @@
       50% { opacity: 1; transform: scale(1); }
     }
     
+    /* Rainbow buttons for golden mode */
+    .hub-content.golden .category-header {
+      animation: rainbowGlow 10s linear infinite;
+    }
+    
+    .hub-content.golden .link-icon {
+      animation: rainbowGlow 10s linear infinite;
+    }
+    
+    @keyframes rainbowGlow {
+      0% { background: #ff0000; } /* Red */
+      14% { background: #ff7f00; } /* Orange */
+      28% { background: #ffff00; } /* Yellow */
+      42% { background: #00ff00; } /* Green */
+      57% { background: #0000ff; } /* Blue */
+      71% { background: #4b0082; } /* Indigo */
+      85% { background: #9400d3; } /* Violet */
+      100% { background: #ff0000; } /* Back to Red */
+    }
+    
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -889,6 +909,7 @@
       if (goldenMode) {
         hub.classList.add('golden');
         createSparkles();
+        enableAboutBlank();
       }
       // No session storage - always reset on refresh
     }
@@ -912,6 +933,27 @@
           sparkle.remove();
         }, 4000);
       }, 300);
+    }
+    
+    // Make all links open in about:blank for golden mode
+    function enableAboutBlank() {
+      const allLinks = document.querySelectorAll('.link-box');
+      allLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = link.getAttribute('href');
+          const win = window.open('about:blank', '_blank');
+          const iframe = win.document.createElement('iframe');
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.border = 'none';
+          iframe.style.margin = '0';
+          iframe.style.padding = '0';
+          iframe.src = url;
+          win.document.body.style.margin = '0';
+          win.document.body.appendChild(iframe);
+        });
+      });
     }
     
     // Allow Enter key to submit
