@@ -1253,16 +1253,14 @@
       
       // Check wall collision
       if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-        stopSnakeGame();
-        snakeWindow.classList.remove('show');
+        resetSnake();
         return;
       }
       
       // Check self collision
       for (let segment of snake) {
         if (head.x === segment.x && head.y === segment.y) {
-          stopSnakeGame();
-          snakeWindow.classList.remove('show');
+          resetSnake();
           return;
         }
       }
