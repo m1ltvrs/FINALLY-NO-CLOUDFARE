@@ -20,46 +20,138 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: #fff;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .login-card {
+      background: white;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      width: 400px;
+      max-width: 90%;
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .login-logo {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 15px;
+      background: #667eea;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
     }
     
     .login-box h2 {
       color: #2c3e50;
-      margin-bottom: 30px;
-      font-size: 2em;
+      margin-bottom: 8px;
+      font-size: 1.8em;
+    }
+    
+    .login-subtitle {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 14px;
+      font-weight: 500;
     }
     
     .login-box input {
-      width: 300px;
+      width: 100%;
       padding: 12px 15px;
-      margin: 10px 0;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      border-radius: 6px;
+      border: 1.5px solid #ddd;
       font-size: 14px;
+      transition: all 0.3s;
+    }
+    
+    .login-box input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     
     .login-box button {
-      width: 300px;
-      padding: 12px 15px;
-      margin: 20px 0 10px 0;
-      background: #3498db;
+      width: 100%;
+      padding: 13px 15px;
+      margin: 10px 0;
+      background: #667eea;
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
+      transition: all 0.3s;
     }
     
     .login-box button:hover {
-      background: #2980b9;
+      background: #5568d3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .login-box button:active {
+      transform: translateY(0);
     }
     
     .error-msg {
       color: #e74c3c;
-      font-size: 14px;
-      margin-top: 10px;
+      background: #ffe5e5;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-top: 15px;
       display: none;
+      border-left: 3px solid #e74c3c;
+    }
+    
+    .forgot-password {
+      text-align: center;
+      margin-top: 15px;
+    }
+    
+    .forgot-password a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+    
+    .loading {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     
     /* Real Hub Content (Hidden initially) */
@@ -71,6 +163,22 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
+    }
+    
+    .hub-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .hub-header h1 {
+      font-size: 2.5em;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .hub-header p {
+      color: #7f8c8d;
+      font-size: 1.1em;
     }
     
     /* Category Headers (Clickable) */
@@ -173,16 +281,41 @@
 
   <!-- Fake PowerSchool Login (Cloak) -->
   <div class="login-box" id="cloak">
-    <h2>PowerSchool Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button id="loginBtn">Sign In</button>
-    <div class="error-msg" id="errorMsg">Invalid username or password</div>
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">📚</div>
+        <h2>PowerSchool</h2>
+        <p class="login-subtitle">Lee's Summit R-7 School District</p>
+      </div>
+      
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" autocomplete="username">
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+      </div>
+      
+      <button id="loginBtn">Sign In</button>
+      <div class="loading" id="loading"></div>
+      <div class="error-msg" id="errorMsg">❌ Invalid username or password. Please try again.</div>
+      
+      <div class="forgot-password">
+        <a href="#" onclick="return false;">Forgot your password?</a>
+      </div>
+    </div>
   </div>
 
-  <!-- Real Hub Content (Hidden until 3 failed attempts) -->
+  <!-- Real Hub Content (Hidden until unlocked) -->
   <div class="hub-content" id="hub">
     <div class="container">
+      
+      <div class="hub-header">
+        <h1>🌐 Link Hub</h1>
+        <p>Quick access to your favorite sites</p>
+      </div>
       
       <!-- Proxies Category -->
       <div class="category">
@@ -473,27 +606,96 @@
   </div>
 
   <script>
-    // Fake login system
+    // Enhanced cloaking system with multiple unlock methods
     let clickCount = 0;
     const loginBtn = document.getElementById('loginBtn');
     const cloak = document.getElementById('cloak');
     const hub = document.getElementById('hub');
     const errorMsg = document.getElementById('errorMsg');
+    const loading = document.getElementById('loading');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
     
+    // Check if already unlocked in this session
+    if (sessionStorage.getItem('unlocked') === 'true') {
+      cloak.style.display = 'none';
+      hub.style.display = 'block';
+    }
+    
+    // Method 1: Failed login attempts (3 times)
     loginBtn.addEventListener('click', () => {
       clickCount++;
       
-      if (clickCount < 3) {
-        // Show error message
-        errorMsg.style.display = 'block';
+      // Show loading animation
+      loginBtn.style.display = 'none';
+      loading.style.display = 'block';
+      errorMsg.style.display = 'none';
+      
+      setTimeout(() => {
+        loginBtn.style.display = 'block';
+        loading.style.display = 'none';
         
-        // Clear inputs
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-      } else {
-        // After 3 failed attempts, reveal the real hub
-        cloak.style.display = 'none';
-        hub.style.display = 'block';
+        if (clickCount < 3) {
+          errorMsg.style.display = 'block';
+          usernameInput.value = '';
+          passwordInput.value = '';
+        } else {
+          unlockHub();
+        }
+      }, 800);
+    });
+    
+    // Method 2: Secret password (type "bypass" in username field)
+    usernameInput.addEventListener('input', (e) => {
+      if (e.target.value.toLowerCase() === 'bypass') {
+        unlockHub();
+      }
+    });
+    
+    // Method 3: Keyboard shortcut (Ctrl+Shift+L)
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+        e.preventDefault();
+        unlockHub();
+      }
+    });
+    
+    // Method 4: Triple-click on the logo
+    let logoClickCount = 0;
+    let logoClickTimer;
+    const logo = document.querySelector('.login-logo');
+    
+    logo.addEventListener('click', () => {
+      logoClickCount++;
+      clearTimeout(logoClickTimer);
+      
+      if (logoClickCount === 3) {
+        unlockHub();
+        logoClickCount = 0;
+      }
+      
+      logoClickTimer = setTimeout(() => {
+        logoClickCount = 0;
+      }, 1000);
+    });
+    
+    // Unlock function
+    function unlockHub() {
+      cloak.style.display = 'none';
+      hub.style.display = 'block';
+      sessionStorage.setItem('unlocked', 'true');
+    }
+    
+    // Allow Enter key to submit
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        loginBtn.click();
+      }
+    });
+    
+    usernameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        loginBtn.click();
       }
     });
     
