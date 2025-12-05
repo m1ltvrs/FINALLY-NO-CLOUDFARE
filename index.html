@@ -527,6 +527,111 @@
       box-shadow: 0 0 30px rgba(139,0,0,0.8);
     }
     
+    /* Dev Mode */
+    .hub-content.devmode {
+      background: black;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hub-content.devmode .container {
+      position: relative;
+      z-index: 10;
+    }
+    
+    .matrix-bg {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .hub-content.devmode .matrix-bg {
+      display: block;
+    }
+    
+    .dev-header {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 255, 0, 0.1);
+      border-bottom: 2px solid #00ff00;
+      padding: 15px 20px;
+      z-index: 100;
+      text-align: center;
+    }
+    
+    .hub-content.devmode .dev-header {
+      display: block;
+    }
+    
+    .dev-header h2 {
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 24px;
+      margin: 0;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    
+    .dev-panel {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #00ff00;
+      border-radius: 12px;
+      padding: 40px;
+      z-index: 100;
+      box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+    }
+    
+    .hub-content.devmode .dev-panel {
+      display: block;
+    }
+    
+    .dev-panel h3 {
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    
+    .dev-panel p {
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+    
+    .repo-btn {
+      background: #00ff00;
+      color: black;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+    
+    .repo-btn:hover {
+      background: #00cc00;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+    }
+    
     .hub-content.golden::before {
       content: '';
       position: fixed;
@@ -859,6 +964,21 @@
   <!-- Real Hub Content (Hidden until unlocked) -->
   <div class="hub-content" id="hub">
     
+    <!-- Dev Mode Header -->
+    <div class="dev-header">
+      <h2>>>> DEV MODE ACTIVATED <<<</h2>
+    </div>
+    
+    <!-- Matrix Background for Dev Mode -->
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+    
+    <!-- Dev Panel -->
+    <div class="dev-panel">
+      <h3>🔓 DEVELOPER ACCESS GRANTED</h3>
+      <p>Welcome back, m1ltvrs.<br>You have full access to the source code.</p>
+      <button class="repo-btn" id="openRepo">VIEW GITHUB REPO</button>
+    </div>
+    
     <!-- Switch 2 Message (Only shows in switch2 mode) -->
     <div class="switch2-message">
       dang I guess the switch 2 cost soo much you couldn't afford for this too load
@@ -1189,12 +1309,15 @@
     const spotifyClose = document.getElementById('spotifyClose');
     const openSpotify = document.getElementById('openSpotify');
     const openFNAF = document.getElementById('openFNAF');
+    const openRepo = document.getElementById('openRepo');
+    const matrixCanvas = document.getElementById('matrixCanvas');
     
     let goldenMode = false;
     let luckyMode = false;
     let forkknifeMode = false;
     let switch2Mode = false;
     let fnafMode = false;
+    let devMode = false;
     
     // Konami Code detection (as typed words)
     const konamiCode = 'upupdowndownleftrightleftrightabab';
@@ -1231,6 +1354,7 @@
         forkknifeMode = false;
         switch2Mode = false;
         fnafMode = false;
+        devMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'lucky') {
@@ -1239,6 +1363,7 @@
         forkknifeMode = false;
         switch2Mode = false;
         fnafMode = false;
+        devMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'forkknife') {
@@ -1247,6 +1372,7 @@
         luckyMode = false;
         switch2Mode = false;
         fnafMode = false;
+        devMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'switch2') {
@@ -1255,6 +1381,7 @@
         luckyMode = false;
         forkknifeMode = false;
         fnafMode = false;
+        devMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'itsafreddyfazbear') {
@@ -1263,6 +1390,16 @@
         luckyMode = false;
         forkknifeMode = false;
         switch2Mode = false;
+        devMode = false;
+        forgotModal.classList.remove('show');
+        unlockHub();
+      } else if (input === '747413') {
+        devMode = true;
+        goldenMode = false;
+        luckyMode = false;
+        forkknifeMode = false;
+        switch2Mode = false;
+        fnafMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'dogshit') {
@@ -1320,6 +1457,47 @@
     openFNAF.addEventListener('click', () => {
       window.open('https://fnaf1.io/', '_blank');
     });
+    
+    // Open GitHub Repo
+    openRepo.addEventListener('click', () => {
+      window.open('https://github.com/m1ltvrs/FINALLY-NO-CLOUDFARE', '_blank');
+    });
+    
+    // Matrix Rain Effect for Dev Mode
+    function initMatrix() {
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+      
+      const ctx = matrixCanvas.getContext('2d');
+      const chars = '01';
+      const fontSize = 16;
+      const columns = matrixCanvas.width / fontSize;
+      const drops = [];
+      
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+      }
+      
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        
+        ctx.fillStyle = '#00ff00';
+        ctx.font = fontSize + 'px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          
+          if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      
+      setInterval(draw, 33);
+    }
     
     // Method 1: Failed login attempts (3 times)
     loginBtn.addEventListener('click', () => {
@@ -1409,6 +1587,12 @@
       // Apply FNAF mode - fullscreen game
       if (fnafMode) {
         hub.classList.add('fnaf');
+      }
+      
+      // Apply Dev Mode - matrix background
+      if (devMode) {
+        hub.classList.add('devmode');
+        initMatrix();
       }
       // No session storage - always reset on refresh
     }
