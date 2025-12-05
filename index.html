@@ -464,6 +464,69 @@
       display: block;
     }
     
+    /* FNAF Mode */
+    .hub-content.fnaf {
+      background: black;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    
+    .hub-content.fnaf .container {
+      display: none;
+    }
+    
+    .fnaf-game {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .hub-content.fnaf .fnaf-game {
+      display: flex;
+    }
+    
+    .fnaf-game h2 {
+      color: #8b0000;
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(139,0,0,0.8);
+    }
+    
+    .fnaf-game p {
+      color: #ccc;
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+    
+    .fnaf-btn {
+      background: #8b0000;
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(139,0,0,0.5);
+    }
+    
+    .fnaf-btn:hover {
+      background: #a00000;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(139,0,0,0.8);
+    }
+    
     .hub-content.golden::before {
       content: '';
       position: fixed;
@@ -801,6 +864,13 @@
       dang I guess the switch 2 cost soo much you couldn't afford for this too load
     </div>
     
+    <!-- FNAF Game (Only shows in fnaf mode) -->
+    <div class="fnaf-game">
+      <h2>🐻 FIVE NIGHTS AT FREDDY'S</h2>
+      <p>Warning: You are about to enter Freddy Fazbear's Pizza.<br>Click below if you're ready to survive the night...</p>
+      <button class="fnaf-btn" id="openFNAF">ENTER THE PIZZERIA</button>
+    </div>
+    
     <div class="container">
       
       <div class="hub-header">
@@ -1118,11 +1188,13 @@
     const spotifyWindow = document.getElementById('spotifyWindow');
     const spotifyClose = document.getElementById('spotifyClose');
     const openSpotify = document.getElementById('openSpotify');
+    const openFNAF = document.getElementById('openFNAF');
     
     let goldenMode = false;
     let luckyMode = false;
     let forkknifeMode = false;
     let switch2Mode = false;
+    let fnafMode = false;
     
     // Konami Code detection (as typed words)
     const konamiCode = 'upupdowndownleftrightleftrightabab';
@@ -1158,6 +1230,7 @@
         luckyMode = false;
         forkknifeMode = false;
         switch2Mode = false;
+        fnafMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'lucky') {
@@ -1165,6 +1238,7 @@
         goldenMode = false;
         forkknifeMode = false;
         switch2Mode = false;
+        fnafMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'forkknife') {
@@ -1172,6 +1246,7 @@
         goldenMode = false;
         luckyMode = false;
         switch2Mode = false;
+        fnafMode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'switch2') {
@@ -1179,6 +1254,15 @@
         goldenMode = false;
         luckyMode = false;
         forkknifeMode = false;
+        fnafMode = false;
+        forgotModal.classList.remove('show');
+        unlockHub();
+      } else if (input === 'itsafreddyfazbear') {
+        fnafMode = true;
+        goldenMode = false;
+        luckyMode = false;
+        forkknifeMode = false;
+        switch2Mode = false;
         forgotModal.classList.remove('show');
         unlockHub();
       } else if (input === 'dogshit') {
@@ -1230,6 +1314,11 @@
     // Open Spotify in new tab
     openSpotify.addEventListener('click', () => {
       window.open('https://open.spotify.com', '_blank');
+    });
+    
+    // Open FNAF in new tab
+    openFNAF.addEventListener('click', () => {
+      window.open('https://fnaf1.io/', '_blank');
     });
     
     // Method 1: Failed login attempts (3 times)
@@ -1315,6 +1404,11 @@
       // Apply switch2 mode - just white screen with message
       if (switch2Mode) {
         hub.classList.add('switch2');
+      }
+      
+      // Apply FNAF mode - fullscreen game
+      if (fnafMode) {
+        hub.classList.add('fnaf');
       }
       // No session storage - always reset on refresh
     }
