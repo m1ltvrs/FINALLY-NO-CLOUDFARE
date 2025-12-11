@@ -1,3 +1,4 @@
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -3083,67 +3084,7 @@
     }
     
     // Send message
-    async function sendMessage() {
-      const text = chatInput.value.trim();
-      if (!text) return;
-      
-      // Display user's message
-      displayMessage(username, text, Date.now());
-      conversationHistory.push({role: 'user', content: `${username}: ${text}`});
-      chatInput.value = '';
-      
-      // Pick 1-3 random bots to respond
-      const numResponders = Math.floor(Math.random() * 3) + 1;
-      const shuffled = [...bots].sort(() => Math.random() - 0.5);
-      const respondingBots = shuffled.slice(0, numResponders);
-      
-      // Show typing indicator
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'chat-message';
-      typingDiv.innerHTML = '<div class="text" style="color: #999;">💭 typing...</div>';
-      chatMessages.appendChild(typingDiv);
-      
-      // Get responses from each bot
-      for (let i = 0; i < respondingBots.length; i++) {
-        const bot = respondingBots[i];
-        const delay = Math.random() * 2000 + 1000; // Random delay 1-3s
-        
-        await new Promise(resolve => setTimeout(resolve, delay));
-        
-        try {
-          const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              model: "claude-sonnet-4-20250514",
-              max_tokens: 150,
-              system: bot.personality,
-              messages: [
-                ...conversationHistory.slice(-10), // Last 10 messages for context
-                {role: 'user', content: `Respond to this message naturally and in character: "${text}"`}
-              ]
-            })
-          });
-          
-          const data = await response.json();
-          const botMessage = data.content[0].text;
-          
-          // Remove typing indicator before first response
-          if (i === 0) typingDiv.remove();
-          
-          displayMessage(bot.name, botMessage, Date.now());
-          conversationHistory.push({role: 'assistant', content: `${bot.name}: ${botMessage}`});
-          
-        } catch (error) {
-          console.error('Bot error:', error);
-        }
-      }
-      
-      // Remove typing indicator if still there
-      if (typingDiv.parentNode) typingDiv.remove();
-    }
-    
-    chatSend.addEventListener('click', sendMessage);
+
     
     chatInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
@@ -3787,3 +3728,5 @@
 
 </body>
 </html>
+
+
