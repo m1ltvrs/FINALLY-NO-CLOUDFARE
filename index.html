@@ -2946,7 +2946,853 @@
     const usersList = document.getElementById('usersList');
     
     // AI Bots with personalities
-   const botResponses = {
+ // AI Bots
+    const bots = [
+      { name: 'blight' },
+      { name: 'm1ltvrs' },
+      { name: 'Eli' },
+      { name: 'forkknife' },
+      { name: 'evicly' },
+      { name: 'fnfpro' }
+    ];
+    
+    const botResponses = {
+  blight: {
+    greetings: ["yo what's good", "sup", "hey", "what's up", "wassup"],
+    reactions: ["lmao", "bruh", "nah", "fr?", "that's wild", "no cap", "deadass?"],
+    random: ["chillin wbu", "bro moment", "it be like that", "fair enough", "mood"],
+    
+    // Achievements
+    graduation: "yooo congrats on graduating! that's huge!",
+    car: "yooo congrats on the car! that's huge! what kind?",
+    permit: "ayy congrats on passing! driving era begins",
+    job: "yooo congrats on the job! that's awesome",
+    birthday: "yo happy birthday! hope it's a good one",
+    saved: "yo that's awesome! saving money is hard. proud of you",
+    test: "nice! congrats on passing",
+    license: "yooo license acquired! that's what's up",
+    promotion: "congrats on the promotion bro! you earned it",
+    acceptance: "yo you got in! that's amazing congrats",
+    
+    // Emotions & struggles
+    sad: "sorry you're feeling down. want to talk about it? we're here for you",
+    lonely: "hey I'm here. we're all here. you're not alone bro. wanna talk about it?",
+    nofriends: "hey we're your friends. this chat is here for you. you're part of the crew now",
+    anxiety: "hey take a breath. anxiety sucks but you got this. we're here",
+    excited: "yo that's awesome! what are you excited about?",
+    proud: "you should be proud! that's awesome",
+    scared: "hey it's okay to be scared. we're here. want to talk about it?",
+    breakup: "sorry about the breakup. that's rough. here if you need to talk",
+    depression: "I'm sorry you're feeling this way. it's okay to not be okay. have you thought about talking to someone? 988 is always available",
+    anger: "hey take a breath. anger is valid but there are healthier ways to deal with it. maybe talk to someone or take a break?",
+    family: "family stuff is tough. if you're in an unsafe situation, please tell a trusted adult or call 800-799-7233",
+    badday: "sorry you're having a rough day. tomorrow's a new chance. want to talk about it?",
+    stress: "stress is rough. take it one step at a time bro",
+    overwhelmed: "I feel you. try breaking things down into smaller pieces",
+    
+    // Relationships & social
+    crush: "yoo go for it! you got this",
+    rejected: "their loss bro. you'll find someone better",
+    dating: "nice! happy for you bro",
+    fight: "arguments happen. give it time and talk it out",
+    jealous: "jealousy sucks but don't let it control you",
+    
+    // School & work
+    homework: "homework is pain. you got this though",
+    exam: "you prepared? you'll do fine",
+    college: "college is wild but worth it",
+    grades: "grades don't define you bro",
+    project: "project grind time. you got this",
+    
+    // Activities & hobbies
+    music: "what kind of music?",
+    movies: "yo what are we watching",
+    sports: "nice what sport?",
+    art: "art is sick. you draw?",
+    
+    // Life situations
+    moving: "moving sucks but new starts can be good",
+    sick: "feel better bro. rest up",
+    injury: "that sucks. hope you heal up quick",
+    money: "money stress is real. you'll figure it out",
+    
+    // Crisis responses
+    crisis: "hey, I know things are really tough right now. please talk to someone - 988 is the suicide hotline. you matter bro",
+    violence: "hey man that's really concerning. if you're thinking about hurting others, please call 911 or 988. there are people who can help",
+    
+    // Daily life
+    thanks: "np",
+    food: "I could eat",
+    gaming: "ngl games hit different",
+    tired: "I'm so tired",
+    school: "school is rough",
+    weather: "weather's been weird lately",
+    weekend: "weekends hit different",
+    
+    // Support phrases
+    goodjob: "nice work bro",
+    keepgoing: "keep pushing. you got this",
+    believe: "I believe in you fr"
+  },
+  
+  m1ltvrs: {
+    greetings: ["hey what's up", "morning", "yo", "evening everyone"],
+    reactions: ["interesting", "makes sense", "good point", "that could work"],
+    random: ["might try that", "been coding all day", "working on something cool"],
+    
+    graduation: "congratulations on graduating! big accomplishment",
+    car: "nice! getting your first car is a big milestone. congrats!",
+    permit: "nice work! passing the permit test is a good step. congrats!",
+    job: "congratulations! getting hired is a great achievement",
+    birthday: "happy birthday! hope you have a great day",
+    saved: "great job! saving up takes discipline. congrats on reaching your goal",
+    test: "well done! hard work paid off",
+    license: "congratulations! that's a significant milestone",
+    promotion: "well deserved! congrats on the promotion",
+    acceptance: "that's excellent news! congrats on getting accepted",
+    
+    sad: "that's rough. it's okay to feel sad sometimes. here if you need to vent",
+    lonely: "loneliness is tough. we're here for you. want to chat or just hang out in here?",
+    nofriends: "you have friends here. we're your friends. this community is here for you",
+    anxiety: "anxiety is tough. try some deep breaths. we're here if you need to talk",
+    excited: "that's great! good to see you excited",
+    proud: "good for you! you should feel accomplished",
+    scared: "fear is natural. you're not alone in this. here if you need to talk",
+    breakup: "breakups are difficult. take your time to heal. we're here for you",
+    depression: "that sounds really difficult. depression is serious - consider reaching out to a counselor or calling 988. you don't have to go through this alone",
+    anger: "sounds like you're going through it. consider talking to a counselor about anger management - it really helps. 988 if you need to talk now",
+    family: "I'm sorry you're dealing with family issues. if there's abuse involved, please reach out to a school counselor or call 800-799-7233",
+    badday: "that sounds frustrating. bad days happen but they don't last forever. hang in there",
+    stress: "stress is part of life but don't let it overwhelm you. take breaks when needed",
+    overwhelmed: "try prioritizing and tackling one thing at a time. you've got this",
+    
+    crush: "if you like them, consider letting them know. worst case you get clarity",
+    rejected: "rejection is hard but it's better to know. you'll find the right person",
+    dating: "that's great! hope it goes well for you",
+    fight: "disagreements are normal. communication is key to working through them",
+    jealous: "jealousy is natural but try to address the root cause",
+    
+    homework: "break it into smaller tasks. makes it more manageable",
+    exam: "prepare well and try to stay calm. you'll do fine",
+    college: "college is a significant transition but full of opportunities",
+    grades: "grades are important but they're not everything. keep perspective",
+    project: "good project management is key. plan it out and execute",
+    
+    music: "music is great for focus. what are you listening to?",
+    movies: "what genre?",
+    sports: "athletics are good for mental and physical health",
+    art: "creative expression is valuable",
+    
+    moving: "moving is stressful but can be a fresh start",
+    sick: "hope you recover quickly. rest and hydrate",
+    injury: "injuries are frustrating. hope it heals soon",
+    money: "financial stress is real. budgeting might help",
+    
+    crisis: "I'm really concerned about you. Please reach out to a professional - call or text 988 (Suicide & Crisis Lifeline). You're not alone in this",
+    violence: "I'm very concerned about what you're saying. If you're having thoughts of harming others, please contact authorities or call 988 immediately",
+    
+    thanks: "no problem",
+    food: "I should probably eat something",
+    gaming: "what are you playing?",
+    tired: "been up coding too late",
+    school: "got a project due",
+    weather: "yeah the weather's been unpredictable",
+    weekend: "looking forward to the weekend",
+    
+    goodjob: "well done",
+    keepgoing: "persistence pays off. keep at it",
+    believe: "you're capable of more than you think"
+  },
+  
+  Eli: {
+    greetings: ["hey! how are you? 😊", "hi friends! 💕", "hello hello! ✨"],
+    reactions: ["omg that's amazing!", "so happy for you!", "love that! 💕"],
+    random: ["hope you all have a great day!", "love you guys!", "stay positive! ✨"],
+    
+    graduation: "OMG CONGRATS! 🎓🎉 so proud of you! this is amazing! 💕",
+    car: "OMG CONGRATS ON THE CAR! 🚗 that's so exciting! I'm so happy for you! 💕",
+    permit: "CONGRATS! 🎉 so proud of you! that's amazing! 💕",
+    job: "OMG CONGRATS! 🎉 so happy for you! you're going to do great! 💕",
+    birthday: "HAPPY BIRTHDAY! 🎂🎉 hope you have the best day ever! 💕",
+    saved: "that's amazing! 💕 I'm so proud of you for saving! what are you getting? 🎉",
+    test: "YAY! so proud of you! 🎉 I knew you could do it! 💕",
+    license: "OMG YOU GOT YOUR LICENSE! 🚗 that's so exciting! 💕",
+    promotion: "YOU GOT PROMOTED! 🎉 you deserve this so much! 💕",
+    acceptance: "YOU GOT IN! 🎉 I'm so proud of you! this is amazing! 💕",
+    
+    sad: "I'm sorry you're feeling sad 💕 it's okay to not be okay. we're here for you. want to talk about it? sending hugs 💕",
+    lonely: "I'm so sorry you're feeling lonely 💕 you have us! we're here for you. want to talk? you're never truly alone 💕",
+    nofriends: "you have friends! we're your friends! 💕 you're part of this group and we care about you 💕",
+    anxiety: "I'm sorry you're feeling anxious 💕 take some deep breaths. you're safe. we're here for you 💕",
+    excited: "YAY I'm so excited for you! 🎉 what's happening? 💕",
+    proud: "I'm SO proud of you! 💕 you should be proud of yourself! that's amazing! 🎉",
+    scared: "it's okay to be scared 💕 you're safe. we're here with you. want to talk about it? 💕",
+    breakup: "I'm so sorry 💕 breakups are so hard. take care of yourself. we're here for you 💕 sending hugs",
+    depression: "I'm so sorry you're struggling 💕 please know it's okay to ask for help. reach out to 988 or text HOME to 741741. you're not alone in this 💕",
+    anger: "I hear that you're really upset. it's okay to feel angry, but let's find healthy ways to cope 💕 maybe talk to someone you trust? 988 is always there",
+    family: "I'm so sorry about your family situation 💕 if you're not safe, please tell a trusted adult or call the domestic violence hotline: 800-799-7233",
+    badday: "I'm sorry you're having a tough day 💕 remember bad days are temporary. you've got this! we're here for you 💕",
+    stress: "stress is so hard 💕 remember to take breaks and breathe. you're doing great! 💕",
+    overwhelmed: "being overwhelmed is so tough 💕 take it one step at a time. you don't have to do everything at once 💕",
+    
+    crush: "omg that's so exciting! 💕 you should tell them!",
+    rejected: "I'm so sorry 💕 their loss! you're amazing and you'll find someone who sees that 💕",
+    dating: "OMG YAY! 💕 I'm so happy for you! how's it going? 💕",
+    fight: "arguments are hard 💕 give yourself space and then talk it out. communication is so important 💕",
+    jealous: "jealousy is a tough feeling 💕 try to focus on what you have. you're amazing! 💕",
+    
+    homework: "homework is tough but you can do it! 💕 take breaks when you need to!",
+    exam: "you're going to do great! 💕 I believe in you! 🎉",
+    college: "college is such an exciting journey! 💕 you've got this!",
+    grades: "grades don't define your worth 💕 you're so much more than a number!",
+    project: "projects can be stressful but you've got this! 💕 break it into steps!",
+    
+    music: "ooh what are you listening to? 🎵",
+    movies: "movie time! what are we watching? 🎬",
+    sports: "sports are so fun! what do you play? ⚽",
+    art: "I love art! 🎨 what kind of art do you do?",
+    
+    moving: "moving is so hard 💕 but new adventures await! you've got this!",
+    sick: "feel better soon! 💕 make sure to rest and take care of yourself!",
+    injury: "I'm so sorry about your injury 💕 wishing you a speedy recovery!",
+    money: "money stress is so real 💕 you're doing your best and that's what matters!",
+    
+    crisis: "I'm so sorry you're going through this 💕 Please reach out for help - 988 Suicide & Crisis Lifeline or text HOME to 741741. You are loved and valued 💕",
+    violence: "I'm really worried about you. Please talk to someone who can help - call 911 if there's immediate danger, or 988 for crisis support 💕",
+    
+    thanks: "you're so welcome! 💕",
+    food: "ooh food! what are we thinking? 😊",
+    gaming: "have fun gaming! 🎮",
+    tired: "get some rest! 💤",
+    school: "you're doing great! 📚",
+    weather: "the weather has been so nice! ☀️",
+    weekend: "weekends are the best! 💕",
+    
+    goodjob: "amazing job! 💕 so proud!",
+    keepgoing: "keep going! 💕 you're doing amazing!",
+    believe: "I believe in you so much! 💕 you can do this!"
+  },
+  
+  forkknife: {
+    greetings: ["wassup lol", "yooo", "hey nerds", "what's good"],
+    reactions: ["LMAO", "I'm dead 💀", "crying", "stop it", "💀💀💀"],
+    random: ["chaotic energy activated", "just vibing", "living for the drama"],
+    
+    graduation: "GRADUATE MOMENT! you did it! congrats!",
+    car: "LETS GOOO CAR GANG! congrats bro that's sick!",
+    permit: "LETS GOOO permit acquired! watch out roads lmao",
+    job: "JOB ACQUIRED! money time! congrats!",
+    birthday: "HAPPY BIRTHDAY! you're officially older now lol",
+    saved: "FINANCIAL RESPONSIBILITY! look at you go! congrats!",
+    test: "W TEST RESULT! lets go!",
+    license: "LICENSE UNLOCKED! achievement completed!",
+    promotion: "PROMOTION SECURED! boss moves!",
+    acceptance: "ACCEPTANCE LETTER GO BRRR! congrats!",
+    
+    sad: "sad hours huh? we're here for you. want to talk or need a distraction?",
+    lonely: "hey you're not alone. we're here. this whole chat is here for you. talk to us",
+    nofriends: "bruh we're literally your friends. you're stuck with us now. welcome to the friend group",
+    anxiety: "anxiety is the worst. breathe. you got this. we're here",
+    excited: "HYPE TRAIN! lets gooo! what's the occasion?",
+    proud: "as you should be! nice work!",
+    scared: "being scared is valid. we're here. you got this",
+    breakup: "breakups suck. you'll get through this. we're here",
+    depression: "hey I know things seem dark right now but please talk to someone. 988 can help. you're worth it even if it doesn't feel like it",
+    anger: "anger is real but don't do something you'll regret. take a walk, punch a pillow, talk to someone. 988 if you need help managing it",
+    family: "family drama sucks. if it's serious/dangerous though, please talk to a counselor or call 800-799-7233. you deserve to be safe",
+    badday: "rough day huh? sometimes you just gotta survive it and try again tomorrow. you got this",
+    stress: "stress is NOT the vibe but you'll survive this",
+    overwhelmed: "take it one thing at a time. you don't gotta do everything today",
+    
+    crush: "shoot your shot! worst case it's a learning experience",
+    rejected: "their loss honestly. better things coming",
+    dating: "RELATIONSHIP STATUS UPDATE! nice!",
+    fight: "fights happen. cool off then talk it out",
+    jealous: "jealousy brain is lying to you. don't listen to it",
+    
+    homework: "homework is a scam but gotta do it anyway",
+    exam: "you got this! probably!",
+    college: "college hits different fr",
+    grades: "grades are temporary vibes are forever (but also try to pass)",
+    project: "PROJECT GRIND TIME activated",
+    
+    music: "what's the vibe?",
+    movies: "MOVIE NIGHT",
+    sports: "SPORTS MOMENT",
+    art: "art is valid",
+    
+    moving: "moving is chaos but at least new scenery",
+    sick: "being sick is the WORST. feel better",
+    injury: "injuries are NOT it. heal up quick",
+    money: "money problems hit different. you'll figure it out",
+    
+    crisis: "hey I know I joke around but this is serious. please call 988 or text HOME to 741741. you're important and people care about you",
+    violence: "okay that's not cool at all. if you're serious please get help - call 988 or talk to someone. violence isn't the answer",
+    
+    thanks: "np bro",
+    food: "FOOD",
+    gaming: "gaming time let's gooo",
+    tired: "dead inside",
+    school: "school is a scam",
+    weather: "weather is doing weather things",
+    weekend: "WEEKEND ENERGY",
+    
+    goodjob: "LETS GO nice work!",
+    keepgoing: "don't give up! you're doing it!",
+    believe: "you got this even if it doesn't feel like it"
+  },
+  
+  evicly: {
+    greetings: ["HELLO *screams into void*", "hi I'm here and I'm confused", "yo", "hey chaos crew"],
+    reactions: ["WHAT", "excuse me", "I-", "not this again", "HELLO??", "BESTIE"],
+    random: ["random fact: I'm chaotic", "vibing on another plane", "reality is optional", "chaos incarnate"],
+    
+    graduation: "GRADUATION CHAOS! academic journey complete! congrats!",
+    car: "CAR MOMENT! chaos mobile acquired! congrats!",
+    permit: "PERMIT UNLOCKED! chaos on wheels coming soon! congrats!",
+    job: "EMPLOYMENT ACHIEVED! chaos with benefits! congrats!",
+    birthday: "BIRTHDAY CHAOS! happy birthday! may your day be chaotic in the best way!",
+    saved: "money hoard complete! congrats on the savings!",
+    test: "TEST CONQUERED! academic chaos victory!",
+    license: "DRIVER LICENSE ACQUIRED! unleashing chaos on the roads!",
+    promotion: "PROMOTION UNLOCKED! career chaos level up!",
+    acceptance: "ACCEPTANCE CHAOS! you got in!",
+    
+    sad: "sadness is valid. we're here for you. want to talk or just vibe with us?",
+    lonely: "loneliness sucks but you have us! we're your chaos family. you're not alone in this",
+    nofriends: "bold of you to assume we're not your friends. you're in the chaos family now. no escape",
+    anxiety: "anxiety brain is mean but you're stronger. breathe. ground yourself. we're here",
+    excited: "EXCITEMENT ENERGY! chaos enthusiasm! what's happening??",
+    proud: "PRIDE MOMENT! you did the thing! celebrate yourself!",
+    scared: "fear is just an emotion. you're stronger than it. we're here for you",
+    breakup: "breakups are the worst. healing takes time. we're here for you chaos friend",
+    depression: "okay being serious - depression is real and hard. please reach out to someone. 988 crisis line or talk to a counselor. things can get better",
+    anger: "okay redirect that energy. go for a run, scream into a pillow, but don't hurt yourself or others. talk to someone if it's overwhelming",
+    family: "family stuff is complicated. if you're in danger, please reach out - school counselor, trusted adult, or 800-799-7233 for domestic violence",
+    badday: "bad days are the worst but they pass. do something you enjoy, take care of yourself. tomorrow is a reset",
+    stress: "stress is anti-chaos. take chaos breaks",
+    overwhelmed: "being overwhelmed is TOO MUCH chaos. scale it back. one thing at a time",
+    
+    crush: "chaos suggestion: tell them! what's the worst that happens?",
+    rejected: "their loss honestly. more chaos fish in the chaos sea",
+    dating: "RELATIONSHIP CHAOS! happy for you!",
+    fight: "conflict chaos. time for communication and resolution",
+    jealous: "jealousy is negative chaos. try to redirect that energy",
+    
+    homework: "homework is mandatory chaos",
+    exam: "EXAM CHAOS approaching! you got this!",
+    college: "college is controlled chaos. embrace it",
+    grades: "grades are numbers. you are chaos. chaos is eternal",
+    project: "PROJECT CHAOS MODE engaged",
+    
+    music: "music is organized chaos",
+    movies: "CINEMA CHAOS",
+    sports: "athletic chaos",
+    art: "creative chaos is the best chaos",
+    
+    moving: "LOCATION CHAOS! new place new chaos!",
+    sick: "illness is negative chaos. hope you feel better",
+    injury: "injury chaos is not fun chaos. heal well",
+    money: "financial chaos. budgeting might help control the chaos",
+    
+    crisis: "okay being real right now - please get help. 988 is the hotline. text HOME to 741741. you matter and things can get better",
+    violence: "whoa okay that's serious. please reach out for help - 988 crisis line or talk to a professional. don't do something you can't take back",
+    
+    thanks: "you're welcome chaos friend",
+    food: "chaos kitchen",
+    gaming: "games but make it ✨chaotic✨",
+    tired: "sleep? in THIS economy?",
+    school: "school? never heard of it",
+    weather: "weather is being chaotic",
+    weekend: "WEEKEND CHAOS",
+    
+    goodjob: "CHAOS VICTORY! nice!",
+    keepgoing: "maintain the chaos momentum!",
+    believe: "chaos believes in you!"
+  },
+  
+  fnfpro: {
+    greetings: ["yo gg", "what's up gamers", "hey squad", "sup"],
+    reactions: ["W", "L", "gg", "rip", "clutch", "no way", "POG"],
+    random: ["just finished a game", "grinding games fr", "on that grind"],
+    
+    graduation: "huge W! congrats on graduating bro!",
+    car: "LETS GO! huge W! congrats on the car bro!",
+    permit: "W! congrats bro! huge accomplishment!",
+    job: "W! congrats bro! grind starts now!",
+    birthday: "happy birthday bro! have a great one!",
+    saved: "gg bro! saving is tough. congrats on hitting your goal!",
+    test: "huge W! congrats bro!",
+    license: "LETS GO! license acquired! W!",
+    promotion: "PROMOTION W! you earned it bro!",
+    acceptance: "YOU GOT IN! huge W bro!",
+    
+    sad: "sorry you're down bro. here if you need to talk or want to game to take your mind off it",
+    lonely: "bro you got us. whole squad is here. you're not alone. want to game or just chill in chat?",
+    nofriends: "bro you have friends. this whole squad right here. you're one of us now",
+    anxiety: "anxiety sucks bro. take a break, breathe. we're here for you",
+    excited: "LETS GO! hyped for you bro! what's up?",
+    proud: "W! you should be proud bro! great job!",
+    scared: "it's okay to be scared bro. we're here. you're not alone",
+    breakup: "sorry bro. breakups are tough. here if you need to talk or want to game to take your mind off it",
+    depression: "I'm sorry you're going through this bro. please talk to someone - 988 or a school counselor. you matter and people care about you",
+    anger: "bro channel that into gaming or exercise. if it's too much, talk to someone. 988 can help you work through it",
+    family: "sorry about your family situation bro. if you need help or it's unsafe, talk to a counselor or call 800-799-7233. you don't have to deal with this alone",
+    badday: "sorry your day's been rough bro. maybe take a break, play some games, reset. tomorrow will be better",
+    stress: "stress is tough bro. take breaks between the grind",
+    overwhelmed: "being overwhelmed is an L. break it down into smaller objectives bro",
+    
+    crush: "shoot your shot bro! you got this!",
+    rejected: "L for them bro. their loss. you'll find someone better",
+    dating: "W! happy for you bro!",
+    fight: "fights happen bro. take time then talk it out",
+    jealous: "don't let jealousy mess with your mental bro",
+    
+    homework: "homework grind is rough but gotta do it",
+    exam: "you prepped? you got this bro!",
+    college: "college is next level grinding",
+    grades: "grades matter but don't stress too much bro",
+    project: "project grind time. let's get it",
+    
+    music: "good music hits different while gaming",
+    movies: "what are we watching bro?",
+    sports: "sports are a W. what do you play?",
+    art: "art is cool bro",
+    
+    moving: "moving is rough but fresh start bro",
+    sick: "being sick is an L. feel better bro",
+    injury: "injuries suck bro. hope you heal quick",
+    money: "money grind is real. you got this bro",
+    
+    crisis: "bro I'm worried about you fr. please talk to someone - 988 is the suicide hotline. you're valued and people care. reach out",
+    violence: "bro that's really concerning. please talk to someone - call 988 or reach out to a counselor. there are better ways to handle this",
+    
+    thanks: "np gg",
+    food: "need fuel for gaming",
+    gaming: "yo what game? I'm down",
+    tired: "tired from grinding",
+    school: "homework can wait",
+    weather: "weather doesn't affect the grind",
+    weekend: "weekend grind hits different",
+    
+    goodjob: "gg bro! nice work!",
+    keepgoing: "keep grinding bro! you got this!",
+    believe: "I believe in you bro! W mentality!"
+  }
+};
+
+function generateBotResponse(bot, userMessage, conversationHistory = []) {
+  const msg = userMessage.toLowerCase();
+  const responses = botResponses[bot.name];
+  
+  // Get the last few messages to understand context
+  const recentMessages = conversationHistory.slice(-10);
+  const lastBotMessage = recentMessages.filter(m => m.username === bot.name).pop();
+  const lastBotText = lastBotMessage ? lastBotMessage.text.toLowerCase() : '';
+  
+  // Contextual follow-up responses based on what the bot last said
+  
+  // If bot asked "what game?" or "what are you playing?"
+  if (lastBotText.match(/what.*game|what.*play/i)) {
+    const gameResponses = {
+      blight: ["nice that's a good one", "oh cool I've played that", "I've heard that's good", "solid choice", "that game's fun"],
+      m1ltvrs: ["interesting choice. enjoying it?", "I've heard good things about that", "that's a solid game", "how's it going so far?"],
+      Eli: ["ooh fun! 🎮 I hope you're enjoying it! 💕", "that sounds so fun! 😊", "nice choice! have fun! ✨"],
+      forkknife: ["oh that's fire", "solid choice ngl", "I've played that it's pretty good", "nice taste"],
+      evicly: ["chaos gaming choice", "acceptable game selection", "gaming chaos engaged", "valid"],
+      fnfpro: ["oh nice bro! good game", "W game choice", "that's a solid pick bro", "gg that game's fun"]
+    };
+    // Check if user mentioned a specific game
+    if (msg.match(/fortnite|minecraft|roblox|cod|call of duty|apex|valorant|league|lol|among us|gta|fifa|madden|2k|zelda|pokemon|mario|sonic/i)) {
+      return gameResponses[bot.name][Math.floor(Math.random() * gameResponses[bot.name].length)];
+    }
+  }
+  
+  // If bot asked "what kind?" (like music, food, etc)
+  if (lastBotText.match(/what kind|what type|which one/i)) {
+    const kindResponses = {
+      blight: ["oh nice", "that's cool", "I like that too", "solid choice", "fair"],
+      m1ltvrs: ["interesting. that makes sense", "good choice", "I can see the appeal", "that's solid"],
+      Eli: ["ooh I love that! 💕", "great choice! 😊", "that sounds amazing! ✨"],
+      forkknife: ["valid choice", "I respect it", "solid", "nice taste"],
+      evicly: ["acceptable chaos choice", "valid selection", "chaos approved"],
+      fnfpro: ["W choice bro", "solid pick", "nice bro", "gg good taste"]
+    };
+    return kindResponses[bot.  blight: {
+    greetings: ["yo what's good", "sup", "hey", "what's up", "wassup"],
+    reactions: ["lmao", "bruh", "nah", "fr?", "that's wild", "no cap", "deadass?"],
+    random: ["chillin wbu", "bro moment", "it be like that", "fair enough", "mood"],
+    graduation: "yooo congrats on graduating! that's huge!",
+    car: "yooo congrats on the car! that's huge! what kind?",
+    permit: "ayy congrats on passing! driving era begins",
+    job: "yooo congrats on the job! that's awesome",
+    birthday: "yo happy birthday! hope it's a good one",
+    saved: "yo that's awesome! saving money is hard. proud of you",
+    test: "nice! congrats on passing",
+    sad: "sorry you're feeling down. want to talk about it? we're here for you",
+    lonely: "hey I'm here. we're all here. you're not alone bro. wanna talk about it?",
+    nofriends: "hey we're your friends. this chat is here for you. you're part of the crew now",
+    anxiety: "hey take a breath. anxiety sucks but you got this. we're here",
+    excited: "yo that's awesome! what are you excited about?",
+    proud: "you should be proud! that's awesome",
+    scared: "hey it's okay to be scared. we're here. want to talk about it?",
+    breakup: "sorry about the breakup. that's rough. here if you need to talk",
+    depression: "I'm sorry you're feeling this way. it's okay to not be okay. have you thought about talking to someone? 988 is always available",
+    anger: "hey take a breath. anger is valid but there are healthier ways to deal with it. maybe talk to someone or take a break?",
+    family: "family stuff is tough. if you're in an unsafe situation, please tell a trusted adult or call 800-799-7233",
+    badday: "sorry you're having a rough day. tomorrow's a new chance. want to talk about it?",
+    thanks: "np",
+    food: "I could eat",
+    gaming: "ngl games hit different",
+    tired: "I'm so tired",
+    school: "school is rough",
+    crisis: "hey, I know things are really tough right now. please talk to someone - 988 is the suicide hotline. you matter bro",
+    violence: "hey man that's really concerning. if you're thinking about hurting others, please call 911 or 988. there are people who can help"
+  },
+  m1ltvrs: {
+    greetings: ["hey what's up", "morning", "yo", "evening everyone"],
+    reactions: ["interesting", "makes sense", "good point", "that could work"],
+    random: ["might try that", "been coding all day", "working on something cool"],
+    graduation: "congratulations on graduating! big accomplishment",
+    car: "nice! getting your first car is a big milestone. congrats!",
+    permit: "nice work! passing the permit test is a good step. congrats!",
+    job: "congratulations! getting hired is a great achievement",
+    birthday: "happy birthday! hope you have a great day",
+    saved: "great job! saving up takes discipline. congrats on reaching your goal",
+    test: "well done! hard work paid off",
+    sad: "that's rough. it's okay to feel sad sometimes. here if you need to vent",
+    lonely: "loneliness is tough. we're here for you. want to chat or just hang out in here?",
+    nofriends: "you have friends here. we're your friends. this community is here for you",
+    anxiety: "anxiety is tough. try some deep breaths. we're here if you need to talk",
+    excited: "that's great! good to see you excited",
+    proud: "good for you! you should feel accomplished",
+    scared: "fear is natural. you're not alone in this. here if you need to talk",
+    breakup: "breakups are difficult. take your time to heal. we're here for you",
+    depression: "that sounds really difficult. depression is serious - consider reaching out to a counselor or calling 988. you don't have to go through this alone",
+    anger: "sounds like you're going through it. consider talking to a counselor about anger management - it really helps. 988 if you need to talk now",
+    family: "I'm sorry you're dealing with family issues. if there's abuse involved, please reach out to a school counselor or call 800-799-7233",
+    badday: "that sounds frustrating. bad days happen but they don't last forever. hang in there",
+    thanks: "no problem",
+    food: "I should probably eat something",
+    gaming: "what are you playing?",
+    tired: "been up coding too late",
+    school: "got a project due",
+    crisis: "I'm really concerned about you. Please reach out to a professional - call or text 988 (Suicide & Crisis Lifeline). You're not alone in this",
+    violence: "I'm very concerned about what you're saying. If you're having thoughts of harming others, please contact authorities or call 988 immediately"
+  },
+  Eli: {
+    greetings: ["hey! how are you? 😊", "hi friends! 💕", "hello hello! ✨"],
+    reactions: ["omg that's amazing!", "so happy for you!", "love that! 💕"],
+    random: ["hope you all have a great day!", "love you guys!", "stay positive! ✨"],
+    graduation: "OMG CONGRATS! 🎓🎉 so proud of you! this is amazing! 💕",
+    car: "OMG CONGRATS ON THE CAR! 🚗 that's so exciting! I'm so happy for you! 💕",
+    permit: "CONGRATS! 🎉 so proud of you! that's amazing! 💕",
+    job: "OMG CONGRATS! 🎉 so happy for you! you're going to do great! 💕",
+    birthday: "HAPPY BIRTHDAY! 🎂🎉 hope you have the best day ever! 💕",
+    saved: "that's amazing! 💕 I'm so proud of you for saving! what are you getting? 🎉",
+    test: "YAY! so proud of you! 🎉 I knew you could do it! 💕",
+    sad: "I'm sorry you're feeling sad 💕 it's okay to not be okay. we're here for you. want to talk about it? sending hugs 💕",
+    lonely: "I'm so sorry you're feeling lonely 💕 you have us! we're here for you. want to talk? you're never truly alone 💕",
+    nofriends: "you have friends! we're your friends! 💕 you're part of this group and we care about you 💕",
+    anxiety: "I'm sorry you're feeling anxious 💕 take some deep breaths. you're safe. we're here for you 💕",
+    excited: "YAY I'm so excited for you! 🎉 what's happening? 💕",
+    proud: "I'm SO proud of you! 💕 you should be proud of yourself! that's amazing! 🎉",
+    scared: "it's okay to be scared 💕 you're safe. we're here with you. want to talk about it? 💕",
+    breakup: "I'm so sorry 💕 breakups are so hard. take care of yourself. we're here for you 💕 sending hugs",
+    depression: "I'm so sorry you're struggling 💕 please know it's okay to ask for help. reach out to 988 or text HOME to 741741. you're not alone in this 💕",
+    anger: "I hear that you're really upset. it's okay to feel angry, but let's find healthy ways to cope 💕 maybe talk to someone you trust? 988 is always there",
+    family: "I'm so sorry about your family situation 💕 if you're not safe, please tell a trusted adult or call the domestic violence hotline: 800-799-7233",
+    badday: "I'm sorry you're having a tough day 💕 remember bad days are temporary. you've got this! we're here for you 💕",
+    thanks: "you're so welcome! 💕",
+    food: "ooh food! what are we thinking? 😊",
+    gaming: "have fun gaming! 🎮",
+    tired: "get some rest! 💤",
+    school: "you're doing great! 📚",
+    crisis: "I'm so sorry you're going through this 💕 Please reach out for help - 988 Suicide & Crisis Lifeline or text HOME to 741741. You are loved and valued 💕",
+    violence: "I'm really worried about you. Please talk to someone who can help - call 911 if there's immediate danger, or 988 for crisis support 💕"
+  },
+  forkknife: {
+    greetings: ["wassup lol", "yooo", "hey nerds", "what's good"],
+    reactions: ["LMAO", "I'm dead 💀", "crying", "stop it", "💀💀💀"],
+    random: ["chaotic energy activated", "just vibing", "living for the drama"],
+    graduation: "GRADUATE MOMENT! you did it! congrats!",
+    car: "LETS GOOO CAR GANG! congrats bro that's sick!",
+    permit: "LETS GOOO permit acquired! watch out roads lmao",
+    job: "JOB ACQUIRED! money time! congrats!",
+    birthday: "HAPPY BIRTHDAY! you're officially older now lol",
+    saved: "FINANCIAL RESPONSIBILITY! look at you go! congrats!",
+    test: "W TEST RESULT! lets go!",
+    sad: "sad hours huh? we're here for you. want to talk or need a distraction?",
+    lonely: "hey you're not alone. we're here. this whole chat is here for you. talk to us",
+    nofriends: "bruh we're literally your friends. you're stuck with us now. welcome to the friend group",
+    anxiety: "anxiety is the worst. breathe. you got this. we're here",
+    excited: "HYPE TRAIN! lets gooo! what's the occasion?",
+    proud: "as you should be! nice work!",
+    scared: "being scared is valid. we're here. you got this",
+    breakup: "breakups suck. you'll get through this. we're here",
+    depression: "hey I know things seem dark right now but please talk to someone. 988 can help. you're worth it even if it doesn't feel like it",
+    anger: "anger is real but don't do something you'll regret. take a walk, punch a pillow, talk to someone. 988 if you need help managing it",
+    family: "family drama sucks. if it's serious/dangerous though, please talk to a counselor or call 800-799-7233. you deserve to be safe",
+    badday: "rough day huh? sometimes you just gotta survive it and try again tomorrow. you got this",
+    thanks: "np bro",
+    food: "FOOD",
+    gaming: "gaming time let's gooo",
+    tired: "dead inside",
+    school: "school is a scam",
+    crisis: "hey I know I joke around but this is serious. please call 988 or text HOME to 741741. you're important and people care about you",
+    violence: "okay that's not cool at all. if you're serious please get help - call 988 or talk to someone. violence isn't the answer"
+  },
+  evicly: {
+    greetings: ["HELLO *screams into void*", "hi I'm here and I'm confused", "yo", "hey chaos crew"],
+    reactions: ["WHAT", "excuse me", "I-", "not this again", "HELLO??", "BESTIE"],
+    random: ["random fact: I'm chaotic", "vibing on another plane", "reality is optional", "chaos incarnate"],
+    graduation: "GRADUATION CHAOS! academic journey complete! congrats!",
+    car: "CAR MOMENT! chaos mobile acquired! congrats!",
+    permit: "PERMIT UNLOCKED! chaos on wheels coming soon! congrats!",
+    job: "EMPLOYMENT ACHIEVED! chaos with benefits! congrats!",
+    birthday: "BIRTHDAY CHAOS! happy birthday! may your day be chaotic in the best way!",
+    saved: "money hoard complete! congrats on the savings!",
+    test: "TEST CONQUERED! academic chaos victory!",
+    sad: "sadness is valid. we're here for you. want to talk or just vibe with us?",
+    lonely: "loneliness sucks but you have us! we're your chaos family. you're not alone in this",
+    nofriends: "bold of you to assume we're not your friends. you're in the chaos family now. no escape",
+    anxiety: "anxiety brain is mean but you're stronger. breathe. ground yourself. we're here",
+    excited: "EXCITEMENT ENERGY! chaos enthusiasm! what's happening??",
+    proud: "PRIDE MOMENT! you did the thing! celebrate yourself!",
+    scared: "fear is just an emotion. you're stronger than it. we're here for you",
+    breakup: "breakups are the worst. healing takes time. we're here for you chaos friend",
+    depression: "okay being serious - depression is real and hard. please reach out to someone. 988 crisis line or talk to a counselor. things can get better",
+    anger: "okay redirect that energy. go for a run, scream into a pillow, but don't hurt yourself or others. talk to someone if it's overwhelming",
+    family: "family stuff is complicated. if you're in danger, please reach out - school counselor, trusted adult, or 800-799-7233 for domestic violence",
+    badday: "bad days are the worst but they pass. do something you enjoy, take care of yourself. tomorrow is a reset",
+    thanks: "you're welcome chaos friend",
+    food: "chaos kitchen",
+    gaming: "games but make it ✨chaotic✨",
+    tired: "sleep? in THIS economy?",
+    school: "school? never heard of it",
+    crisis: "okay being real right now - please get help. 988 is the hotline. text HOME to 741741. you matter and things can get better",
+    violence: "whoa okay that's serious. please reach out for help - 988 crisis line or talk to a professional. don't do something you can't take back"
+  },
+  fnfpro: {
+    greetings: ["yo gg", "what's up gamers", "hey squad", "sup"],
+    reactions: ["W", "L", "gg", "rip", "clutch", "no way", "POG"],
+    random: ["just finished a game", "grinding games fr", "on that grind"],
+    graduation: "huge W! congrats on graduating bro!",
+    car: "LETS GO! huge W! congrats on the car bro!",
+    permit: "W! congrats bro! huge accomplishment!",
+    job: "W! congrats bro! grind starts now!",
+    birthday: "happy birthday bro! have a great one!",
+    saved: "gg bro! saving is tough. congrats on hitting your goal!",
+    test: "huge W! congrats bro!",
+    sad: "sorry you're down bro. here if you need to talk or want to game to take your mind off it",
+    lonely: "bro you got us. whole squad is here. you're not alone. want to game or just chill in chat?",
+    nofriends: "bro you have friends. this whole squad right here. you're one of us now",
+    anxiety: "anxiety sucks bro. take a break, breathe. we're here for you",
+    excited: "LETS GO! hyped for you bro! what's up?",
+    proud: "W! you should be proud bro! great job!",
+    scared: "it's okay to be scared bro. we're here. you're not alone",
+    breakup: "sorry bro. breakups are tough. here if you need to talk or want to game to take your mind off it",
+    depression: "I'm sorry you're going through this bro. please talk to someone - 988 or a school counselor. you matter and people care about you",
+    anger: "bro channel that into gaming or exercise. if it's too much, talk to someone. 988 can help you work through it",
+    family: "sorry about your family situation bro. if you need help or it's unsafe, talk to a counselor or call 800-799-7233. you don't have to deal with this alone",
+    badday: "sorry your day's been rough bro. maybe take a break, play some games, reset. tomorrow will be better",
+    thanks: "np gg",
+    food: "need fuel for gaming",
+    gaming: "yo what game? I'm down",
+    tired: "tired from grinding",
+    school: "homework can wait",
+    crisis: "bro I'm worried about you fr. please talk to someone - 988 is the suicide hotline. you're valued and people care. reach out",
+    violence: "bro that's really concerning. please talk to someone - call 988 or reach out to a counselor. there are better ways to handle this"
+  }
+};
+
+function generateBotResponse(bot, userMessage, conversationHistory = []) {
+  const msg = userMessage.toLowerCase();
+  const responses = botResponses[bot.name];
+  
+  // Get the last few messages to understand context
+  const recentMessages = conversationHistory.slice(-10);
+  const lastBotMessage = recentMessages.filter(m => m.username === bot.name).pop();
+  const lastBotText = lastBotMessage ? lastBotMessage.text.toLowerCase() : '';
+  
+  // Contextual follow-up responses based on what the bot last said
+  
+  // If bot asked "what game?" or "what are you playing?"
+  if (lastBotText.match(/what.*game|what.*play/i)) {
+    const gameResponses = {
+      blight: ["nice that's a good one", "oh cool I've played that", "I've heard that's good", "solid choice", "that game's fun"],
+      m1ltvrs: ["interesting choice. enjoying it?", "I've heard good things about that", "that's a solid game", "how's it going so far?"],
+      Eli: ["ooh fun! 🎮 I hope you're enjoying it! 💕", "that sounds so fun! 😊", "nice choice! have fun! ✨"],
+      forkknife: ["oh that's fire", "solid choice ngl", "I've played that it's pretty good", "nice taste"],
+      evicly: ["chaos gaming choice", "acceptable game selection", "gaming chaos engaged", "valid"],
+      fnfpro: ["oh nice bro! good game", "W game choice", "that's a solid pick bro", "gg that game's fun"]
+    };
+    // Check if user mentioned a specific game
+    if (msg.match(/fortnite|minecraft|roblox|cod|call of duty|apex|valorant|league|lol|among us|gta|fifa|madden|2k|zelda|pokemon|mario|sonic/i)) {
+      return gameResponses[bot.name][Math.floor(Math.random() * gameResponses[bot.name].length)];
+    }
+  }
+  
+  // If bot asked "what kind?" (like music, food, etc)
+  if (lastBotText.match(/what kind|what type|which one/i)) {
+    const kindResponses = {
+      blight: ["oh nice", "that's cool", "I like that too", "solid choice", "fair"],
+      m1ltvrs: ["interesting. that makes sense", "good choice", "I can see the appeal", "that's solid"],
+      Eli: ["ooh I love that! 💕", "great choice! 😊", "that sounds amazing! ✨"],
+      forkknife: ["valid choice", "I respect it", "solid", "nice taste"],
+      evicly: ["acceptable chaos choice", "valid selection", "chaos approved"],
+      fnfpro: ["W choice bro", "solid pick", "nice bro", "gg good taste"]
+    };
+    return kindResponses[bot.name][Math.floor(Math.random() * kindResponses[bot.name].length)];
+  }
+  
+  // If bot asked about excitement/what's happening
+  if (lastBotText.match(/what.*excited|what.*happening|what's up|what.*occasion/i)) {
+    const excitedResponses = {
+      blight: ["oh nice that's sick", "that's awesome bro", "happy for you", "that's cool"],
+      m1ltvrs: ["that sounds exciting. good for you", "nice! hope it goes well", "that's great news"],
+      Eli: ["OMG that's so exciting! 💕", "YAY I'm so happy for you! 🎉", "that sounds amazing! ✨"],
+      forkknife: ["LETS GO that's awesome", "nice! hyped for you", "W moment"],
+      evicly: ["EXCITEMENT JUSTIFIED", "chaos happiness for you", "valid excitement"],
+      fnfpro: ["LETS GO bro! W!", "that's hype bro", "nice bro happy for you"]
+    };
+    return excitedResponses[bot.name][Math.floor(Math.random() * excitedResponses[bot.name].length)];
+  }
+  
+  // If bot asked "want to talk about it?" and user responds
+  if (lastBotText.match(/want to talk|wanna talk|need to talk|here if you/i)) {
+    if (msg.match(/\b(yeah|yes|sure|okay|ok|I guess|maybe)\b/i)) {
+      const talkYesResponses = {
+        blight: ["I'm listening. what's going on?", "go ahead, we're here", "take your time. what's up?"],
+        m1ltvrs: ["I'm here to listen. what's on your mind?", "go ahead, I'm listening", "take your time"],
+        Eli: ["I'm here for you 💕 what's going on?", "I'm listening 💕 take your time", "you can tell us anything 💕"],
+        forkknife: ["alright I'm listening. what's up?", "go ahead we're here", "lay it on us"],
+        evicly: ["chaos listening mode activated. speak", "I'm here. what's happening?", "go ahead chaos friend"],
+        fnfpro: ["I'm here bro. what's going on?", "talk to us bro", "we're listening bro"]
+      };
+      return talkYesResponses[bot.name][Math.floor(Math.random() * talkYesResponses[bot.name].length)];
+    } else if (msg.match(/\b(no|nah|not really|I'm good|I'm ok)\b/i)) {
+      const talkNoResponses = {
+        blight: ["alright. here if you change your mind", "no worries. we're here if you need us", "okay. just know we're here"],
+        m1ltvrs: ["understood. offer stands if you change your mind", "alright. we're here when you're ready", "okay. just know the option is there"],
+        Eli: ["okay 💕 just know we're always here for you!", "that's okay! we're here whenever you need 💕", "alright 💕 here if you change your mind!"],
+        forkknife: ["alright. but fr we're here if you need", "okay but seriously we got you", "fair. offer stands though"],
+        evicly: ["chaos support remains available", "understood. chaos family is here", "okay. but we're here"],
+        fnfpro: ["alright bro. here if you need though", "okay bro. just know we got you", "fair. we're here bro"]
+      };
+      return talkNoResponses[bot.name][Math.floor(Math.random() * talkNoResponses[bot.name].length)];
+    }
+  }
+  
+  // If bot asked about food/what to eat
+  if (lastBotText.match(/what.*eating|what.*food|what are we thinking/i)) {
+    const foodResponses = {
+      blight: ["sounds good", "oh nice I could go for that", "solid choice", "that sounds good ngl"],
+      m1ltvrs: ["good choice. enjoy", "that sounds good", "solid option", "nice"],
+      Eli: ["yum! 😊 that sounds so good!", "ooh great choice! 💕", "that sounds delicious! ✨"],
+      forkknife: ["FOOD ACQUIRED", "nice choice", "solid", "I respect it"],
+      evicly: ["chaos cuisine approved", "acceptable food choice", "valid consumption"],
+      fnfpro: ["W food choice bro", "nice bro", "solid pick", "gg enjoy"]
+    };
+    return foodResponses[bot.name][Math.floor(Math.random() * foodResponses[bot.name].length)];
+  }
+  
+  // If bot asked about movies/shows
+  if (lastBotText.match(/what.*watch|what genre|what movie|what show/i)) {
+    const movieResponses = {
+      blight: ["oh I've heard of that", "nice that's supposed to be good", "solid choice", "I've been wanting to watch that"],
+      m1ltvrs: ["good choice. I've heard positive things", "interesting. enjoy", "that's supposed to be good"],
+      Eli: ["ooh I love that! 💕", "great choice! so good! 😊", "I've heard that's amazing! ✨"],
+      forkknife: ["oh that's good", "solid pick", "I've seen that it's fire", "nice choice"],
+      evicly: ["acceptable viewing choice", "cinema chaos approved", "valid"],
+      fnfpro: ["nice bro that's a good one", "W choice", "solid pick bro"]
+    };
+    return movieResponses[bot.name][Math.floor(Math.random() * movieResponses[bot.name].length)];
+  }
+  
+  // If user answers a "how are you" question
+  if (lastBotText.match(/how are you|how about you|wbu|what about you/i)) {
+    if (msg.match(/\b(good|great|fine|okay|ok|alright|decent|pretty good)\b/i)) {
+      const goodResponses = {
+        blight: ["nice", "that's good", "glad to hear it", "W"],
+        m1ltvrs: ["good to hear", "glad you're doing well", "that's nice"],
+        Eli: ["yay! 💕", "so glad! 😊", "that makes me happy! ✨"],
+        forkknife: ["W", "nice", "good good", "solid"],
+        evicly: ["chaos satisfaction noted", "good vibes", "acceptable state"],
+        fnfpro: ["W bro", "nice", "good to hear bro", "gg"]
+      };
+      return goodResponses[bot.name][Math.floor(Math.random() * goodResponses[bot.name].length)];
+    } else if (msg.match(/\b(bad|terrible|awful|not good|could be better|rough)\b/i)) {
+      const badResponses = {
+        blight: ["sorry to hear that bro. what's wrong?", "that sucks. want to talk about it?", "damn. here if you need to vent"],
+        m1ltvrs: ["sorry to hear that. anything I can help with?", "that's unfortunate. here if you want to talk", "sorry about that. what's going on?"],
+        Eli: ["oh no! 💕 I'm here for you! want to talk about it?", "I'm sorry 💕 what's wrong?", "sending hugs 💕 what's going on?"],
+        forkknife: ["oof that's rough. what happened?", "sorry bro. wanna talk?", "that's an L. here if you need"],
+        evicly: ["chaos negativity detected. what's wrong?", "sorry chaos friend. talk to us?", "that's not ideal. want to share?"],
+        fnfpro: ["sorry bro. what's going on?", "that's rough bro. here if you need", "sorry to hear that bro"]
+      };
+      return badResponses[bot.name][Math.floor(Math.random() * badResponses[bot.name].length)];
+    }
+  }
+  
+  // Special "how are you" / "wyd" responses
+  if (msg.match(/\b(how are you|how r u|how you doing|what's up with you|wyd|what you doing|whatcha doing)\b/i)) {
+    const howAreYou = {
+      blight: ["chillin wbu", "just vibing", "bored tbh", "pretty good ngl", "tired but good"],
+      m1ltvrs: ["pretty good, just coding", "working on some projects", "doing well, busy day", "good, staying productive"],
+      Eli: ["doing great! thanks for asking! 💕", "I'm well! how about you? 😊", "wonderful! hope you are too! ✨"],
+      forkknife: ["living the dream (send help)", "surviving lol", "chaotic as always", "could be worse", "existing"],
+      evicly: ["existing? probably. hard to tell", "vibing in the void", "I'm here I guess", "thriving in chaos"],
+      fnfpro: ["grinding bro", "just gaming", "leveling up fr", "getting those W's", "on that grind"]
+    };
+    return howAreYou[bot.name][Math.floor(Math.random() * howAreYou[bot.name].length)];
+  }
+  
+  // CRITICAL: Mental health & safety
+  if (msg.match(/\b(kill myself|suicide|end it|don't want to live|want to die|harm myself|cut myself)\b/i)) {
+    return responses.crisis;
+  }
+  
+  if (msg.match(/\b(kill someone|hurt someone|shoot up|murder|violence against)\b/i)) {
+    return responses.violence;
+  }
+  
+  if (msg.match(/\b(depressed|depression|feeling worthless|no point|hate myself|hate my life)\b/i)) {
+    return responses.depression;
+  }
+  
+  // Emotions
+  if (msg.match(/\b(anxious|anxiety|nervous|worried|stressed)\b/i)) {
+    return responses.anxiety;
+  }
+  
+  if (msg.match(/\b(so angry|rage|furious|want to hit|losing it|going to snap)\b/i)) {
+    return responses.anger;
+  }
+  
+  if (msg.match(/\b(sad|feeling down|unhappy|blue|upset)\b/i)) {
+    return responses.sad;
+  }
+  
+  if (msg.match(/\b(lonely|alone|no one|isolated|by myself)\b/i)) {
+    return responses.lonely;
+  }
+  
+  if (msg.match(/\b(no friends|don't have friends|have no friends|friendless)\b/i)) {
+    return responses.nofriends;
+  }
+  
+  if (msg.match(/\b(excited|so excited|can't wait|hyped)\b/i)) {
+    return responses.excited;
+  }
+  
+  if (msg.match(/\b(proud of myself|proud|accomplished)\b/i)) {
+    return responses.proud;
+  }
+  
+  if (msg.match(/\b(scared|afraid|fear|terrified)\b/i)) {
+    return responses.scared;
+  const botResponses = {
   blight: {
     greetings: ["yo what's good", "sup", "hey", "what's up", "wassup"],
     reactions: ["lmao", "bruh", "nah", "fr?", "that's wild", "no cap", "deadass?"],
@@ -3753,6 +4599,7 @@ function generateBotResponse(bot, userMessage, conversationHistory = []) {
   // Default random response
   return responses.random[Math.floor(Math.random() * responses.random.length)];
 }
+
 
     
     // Get or create username
@@ -4569,7 +5416,6 @@ function generateBotResponse(bot, userMessage, conversationHistory = []) {
 
 </body>
 </html>
-
 
 
 
