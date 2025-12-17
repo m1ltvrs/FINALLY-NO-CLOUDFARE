@@ -1286,6 +1286,19 @@
     });
 
     forgotLink.addEventListener('click', e => { e.preventDefault(); forgotModal.classList.add('show'); });
+    // Click background to close forgot modal
+forgotModal.addEventListener('click', (e) => {
+  if (e.target === forgotModal) {
+    forgotModal.classList.remove('show');
+    recoveryEmail.value = '';
+  }
+});
+
+// Cancel button functionality
+document.getElementById('cancelForgot').addEventListener('click', () => {
+  forgotModal.classList.remove('show');
+  recoveryEmail.value = '';
+});
 submitForgot.addEventListener('click', () => {
   const val = recoveryEmail.value.toLowerCase();
     // CHECK FOR HOLIDAY THEMES FIRST
