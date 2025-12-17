@@ -488,15 +488,20 @@
     }
     
     .category-content {
-      display: none;
-      padding: 20px 0;
-      margin-bottom: 20px;
-    }
-    
-    .category-content.show {
-      display: block;
-    }
-    
+  display: none;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+}
+
+.category-content.show {
+  display: block;
+  max-height: 2000px;
+  opacity: 1;
+}
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1230,9 +1235,23 @@
     }
 
     function toggleCategory(id) {
-      document.getElementById('content-'+id).classList.toggle('show');
-      document.getElementById('arrow-'+id).classList.toggle('open');
-    }
+  const content = document.getElementById('content-'+id);
+  const arrow = document.getElementById('arrow-'+id);
+  
+  if (content.classList.contains('show')) {
+    // Closing
+    content.style.maxHeight = content.scrollHeight + 'px';
+    setTimeout(() => {
+      content.classList.remove('show');
+    }, 10);
+  } else {
+    // Opening
+    content.classList.add('show');
+    content.style.maxHeight = content.scrollHeight + 'px';
+  }
+  
+  arrow.classList.toggle('open');
+}
 
     // All unlock methods
     loginBtn.addEventListener('click', () => {
