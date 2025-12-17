@@ -1895,6 +1895,54 @@ submitForgot.addEventListener('click', () => {
         cancelAnimationFrame(portalAnimationId);
       }
     });
+    // ANIMATED PAGE TITLE
+const titles = [
+  'PowerSchool LSR7',
+  'Find the secrets...',
+  '🐍 Konami Code?',
+  '✨ Hidden portal',
+  '💬 Chat with bots',
+  'PowerSchool LSR7'
+];
+
+let titleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let titleTimeout;
+
+function typeTitle() {
+  const currentTitle = titles[titleIndex];
+  
+  if (isDeleting) {
+    // Remove one character
+    document.title = currentTitle.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    // Add one character
+    document.title = currentTitle.substring(0, charIndex + 1);
+    charIndex++;
+  }
+  
+  // Medium-slow typing speed
+  let typeSpeed = isDeleting ? 100 : 150;
+  
+  // If word is complete
+  if (!isDeleting && charIndex === currentTitle.length) {
+    // Pause at end of word
+    typeSpeed = 3000;
+    isDeleting = true;
+  } else if (isDeleting && charIndex === 0) {
+    // Move to next title
+    isDeleting = false;
+    titleIndex = (titleIndex + 1) % titles.length;
+    typeSpeed = 800;
+  }
+  
+  titleTimeout = setTimeout(typeTitle, typeSpeed);
+}
+
+// Start the animation after page loads
+setTimeout(typeTitle, 1500);
   </script>
 </body>
 </html>
