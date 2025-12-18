@@ -655,12 +655,12 @@
       position: fixed;
       bottom: 10px;
       left: 10px;
-      width: 50px;
-      height: 50px;
+      width: 150px;
+      height: 150px;
       background: transparent;
       border: none;
       cursor: pointer;
-      z-index: 9998;
+      z-index: 100001;
       opacity: 0;
     }
 
@@ -893,41 +893,6 @@
   font-size: 13px;
   padding: 10px;
 }
- /* Scroll Arrows */
-.scroll-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  border: 2px solid #ddd;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  color: #667eea;
-  font-weight: bold;
-}
-
-.scroll-arrow:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.scroll-left {
-  left: -50px;
-}
-
-.scroll-right {
-  right: -50px;
-}
     @media (max-width: 768px) {
       .portal-title {
         font-size: 2em;
@@ -1030,12 +995,8 @@
             </div>
             <button class="clear-history" id="clearHistory">Clear</button>
           </div>
-          <div style="position: relative;">
-            <button class="scroll-arrow scroll-left" id="scrollLeft">‹</button>
-            <div class="recent-links" id="recentLinks">
-              <div class="no-history">No recent links yet</div>
-            </div>
-            <button class="scroll-arrow scroll-right" id="scrollRight">›</button>
+        <div class="recent-links" id="recentLinks">
+            <div class="no-history">No recent links yet</div>
           </div>
         </div>
       <!-- All categories with full links -->
@@ -1919,14 +1880,8 @@ function trackLinkClick(link) {
   
   let recent = JSON.parse(localStorage.getItem('recentLinks') || '[]');
   
-  // Remove if already exists in current batch
+  // Remove if already exists
   recent = recent.filter(l => l.url !== link.url);
-  
-  // Check if batch is full (8 links)
-  if (recent.length >= 8) {
-    // Reset and start fresh batch
-    recent = [];
-  }
   
   // Add to beginning
   recent.unshift({
@@ -1936,9 +1891,12 @@ function trackLinkClick(link) {
     category: link.category
   });
   
+  // Keep only last 12 (or whatever number you want)
+  recent = recent.slice(0, 12);
+  
   localStorage.setItem('recentLinks', JSON.stringify(recent));
   loadRecentLinks();
-    }
+}
 
 // Clear history
 clearHistoryBtn.addEventListener('click', () => {
@@ -1979,14 +1937,6 @@ document.addEventListener('click', (e) => {
 
 // Load on page load
 loadRecentLinks();
-  // Scroll arrows for recent links
-document.getElementById('scrollLeft').addEventListener('click', () => {
-  document.getElementById('recentLinks').scrollBy({
-    left: -200,
-    behavior: 'smooth'
-  });
-});
-
 document.getElementById('scrollRight').addEventListener('click', () => {
   document.getElementById('recentLinks').scrollBy({
     left: 200,
