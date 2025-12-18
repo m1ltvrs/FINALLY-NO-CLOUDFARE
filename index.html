@@ -970,6 +970,26 @@
   gap: 10px;
   overflow-x: auto;
   padding: 5px 0;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.recent-links::-webkit-scrollbar {
+  height: 6px;
+}
+
+.recent-links::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.recent-links::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.recent-links::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .recent-link {
@@ -2525,8 +2545,14 @@ function trackLinkClick(link) {
   
   let recent = JSON.parse(localStorage.getItem('recentLinks') || '[]');
   
-  // Remove if already exists
+  // Remove if already exists in current batch
   recent = recent.filter(l => l.url !== link.url);
+  
+  // Check if batch is full (8 links)
+  if (recent.length >= 8) {
+    // Reset and start fresh batch
+    recent = [];
+  }
   
   // Add to beginning
   recent.unshift({
@@ -2536,12 +2562,9 @@ function trackLinkClick(link) {
     category: link.category
   });
   
-  // Keep only last 8
-  recent = recent.slice(0, 8);
-  
   localStorage.setItem('recentLinks', JSON.stringify(recent));
   loadRecentLinks();
-}
+    }
 
 // Clear history
 clearHistoryBtn.addEventListener('click', () => {
