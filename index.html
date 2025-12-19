@@ -653,22 +653,24 @@
 
 .invisible-trigger {
   position: fixed;
-  top: 10px;
-  left: 10px;
-  width: 150px;
-  height: 150px;
-  background: transparent;
-  border: none;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.7);
+  border: 2px solid rgba(255,255,255,0.9);
+  border-radius: 50%;
   cursor: pointer;
   z-index: 100001;
-  opacity: 0.05;
+  opacity: 1;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .invisible-trigger:hover {
-  opacity: 0.3;
-  background: rgba(255,255,255,0.2);
-  transform: scale(1.05);
+  background: rgba(255,255,255,0.95);
+  transform: scale(1.2);
+  box-shadow: 0 4px 16px rgba(255,255,255,0.5);
 }
     /* Search Bar Styles */
 .search-container {
@@ -1132,8 +1134,21 @@
       </div>
     </div>
   </div>
-  <!-- Invisible trigger button (top left corner) -->
-<button class="invisible-trigger" id="triggerBtn" title="Secret..."></button>
+ <!-- Invisible trigger button (top left corner) -->
+<button class="invisible-trigger" id="triggerBtn" title="Secret..." 
+  style="position: fixed !important; 
+         top: 15px !important; 
+         left: 15px !important; 
+         width: 40px !important; 
+         height: 40px !important; 
+         background: white !important; 
+         border: 2px solid #ccc !important;
+         border-radius: 50% !important;
+         opacity: 1 !important; 
+         z-index: 999999 !important; 
+         cursor: pointer !important;
+         box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+         display: block !important;"></button>
 
   <!-- Secret Portal Screen -->
   <div class="portal-screen" id="portalScreen">
