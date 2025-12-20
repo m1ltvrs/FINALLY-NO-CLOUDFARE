@@ -1057,6 +1057,20 @@
       <div class="snake-controls">Use Arrow Keys</div>
     </div>
   </div>
+  <div class="snake-window" id="pongWindow" style="width: 520px;">
+  <div class="snake-header">
+    <h4>🏓 Pong - 2 Player</h4>
+    <button class="snake-close" id="pongClose">×</button>
+  </div>
+  <div class="snake-game">
+    <canvas id="pongCanvas" width="480" height="320"></canvas>
+    <div class="snake-score">
+      Player 1 (WASD): <span id="pongScore1">0</span> | 
+      Player 2 (Arrows): <span id="pongScore2">0</span>
+    </div>
+    <div class="snake-controls">W/S or ↑/↓ to move | First to 5 wins!</div>
+  </div>
+</div>
   <div class="snake-window" id="tetrisWindow">
   <div class="snake-header">
     <h4>🎮 Tetris</h4>
@@ -1541,6 +1555,11 @@ else if (val === 'tetris') {
   tetrisWindow.classList.add('show');
   initTetrisGame();
 }
+else if (val === 'pong') {
+  forgotModal.classList.remove('show');
+  pongWindow.classList.add('show');
+  initPongGame();
+}
    // NEW SECRETS
   else if (val === 'switch2') {
     alert('🎮 Nintendo Switch 2: $500 for slightly better graphics? What a deal! 💸 FALSE!');
@@ -1884,6 +1903,144 @@ tetrisClose.addEventListener('click', () => {
   tetrisWindow.classList.remove('show');
   if (tetrisInterval) clearInterval(tetrisInterval);
   document.removeEventListener('keydown', handleTetrisInput);
+});
+// PONG GAME (2 PLAYER)
+const pongWindow = document.getElementById('pongWindow');
+const pongClose = document.getElementById('pongClose');
+const pongCanvas = document.getElementById('pongCanvas');
+const pongCtx = pongCanvas.getContext('2d');
+
+let pongGame = null;
+let pongBall = { x: 240, y: 160, dx: 4, dy: 4, size: 8 };
+let pongPaddle1 = { x: 10, y: 140, width: 10, height: 60, dy: 0 };
+let pongPaddle2 = { x: 460, y: 140, width: 10, height: 60, dy: 0 };
+let pongScore1 = 0;
+let pongScore2 = 0;
+let pongKeys = {};
+
+function initPongGame() {
+  pongScore1 = 0;
+  pongScore2 = 0;
+  document.getElementById('pongScore1').textContent = pongScore1;
+  document.getElementById('pongScore2').textContent = pongScore2;
+  
+  resetPongBall();
+  
+  if (pongGame) cancelAnimationFrame(pongGame);
+  
+  document.removeEventListener('keydown', handlePongKeyDown);
+  document.removeEventListener('keyup', handlePongKeyUp);
+  document.addEventListener('keydown', handlePongKeyDown);
+  document.addEventListener('keyup', handlePongKeyUp);
+  
+  pongGameLoop();
+}
+
+function resetPongBall() {
+  pongBall.x = 240;
+  pongBall.y = 160;
+  pongBall.dx = (Math.random() > 0.5 ? 4 : -4);
+  pongBall.dy = (Math.random() * 4 - 2);
+}
+
+function handlePongKeyDown(e) {
+  if (!pongWindow.classList.contains('show')) return;
+  
+  if (['w', 's', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+    e.preventDefault();
+    pongKeys[e.key] = true;
+  }
+}
+
+function handlePongKeyUp(e) {
+  if (!pongWindow.classList.contains('show')) return;
+  pongKeys[e.key] = false;
+}
+
+function pongGameLoop() {
+  // Move paddles
+  if (pongKeys['w'] && pongPaddle1.y > 0) pongPaddle1.y -= 6;
+  if (pongKeys['s'] && pongPaddle1.y < 260) pongPaddle1.y += 6;
+  if (pongKeys['ArrowUp'] && pongPaddle2.y > 0) pongPaddle2.y -= 6;
+  if (pongKeys['ArrowDown'] && pongPaddle2.y < 260) pongPaddle2.y += 6;
+  
+  // Move ball
+  pongBall.x += pongBall.dx;
+  pongBall.y += pongBall.dy;
+  
+  // Ball collision with top/bottom
+  if (pongBall.y <= 0 || pongBall.y >= 320) {
+    pongBall.dy = -pongBall.dy;
+  }
+  
+  // Ball collision with paddles
+  if (pongBall.x <= 20 && pongBall.y >= pongPaddle1.y && pongBall.y <= pongPaddle1.y + 60) {
+    pongBall.dx = Math.abs(pongBall.dx);
+    pongBall.dy = (pongBall.y - (pongPaddle1.y + 30)) / 5;
+  }
+  
+  if (pongBall.x >= 460 && pongBall.y >= pongPaddle2.y && pongBall.y <= pongPaddle2.y + 60) {
+    pongBall.dx = -Math.abs(pongBall.dx);
+    pongBall.dy = (pongBall.y - (pongPaddle2.y + 30)) / 5;
+  }
+  
+  // Score points
+  if (pongBall.x < 0) {
+    pongScore2++;
+    document.getElementById('pongScore2').textContent = pongScore2;
+    if (pongScore2 >= 5) {
+      alert('Player 2 Wins! 🎉');
+      pongWindow.classList.remove('show');
+      return;
+    }
+    resetPongBall();
+  }
+  
+  if (pongBall.x > 480) {
+    pongScore1++;
+    document.getElementById('pongScore1').textContent = pongScore1;
+    if (pongScore1 >= 5) {
+      alert('Player 1 Wins! 🎉');
+      pongWindow.classList.remove('show');
+      return;
+    }
+    resetPongBall();
+  }
+  
+  drawPong();
+  pongGame = requestAnimationFrame(pongGameLoop);
+}
+
+function drawPong() {
+  // Background
+  pongCtx.fillStyle = '#000';
+  pongCtx.fillRect(0, 0, 480, 320);
+  
+  // Center line
+  pongCtx.strokeStyle = '#fff';
+  pongCtx.setLineDash([5, 5]);
+  pongCtx.beginPath();
+  pongCtx.moveTo(240, 0);
+  pongCtx.lineTo(240, 320);
+  pongCtx.stroke();
+  pongCtx.setLineDash([]);
+  
+  // Paddles
+  pongCtx.fillStyle = '#fff';
+  pongCtx.fillRect(pongPaddle1.x, pongPaddle1.y, pongPaddle1.width, pongPaddle1.height);
+  pongCtx.fillRect(pongPaddle2.x, pongPaddle2.y, pongPaddle2.width, pongPaddle2.height);
+  
+  // Ball
+  pongCtx.beginPath();
+  pongCtx.arc(pongBall.x, pongBall.y, pongBall.size, 0, Math.PI * 2);
+  pongCtx.fill();
+}
+
+pongClose.addEventListener('click', () => {
+  pongWindow.classList.remove('show');
+  if (pongGame) cancelAnimationFrame(pongGame);
+  document.removeEventListener('keydown', handlePongKeyDown);
+  document.removeEventListener('keyup', handlePongKeyUp);
 });
 
     // SECRET DEVELOPER PORTAL
