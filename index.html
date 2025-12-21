@@ -2843,7 +2843,120 @@ document.getElementById('scrollRight').addEventListener('click', () => {
     behavior: 'smooth'
   });
 });
+// 404 Page Function
+function show404() {
+  document.getElementById('error404').classList.add('show');
+}
 
+// MAKE GAME WINDOWS DRAGGABLE AND RESIZABLE
+function makeWindowDraggable(windowElement) {
+  const header = windowElement.querySelector('.snake-header');
+  let isDragging = false;
+  let currentX;
+  let currentY;
+  let initialX;
+  let initialY;
+
+  header.addEventListener('mousedown', dragStart);
+  header.addEventListener('touchstart', dragStart);
+
+  function dragStart(e) {
+    if (e.target.tagName === 'BUTTON') return;
+    
+    if (e.type === 'touchstart') {
+      initialX = e.touches[0].clientX - windowElement.offsetLeft;
+      initialY = e.touches[0].clientY - windowElement.offsetTop;
+    } else {
+      initialX = e.clientX - windowElement.offsetLeft;
+      initialY = e.clientY - windowElement.offsetTop;
+    }
+
+    isDragging = true;
+    windowElement.style.position = 'fixed';
+    
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchmove', drag);
+    document.addEventListener('touchend', dragEnd);
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+
+    if (e.type === 'touchmove') {
+      currentX = e.touches[0].clientX - initialX;
+      currentY = e.touches[0].clientY - initialY;
+    } else {
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+    }
+
+    windowElement.style.left = currentX + 'px';
+    windowElement.style.top = currentY + 'px';
+    windowElement.style.bottom = 'auto';
+    windowElement.style.right = 'auto';
+  }
+
+  function dragEnd() {
+    isDragging = false;
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', dragEnd);
+    document.removeEventListener('touchmove', drag);
+    document.removeEventListener('touchend', dragEnd);
+  }
+}
+
+makeWindowDraggable(document.getElementById('snakeWindow'));
+makeWindowDraggable(document.getElementById('tetrisWindow'));
+makeWindowDraggable(document.getElementById('pongWindow'));
+makeWindowDraggable(document.getElementById('breakoutWindow'));
+makeWindowDraggable(document.getElementById('flappyWindow'));
+
+function makeWindowResizable(windowElement, sizes) {
+  const header = windowElement.querySelector('.snake-header');
+  let currentSize = 0;
+
+  header.addEventListener('dblclick', () => {
+    currentSize = (currentSize + 1) % 2;
+    
+    if (currentSize === 1) {
+      windowElement.style.width = sizes.large.width;
+      windowElement.querySelector('canvas').width = sizes.large.canvasWidth;
+      windowElement.querySelector('canvas').height = sizes.large.canvasHeight;
+    } else {
+      windowElement.style.width = sizes.normal.width;
+      windowElement.querySelector('canvas').width = sizes.normal.canvasWidth;
+      windowElement.querySelector('canvas').height = sizes.normal.canvasHeight;
+    }
+  });
+}
+
+makeWindowResizable(document.getElementById('snakeWindow'), {
+  normal: { width: '320px', canvasWidth: 280, canvasHeight: 280 },
+  large: { width: '520px', canvasWidth: 480, canvasHeight: 480 }
+});
+
+makeWindowResizable(document.getElementById('tetrisWindow'), {
+  normal: { width: '320px', canvasWidth: 240, canvasHeight: 400 },
+  large: { width: '420px', canvasWidth: 340, canvasHeight: 550 }
+});
+
+makeWindowResizable(document.getElementById('pongWindow'), {
+  normal: { width: '520px', canvasWidth: 480, canvasHeight: 320 },
+  large: { width: '720px', canvasWidth: 680, canvasHeight: 450 }
+});
+
+makeWindowResizable(document.getElementById('breakoutWindow'), {
+  normal: { width: '320px', canvasWidth: 400, canvasHeight: 500 },
+  large: { width: '520px', canvasWidth: 600, canvasHeight: 700 }
+});
+
+makeWindowResizable(document.getElementById('flappyWindow'), {
+  normal: { width: '320px', canvasWidth: 320, canvasHeight: 480 },
+  large: { width: '520px', canvasWidth: 520, canvasHeight: 680 }
+});
+  </script>
 // 404 Page Function
 function show404() {
   document.getElementById('error404').classList.add('show');
