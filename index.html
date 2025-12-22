@@ -2913,82 +2913,33 @@ function makeWindowDraggable(windowElement) {
     document.removeEventListener('touchend', dragEnd);
   }
 }
+</script>
 
-makeWindowDraggable(document.getElementById('snakeWindow'));
+<div class="error-404" id="error404">
+  <h1 class="glitch">404</h1>
+  <p>🚫 Oops! This page doesn't exist</p>
+  <p>Maybe it got blocked by your school? 😏</p>
+  <button onclick="document.getElementById('error404').classList.remove('show')">Go Back</button>
+</div>
+
+<script
+  chatbot_id="6943929a190e85dc71392e73"
+  data-type="default"
+  src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js">
+</script>
+
+<script>
+document.getElementById('panicBtn').addEventListener('click', () => {
+  window.open('https://www.khanacademy.org', '_blank');
+  window.location.href = 'https://www.khanacademy.org';
+});
+
+  makeWindowDraggable(document.getElementById('snakeWindow'));
 makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
-
-function makeWindowResizable(windowElement, sizes) {
-  const header = windowElement.querySelector('.snake-header');
-  let currentSize = 0;
-
-  header.addEventListener('dblclick', () => {
-    currentSize = (currentSize + 1) % 2;
-    
-    if (currentSize === 1) {
-      windowElement.style.width = sizes.large.width;
-      windowElement.querySelector('canvas').width = sizes.large.canvasWidth;
-      windowElement.querySelector('canvas').height = sizes.large.canvasHeight;
-    } else {
-      windowElement.style.width = sizes.normal.width;
-      windowElement.querySelector('canvas').width = sizes.normal.canvasWidth;
-      windowElement.querySelector('canvas').height = sizes.normal.canvasHeight;
-    }
-  });
-}
-
-makeWindowResizable(document.getElementById('snakeWindow'), {
-  normal: { width: '320px', canvasWidth: 280, canvasHeight: 280 },
-  large: { width: '520px', canvasWidth: 480, canvasHeight: 480 }
-});
-
-makeWindowResizable(document.getElementById('tetrisWindow'), {
-  normal: { width: '320px', canvasWidth: 240, canvasHeight: 400 },
-  large: { width: '420px', canvasWidth: 340, canvasHeight: 550 }
-});
-
-makeWindowResizable(document.getElementById('pongWindow'), {
-  normal: { width: '520px', canvasWidth: 480, canvasHeight: 320 },
-  large: { width: '720px', canvasWidth: 680, canvasHeight: 450 }
-});
-
-makeWindowResizable(document.getElementById('breakoutWindow'), {
-  normal: { width: '320px', canvasWidth: 400, canvasHeight: 500 },
-  large: { width: '520px', canvasWidth: 600, canvasHeight: 700 }
-});
-
-makeWindowResizable(document.getElementById('flappyWindow'), {
-  normal: { width: '320px', canvasWidth: 320, canvasHeight: 480 },
-  large: { width: '520px', canvasWidth: 520, canvasHeight: 680 }
-});
-  </script>
-// 404 Page Function
-function show404() {
-  document.getElementById('error404').classList.add('show');
-}
-  </script>
-  
-  <div class="error-404" id="error404">
-    <h1 class="glitch">404</h1>
-    <p>🚫 Oops! This page doesn't exist</p>
-    <p>Maybe it got blocked by your school? 😏</p>
-    <button onclick="document.getElementById('error404').classList.remove('show')">Go Back</button>
-  </div>
-
-  <!-- ThinkStack AI Chat -->
-  <script
-    chatbot_id="6943929a190e85dc71392e73"
-    data-type="default"
-    src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js"
-    });
-
-// Panic Button
-document.getElementById('panicBtn').addEventListener('click', () => {
-  window.location.href = 'https://www.khanacademy.org';
-});
-></script>
+</script>
 </body>
 </html>
 
