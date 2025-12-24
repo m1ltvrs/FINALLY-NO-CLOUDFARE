@@ -1389,7 +1389,8 @@ statcounter img {
     </div>
   </div>
   <script>
-    // ===== SECURITY: INPUT SANITIZATION =====
+    // Wait for page to load
+    document.addEventListener('DOMContentLoaded', function() {
     function sanitize(input) {
       const div = document.createElement('div');
       div.textContent = input;
@@ -3006,11 +3007,13 @@ document.getElementById('panicBtn').addEventListener('click', () => {
   window.location.href = 'https://www.khanacademy.org';
 });
 
-  makeWindowDraggable(document.getElementById('snakeWindow'));
+ makeWindowDraggable(document.getElementById('snakeWindow'));
 makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
+
+}); 
 </script>
 </body>
 </html>
