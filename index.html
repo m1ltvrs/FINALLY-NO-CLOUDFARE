@@ -2630,13 +2630,6 @@ function playClick() {
   oscillator.start(ctx.currentTime);
   oscillator.stop(ctx.currentTime + 0.05);
 }
-
-// Add to all interactive elements
-document.querySelectorAll('button, .link-box, .category-header, a, .portal-btn, .login-logo').forEach(el => {
-  el.addEventListener('mouseenter', playHover);
-  el.addEventListener('click', playClick);
-});
-
 // Start the title animation
 setTimeout(typeTitle, 1500);
   // Holiday effect helper function
@@ -3192,6 +3185,11 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
+// Add to all interactive elements - MUST BE AT THE END
+document.querySelectorAll('button, .link-box, .category-header, a, .portal-btn, .login-logo').forEach(el => {
+  el.addEventListener('mouseenter', playHover);
+  el.addEventListener('click', playClick);
+});
 </script>
 </body>
 </html>
