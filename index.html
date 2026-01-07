@@ -2891,8 +2891,67 @@ function updateSearchPlaceholder(animate = false) {
     searchBox.placeholder = searchQuotes[quoteIndex];
   }
 }
-
 updateSearchPlaceholder(false);
+let recentLinksCache = [];
+
+function loadRecentLinks() {
+  if (recentLinksCache.length === 0) {
+    recentSection.style.display = 'none';
+    return;
+  }
+  
+  recentSection.style.display = 'block';
+  recentLinksContainer.innerHTML = recentLinksCache.map(link => `
+    <a href="${link.url}" target="_blank" class="recent-link" data-url="${link.url}">
+      <span class="recent-link-icon">${link.icon}</span>
+      <span class="recent-link-name">${link.name}</span>
+    </a>
+  `).join('');
+  
+  document.querySelectorAll('.recent-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const url = e.currentTarget.dataset.url;
+      trackLinkClick(allLinks.find(l => l.url === url));
+    });
+  });
+}
+
+function trackLinkClick(link) {
+  if (!link) return;
+  
+  recentLinksCache = recentLinksCache.filter(l => l.url !== link.url);
+  recentLinksCache.unshift({...link});
+  recentLinksCache = recentLinksCache.slice(0, 12);
+  
+  loadRecentLinks();
+}
+
+clearHistoryBtn.addEventListener('click', () => {
+  if (confirm('Clear all recent links?')) {
+    recentLinksCache = [];
+    loadRecentLinks();
+  }
+});
+
+document.addEventListener('click', (e) => {
+  const linkBox = e.target.closest('.link-box');
+  if (linkBox) {
+    const url = linkBox.href;
+    const link = allLinks.find(l => l.url === url);
+    if (link) trackLinkClick(link);
+    return;
+  }
+  
+  const searchResult = e.target.closest('.search-result-item');
+  if (searchResult) {
+    const url = searchResult.href;
+    const link = allLinks.find(l => l.url === url);
+    if (link) trackLinkClick(link);
+    return;
+  }
+});
+
+loadRecentLinks();
 
 setInterval(() => {
   if (!searchBox.matches(':focus')) {
