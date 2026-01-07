@@ -2630,6 +2630,13 @@ function playClick() {
   oscillator.start(ctx.currentTime);
   oscillator.stop(ctx.currentTime + 0.05);
 }
+
+// Add to all interactive elements
+document.querySelectorAll('button, .link-box, .category-header, a, .portal-btn, .login-logo').forEach(el => {
+  el.addEventListener('mouseenter', playHover);
+  el.addEventListener('click', playClick);
+});
+
 // Start the title animation
 setTimeout(typeTitle, 1500);
   // Holiday effect helper function
@@ -2753,212 +2760,6 @@ searchBox.addEventListener('input', (e) => {
 document.addEventListener('click', (e) => {
   if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
     searchResults.classList.remove('show');
-  }
-});
-```javascript
-const searchQuotes = [
-  "Im in ur walls 👀",
-  "I'm mr cheese 🧀",
-  "tung tung tung sahur 🔔",
-  "I'm schizo 🤪",
-  "YASSS KING 👑",
-  "is he bothering u queen 💅"
-];
-
-function createLightningEffect() {
-  const lightning = document.createElement('div');
-  lightning.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    z-index: 99999;
-    pointer-events: none;
-    animation: lightning-flash 0.4s ease-out;
-  `;
-  document.body.appendChild(lightning);
-  
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes lightning-flash {
-      0% { opacity: 0; }
-      10% { opacity: 0.9; }
-      20% { opacity: 0; }
-      30% { opacity: 0.8; }
-      40% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-    
-    @keyframes search-zap {
-      0% { 
-        transform: scale(1) translateY(0);
-        filter: brightness(1);
-      }
-      50% { 
-        transform: scale(1.3) translateY(-20px);
-        filter: brightness(2) drop-shadow(0 0 30px #ffff00);
-      }
-      100% { 
-        transform: scale(1) translateY(0);
-        filter: brightness(1);
-      }
-    }
-    
-    .search-zapping {
-      animation: search-zap 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      border-color: #ffff00 !important;
-      box-shadow: 0 0 40px rgba(255, 255, 0, 0.8) !important;
-    }
-  `;
-  document.head.appendChild(style);
-  
-  setTimeout(() => lightning.remove(), 400);
-  playThunderSound();
-}
-
-function playThunderSound() {
-  const ctx = getAudioContext();
-  const duration = 0.6;
-  const sampleRate = ctx.sampleRate;
-  const buffer = ctx.createBuffer(1, duration * sampleRate, sampleRate);
-  const data = buffer.getChannelData(0);
-  
-  for (let i = 0; i < buffer.length; i++) {
-    const t = i / sampleRate;
-    const envelope = Math.exp(-t * 3);
-    data[i] = (Math.random() * 2 - 1) * envelope * 0.3;
-  }
-  
-  const source = ctx.createBufferSource();
-  source.buffer = buffer;
-  
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'lowpass';
-  filter.frequency.value = 200;
-  
-  const gainNode = ctx.createGain();
-  gainNode.gain.setValueAtTime(0.4, ctx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
-  
-  source.connect(filter);
-  filter.connect(gainNode);
-  gainNode.connect(ctx.destination);
-  
-  source.start(ctx.currentTime);
-  source.stop(ctx.currentTime + duration);
-  
-  setTimeout(() => {
-    const zap = ctx.createOscillator();
-    const zapGain = ctx.createGain();
-    
-    zap.connect(zapGain);
-    zapGain.connect(ctx.destination);
-    
-    zap.frequency.setValueAtTime(800, ctx.currentTime);
-    zap.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
-    
-    zapGain.gain.setValueAtTime(0.2, ctx.currentTime);
-    zapGain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-    
-    zap.start(ctx.currentTime);
-    zap.stop(ctx.currentTime + 0.1);
-  }, 200);
-}
-
-function updateSearchPlaceholder(animate = false) {
-  const hour = new Date().getHours();
-  const quoteIndex = hour % searchQuotes.length;
-  
-  if (animate) {
-    createLightningEffect();
-    searchBox.classList.add('search-zapping');
-    setTimeout(() => {
-      searchBox.placeholder = searchQuotes[quoteIndex];
-    }, 300);
-    setTimeout(() => {
-      searchBox.classList.remove('search-zapping');
-    }, 600);
-  } else {
-    searchBox.placeholder = searchQuotes[quoteIndex];
-  }
-}
-updateSearchPlaceholder(false);
-let recentLinksCache = [];
-
-function loadRecentLinks() {
-  if (recentLinksCache.length === 0) {
-    recentSection.style.display = 'none';
-    return;
-  }
-  
-  recentSection.style.display = 'block';
-  recentLinksContainer.innerHTML = recentLinksCache.map(link => `
-    <a href="${link.url}" target="_blank" class="recent-link" data-url="${link.url}">
-      <span class="recent-link-icon">${link.icon}</span>
-      <span class="recent-link-name">${link.name}</span>
-    </a>
-  `).join('');
-  
-  document.querySelectorAll('.recent-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const url = e.currentTarget.dataset.url;
-      trackLinkClick(allLinks.find(l => l.url === url));
-    });
-  });
-}
-
-function trackLinkClick(link) {
-  if (!link) return;
-  
-  recentLinksCache = recentLinksCache.filter(l => l.url !== link.url);
-  recentLinksCache.unshift({...link});
-  recentLinksCache = recentLinksCache.slice(0, 12);
-  
-  loadRecentLinks();
-}
-
-clearHistoryBtn.addEventListener('click', () => {
-  if (confirm('Clear all recent links?')) {
-    recentLinksCache = [];
-    loadRecentLinks();
-  }
-});
-
-document.addEventListener('click', (e) => {
-  const linkBox = e.target.closest('.link-box');
-  if (linkBox) {
-    const url = linkBox.href;
-    const link = allLinks.find(l => l.url === url);
-    if (link) trackLinkClick(link);
-    return;
-  }
-  
-  const searchResult = e.target.closest('.search-result-item');
-  if (searchResult) {
-    const url = searchResult.href;
-    const link = allLinks.find(l => l.url === url);
-    if (link) trackLinkClick(link);
-    return;
-  }
-});
-
-loadRecentLinks();
-
-setInterval(() => {
-  if (!searchBox.matches(':focus')) {
-    updateSearchPlaceholder(true);
-  }
-}, 3600000);
-
-searchBox.addEventListener('focus', () => {
-  searchBox.placeholder = 'Search for links...';
-});
-
-searchBox.addEventListener('blur', () => {
-  if (!searchBox.value) {
-    updateSearchPlaceholder(false);
   }
 });
 
@@ -3185,30 +2986,9 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
-// Add to all interactive elements - MUST BE AT THE END
-document.querySelectorAll('button, .link-box, .category-header, a, .portal-btn, .login-logo').forEach(el => {
-  el.addEventListener('mouseenter', playHover);
-  el.addEventListener('click', playClick);
-});
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
