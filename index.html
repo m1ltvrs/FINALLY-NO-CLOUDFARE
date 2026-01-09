@@ -1134,11 +1134,60 @@ body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
 body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
   background: #8ab4f8;
 }
+/* Hide categories in Google mode */
+body.google-mode .category {
+  display: none !important;
+}
+
+/* Hide recent section in Google mode */
+body.google-mode .recent-section {
+  display: none !important;
+}
+
+/* Center everything vertically in Google mode */
+body.google-mode .hub-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0;
+}
+
+body.google-mode .container {
+  width: 100%;
+  max-width: 584px;
+  margin: 0 auto;
+}
+
+body.google-mode .hub-header {
+  margin-bottom: 0;
+}
+
+/* Google logo - closer to real Google */
+body.google-mode .hub-header h1 {
+  font-family: 'Product Sans', Arial, sans-serif;
+  font-size: 90px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  color: #e8eaed;
+}
+
+/* Search container spacing */
+body.google-mode .search-container {
+  margin: 0 auto 20px;
+}
+
+/* Hide panic button in Google mode */
+body.google-mode .panic-btn {
+  display: none;
+}
 
 /* Google Search Buttons */
 .google-buttons {
   text-align: center;
   margin-top: 18px;
+  display: none; /* Hidden by default */
 }
 
 .google-search-btn {
@@ -3359,7 +3408,11 @@ modeBtns.forEach(btn => {
       document.body.classList.add('google-mode');
       document.title = 'Google';
       document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
-      
+      // Scroll to top and clear search
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('searchBox').value = '';
+      document.getElementById('searchResults').classList.remove('show');
+    }
       // Change logo text
       document.querySelector('.hub-header h1').textContent = 'Google';
     } else {
