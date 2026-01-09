@@ -2089,6 +2089,41 @@ else if (val === 'pong') {
   pongWindow.classList.add('show');
   initPongGame();
 }
+else if (val === 'multvrs') {
+  // First check if today is January 10th
+  const today = new Date();
+  const month = today.getMonth() + 1; // January = 0 → +1 = 1
+  const day = today.getDate();
+
+  if (month === 1 && day === 10) {
+    // BIRTHDAY MODE ACTIVATED 🎉
+    hub.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8e53)';
+    hub.classList.add('golden'); // Reuse golden sparkles but make it party
+    createSparkles('golden');    // Or make a new party emoji set if you want
+
+    // Confetti explosion (simple version using your existing sparkle system)
+    for (let i = 0; i < 50; i++) {
+      setTimeout(() => {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.textContent = ['🎉', '🎂', '🥳', '🎈', '🎁', '🔥'][Math.floor(Math.random()*6)];
+        s.style.left = Math.random()*100 + 'vw';
+        s.style.fontSize = (Math.random()*40 + 30) + 'px';
+        s.style.animationDuration = (Math.random()*2 + 2) + 's';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 5000);
+      }, i * 80);
+    }
+
+    alert("🎂 HAPPY BIRTHDAY TO THE DEV (m1ltvrs)! \nYou're officially too old to count the candles. Party mode unlocked! 🥳");
+  } else {
+    // Normal golden mode on other days
+    goldenMode = true;
+  }
+
+  forgotModal.classList.remove('show');
+  unlockHub();
+}
 else if (val === 'breakout') {
   forgotModal.classList.remove('show');
   breakoutWindow.classList.add('show');
