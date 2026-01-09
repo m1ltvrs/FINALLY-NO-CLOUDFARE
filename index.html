@@ -925,49 +925,254 @@
 
 /* Google Mode Styles */
 body.google-mode .hub-content {
-  background: white !important;
+  background: #202124 !important;
+  min-height: 100vh;
 }
 
 body.google-mode .hub-content::before {
   display: none !important;
 }
 
+/* Google Logo */
 body.google-mode .hub-header h1 {
   font-family: 'Product Sans', Arial, sans-serif;
-  font-size: 6em;
-  background: linear-gradient(90deg, #4285F4, #EA4335, #FBBC05, #34A853);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 5.5em;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: #e8eaed;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin-bottom: 25px;
 }
 
 body.google-mode .hub-header p {
   display: none;
 }
 
-body.google-mode .search-box {
-  border-radius: 24px;
-  box-shadow: 0 1px 6px rgba(32,33,36,.28);
-  border: 1px solid #dfe1e5;
+/* Search Box - Google Dark Theme */
+body.google-mode .search-container {
+  max-width: 584px;
+  margin: 0 auto 35px;
 }
 
+body.google-mode .search-box {
+  background: #303134;
+  border: 1px solid #5f6368;
+  border-radius: 24px;
+  padding: 14px 20px 14px 46px;
+  color: #e8eaed;
+  box-shadow: none;
+  transition: background 0.2s, border 0.2s;
+}
+
+body.google-mode .search-box:hover {
+  background: #303134;
+  border: 1px solid #5f6368;
+  box-shadow: 0 1px 6px rgba(32,33,36,.28);
+}
+
+body.google-mode .search-box:focus {
+  background: #303134;
+  border: 1px solid #5f6368;
+  box-shadow: 0 1px 6px rgba(32,33,36,.28);
+  outline: none;
+}
+
+body.google-mode .search-icon {
+  left: 18px;
+  color: #9aa0a6;
+}
+
+body.google-mode .search-shortcut {
+  background: #5f6368;
+  color: #9aa0a6;
+  border: 1px solid #5f6368;
+}
+
+/* Search Results Dropdown */
+body.google-mode .search-results {
+  background: #303134;
+  border: 1px solid #5f6368;
+  box-shadow: 0 4px 6px rgba(0,0,0,.3);
+}
+
+body.google-mode .search-result-item {
+  border-bottom: 1px solid #3c4043;
+  color: #e8eaed;
+}
+
+body.google-mode .search-result-item:hover {
+  background: #3c4043;
+}
+
+body.google-mode .search-result-category {
+  color: #9aa0a6;
+}
+
+/* Google Buttons */
+body.google-mode .search-container::after {
+  content: '';
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Categories - Google Style */
 body.google-mode .category-header {
-  background: #f8f9fa;
-  color: #202124;
-  border: 1px solid #dadce0;
+  background: #303134;
+  color: #e8eaed;
+  border: 1px solid #5f6368;
+  border-radius: 8px;
 }
 
 body.google-mode .category-header:hover {
-  background: #f1f3f4;
+  background: #3c4043;
+  border-color: #5f6368;
 }
 
+body.google-mode .category-content {
+  background: transparent;
+}
+
+/* Link Boxes - Google Cards Style */
 body.google-mode .link-box {
-  box-shadow: 0 1px 3px rgba(60,64,67,.3);
+  background: #303134;
+  border: 1px solid #5f6368;
+  box-shadow: none;
+  transition: all 0.2s;
+}
+
+body.google-mode .link-box:hover {
+  background: #3c4043;
+  border-color: #5f6368;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+
+body.google-mode .link-name {
+  color: #e8eaed;
 }
 
 body.google-mode .link-icon {
-  background: linear-gradient(135deg, #4285F4, #34A853);
+  background: #5f6368;
+  border-radius: 50%;
 }
+
+/* Panic Button - Google Style */
+body.google-mode .panic-btn {
+  background: #303134;
+  border: 1px solid #5f6368;
+  color: #e8eaed;
+  box-shadow: none;
+}
+
+body.google-mode .panic-btn:hover {
+  background: #3c4043;
+  border-color: #8ab4f8;
+}
+
+/* Mode Toggle - Google Dark */
+body.google-mode .mode-toggle {
+  background: #303134;
+  border: 1px solid #5f6368;
+}
+
+body.google-mode .mode-btn {
+  color: #e8eaed;
+}
+
+body.google-mode .mode-btn:hover {
+  background: #3c4043;
+}
+
+body.google-mode .mode-btn.active {
+  background: #8ab4f8;
+  color: #202124;
+}
+
+/* Recent Section - Google Dark */
+body.google-mode .recent-section {
+  background: #303134;
+  border: 1px solid #5f6368;
+}
+
+body.google-mode .recent-title {
+  color: #e8eaed;
+}
+
+body.google-mode .recent-link {
+  background: #3c4043;
+  border: 1px solid #5f6368;
+  color: #e8eaed;
+}
+
+body.google-mode .recent-link:hover {
+  background: #5f6368;
+}
+
+body.google-mode .clear-history {
+  color: #8ab4f8;
+}
+
+body.google-mode .clear-history:hover {
+  background: #3c4043;
+}
+
+/* Scrollbar - Google Dark */
+body.google-mode .recent-links::-webkit-scrollbar-track {
+  background: #303134;
+}
+
+body.google-mode .recent-links::-webkit-scrollbar-thumb {
+  background: #5f6368;
+}
+
+body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
+  background: #8ab4f8;
+}
+body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
+  background: #8ab4f8;
+}
+
+/* Google Search Buttons */
+.google-buttons {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.google-search-btn {
+  background: #303134;
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.1s;
+}
+
+.google-search-btn:hover {
+  box-shadow: 0 1px 1px rgba(0,0,0,.1);
+  background: #3c4043;
+  border: 1px solid #5f6368;
+  color: #e8eaed;
+}
+
+body.google-mode .google-buttons {
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Recently Clicked Section */
     /* Recently Clicked Section */
 .recent-section {
   max-width: 600px;
@@ -1256,7 +1461,7 @@ statcounter img {
         <h1>🌐 Link Hub</h1>
         <p>Quick access to your favorite sites</p>
         
-        <!-- Search Bar -->
+       <!-- Search Bar -->
         <div class="search-container">
           <input 
             type="text" 
@@ -1267,8 +1472,16 @@ statcounter img {
           >
           <span class="search-icon">🔍</span>
           <span class="search-shortcut">Ctrl+K</span>
-         <div class="search-results" id="searchResults"></div>
+          <div class="search-results" id="searchResults"></div>
         </div>
+        
+        <!-- Google Buttons -->
+        <div class="google-buttons" id="googleButtons" style="display: none;">
+          <button class="google-search-btn">Google Search</button>
+          <button class="google-search-btn">I'm Feeling Lucky</button>
+        </div>
+        
+        <!-- Panic Button -->
         
         <!-- Panic Button -->
         <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
@@ -3113,20 +3326,6 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
-// MODE SWITCHING FUNCTIONALITY
-const modeToggle = document.getElementById('modeToggle');
-const modeBtns = document.querySelectorAll('.mode-btn');
-
-// Load saved mode
-const savedMode = localStorage.getItem('interfaceMode') || 'powerschool';
-if (savedMode === 'google') {
-  document.body.classList.add('google-mode');
-  document.querySelector('[data-mode="google"]').classList.add('active');
-  document.querySelector('[data-mode="powerschool"]').classList.remove('active');
-  document.title = 'Google';
-  document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
-}
-
 // Mode switching
 modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -3144,12 +3343,19 @@ modeBtns.forEach(btn => {
       document.body.classList.add('google-mode');
       document.title = 'Google';
       document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
+      
+      // Change logo text
+      document.querySelector('.hub-header h1').textContent = 'Google';
     } else {
       document.body.classList.remove('google-mode');
       document.title = 'PowerSchool LSR7';
       document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
+      
+      // Restore original logo
+      document.querySelector('.hub-header h1').textContent = '🌐 Link Hub';
     }
   });
+});
 });
 </script>
 </body>
