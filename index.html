@@ -14,8 +14,8 @@
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
-  <style>
+ <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>" id="favicon">
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
@@ -882,6 +882,92 @@
   font-weight: 600;
   pointer-events: none;
 }
+/* Mode Toggle Styles */
+.mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none; /* Hidden until hub unlocked */
+  padding: 4px;
+  z-index: 10000;
+}
+
+.hub-content .mode-toggle {
+  display: flex;
+}
+
+.mode-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.mode-btn:hover {
+  background: #f5f5f5;
+}
+
+.mode-btn.active {
+  background: #667eea;
+  color: white;
+}
+
+/* Google Mode Styles */
+body.google-mode .hub-content {
+  background: white !important;
+}
+
+body.google-mode .hub-content::before {
+  display: none !important;
+}
+
+body.google-mode .hub-header h1 {
+  font-family: 'Product Sans', Arial, sans-serif;
+  font-size: 6em;
+  background: linear-gradient(90deg, #4285F4, #EA4335, #FBBC05, #34A853);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.google-mode .hub-header p {
+  display: none;
+}
+
+body.google-mode .search-box {
+  border-radius: 24px;
+  box-shadow: 0 1px 6px rgba(32,33,36,.28);
+  border: 1px solid #dfe1e5;
+}
+
+body.google-mode .category-header {
+  background: #f8f9fa;
+  color: #202124;
+  border: 1px solid #dadce0;
+}
+
+body.google-mode .category-header:hover {
+  background: #f1f3f4;
+}
+
+body.google-mode .link-box {
+  box-shadow: 0 1px 3px rgba(60,64,67,.3);
+}
+
+body.google-mode .link-icon {
+  background: linear-gradient(135deg, #4285F4, #34A853);
+}
     /* Recently Clicked Section */
 .recent-section {
   max-width: 600px;
@@ -998,6 +1084,35 @@
 statcounter img {
   width: auto !important;
   height: auto !important;
+}
+/* Panic Button */
+.panic-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  z-index: 10001;
+  transition: all 0.3s;
+  display: none;
+}
+
+.panic-btn:hover {
+  background: #c0392b;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(231, 76, 60, 0.6);
+}
+
+.hub-content .panic-btn {
+  display: block;
 }
 /* Visitor label */
 .statcounter > div::after {
@@ -1154,6 +1269,26 @@ statcounter img {
           <span class="search-shortcut">Ctrl+K</span>
          <div class="search-results" id="searchResults"></div>
         </div>
+        <div class="search-results" id="searchResults"></div>
+        </div>
+        
+        <!-- Panic Button -->
+        <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
+      <!-- Mode Toggle -->
+        <div class="mode-toggle" id="modeToggle">
+          <button class="mode-btn active" data-mode="powerschool">
+            <span>📚</span>
+            <span>PowerSchool</span>
+          </button>
+          <button class="mode-btn" data-mode="google">
+            <span>🔍</span>
+            <span>Google</span>
+          </button>
+        </div>
+        
+   <!-- Recently Clicked -->
+        
+        <!-- Mode Toggle -->
         <!-- Panic Button -->
 <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
         
@@ -2986,6 +3121,44 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
+// MODE SWITCHING FUNCTIONALITY
+const modeToggle = document.getElementById('modeToggle');
+const modeBtns = document.querySelectorAll('.mode-btn');
+
+// Load saved mode
+const savedMode = localStorage.getItem('interfaceMode') || 'powerschool';
+if (savedMode === 'google') {
+  document.body.classList.add('google-mode');
+  document.querySelector('[data-mode="google"]').classList.add('active');
+  document.querySelector('[data-mode="powerschool"]').classList.remove('active');
+  document.title = 'Google';
+  document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
+}
+
+// Mode switching
+modeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    
+    // Update active state
+    modeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Save preference
+    localStorage.setItem('interfaceMode', mode);
+    
+    // Apply mode
+    if (mode === 'google') {
+      document.body.classList.add('google-mode');
+      document.title = 'Google';
+      document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
+    } else {
+      document.body.classList.remove('google-mode');
+      document.title = 'PowerSchool LSR7';
+      document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
+    }
+  });
+});
 </script>
 </body>
 </html>
