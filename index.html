@@ -3363,10 +3363,12 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 </script>
 
 <script>
-// Panic button
-document.getElementById('panicBtn').addEventListener('click', () => {
-  window.open('https://www.khanacademy.org', '_blank');
-  window.location.href = 'https://www.khanacademy.org';
+// Panic button - use event delegation to handle it even if added later
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'panicBtn') {
+    window.open('https://www.khanacademy.org', '_blank');
+    window.location.href = 'https://www.khanacademy.org';
+  }
 });
 
 // Make game windows draggable
@@ -3411,8 +3413,7 @@ modeBtns.forEach(btn => {
       // Scroll to top and clear search
       window.scrollTo({ top: 0, behavior: 'smooth' });
       document.getElementById('searchBox').value = '';
-      document.getElementById('searchResults').classList.remove('show');
-    }
+   document.getElementById('searchResults').classList.remove('show');
       // Change logo text
       document.querySelector('.hub-header h1').textContent = 'Google';
     } else {
