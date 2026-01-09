@@ -1170,9 +1170,18 @@ body.google-mode .hub-header h1 {
   font-weight: 400;
   letter-spacing: -1px;
   margin-bottom: 30px;
-  color: #e8eaed;
+  background: linear-gradient(to right, 
+    #4285f4 0%, #4285f4 16.66%,
+    #ea4335 16.66%, #ea4335 33.33%,
+    #fbbc05 33.33%, #fbbc05 50%,
+    #4285f4 50%, #4285f4 66.66%,
+    #34a853 66.66%, #34a853 83.33%,
+    #ea4335 83.33%, #ea4335 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-
 /* Search container spacing */
 body.google-mode .search-container {
   margin: 0 auto 20px;
@@ -1219,6 +1228,54 @@ body.google-mode .google-buttons {
   display: flex !important;
   justify-content: center;
   gap: 8px;
+}
+/* Google Apps/Bookmarks */
+.google-apps {
+  display: none;
+  margin-top: 40px;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.google-mode .google-apps {
+  display: flex !important;
+}
+
+.google-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s;
+  width: 80px;
+}
+
+.google-app:hover {
+  background: #3c4043;
+}
+
+.google-app-icon {
+  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3c4043;
+  border-radius: 50%;
+}
+
+.google-app-name {
+  font-size: 12px;
+  color: #e8eaed;
+  text-align: center;
 }
 
 /* Recently Clicked Section */
@@ -1528,6 +1585,33 @@ statcounter img {
         <div class="google-buttons" id="googleButtons" style="display: none;">
           <button class="google-search-btn">Google Search</button>
           <button class="google-search-btn">I'm Feeling Lucky</button>
+        </div>
+        <!-- Google Apps Shortcuts -->
+        <div class="google-apps" id="googleApps" style="display: none;">
+          <a href="https://mail.google.com" target="_blank" class="google-app">
+            <div class="google-app-icon">📧</div>
+            <div class="google-app-name">Gmail</div>
+          </a>
+          <a href="https://drive.google.com" target="_blank" class="google-app">
+            <div class="google-app-icon">💾</div>
+            <div class="google-app-name">Drive</div>
+          </a>
+          <a href="https://youtube.com" target="_blank" class="google-app">
+            <div class="google-app-icon">📺</div>
+            <div class="google-app-name">YouTube</div>
+          </a>
+          <a href="https://maps.google.com" target="_blank" class="google-app">
+            <div class="google-app-icon">🗺️</div>
+            <div class="google-app-name">Maps</div>
+          </a>
+          <a href="https://calendar.google.com" target="_blank" class="google-app">
+            <div class="google-app-icon">📅</div>
+            <div class="google-app-name">Calendar</div>
+          </a>
+          <a href="https://photos.google.com" target="_blank" class="google-app">
+            <div class="google-app-icon">📷</div>
+            <div class="google-app-name">Photos</div>
+          </a>
         </div>
         
         <!-- Panic Button -->
