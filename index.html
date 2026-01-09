@@ -1473,15 +1473,13 @@ statcounter img {
           <span class="search-icon">🔍</span>
           <span class="search-shortcut">Ctrl+K</span>
           <div class="search-results" id="searchResults"></div>
-        </div>
+       </div>
         
         <!-- Google Buttons -->
         <div class="google-buttons" id="googleButtons" style="display: none;">
           <button class="google-search-btn">Google Search</button>
           <button class="google-search-btn">I'm Feeling Lucky</button>
         </div>
-        
-        <!-- Panic Button -->
         
         <!-- Panic Button -->
         <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
@@ -3326,6 +3324,20 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
+// MODE SWITCHING FUNCTIONALITY
+const modeToggle = document.getElementById('modeToggle');
+const modeBtns = document.querySelectorAll('.mode-btn');
+
+// Load saved mode
+const savedMode = localStorage.getItem('interfaceMode') || 'powerschool';
+if (savedMode === 'google') {
+  document.body.classList.add('google-mode');
+  document.querySelector('[data-mode="google"]').classList.add('active');
+  document.querySelector('[data-mode="powerschool"]').classList.remove('active');
+  document.title = 'Google';
+  document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
+}
+
 // Mode switching
 modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -3356,6 +3368,32 @@ modeBtns.forEach(btn => {
     }
   });
 });
+    const mode = btn.dataset.mode;
+    
+    // Update active state
+    modeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Save preference
+    localStorage.setItem('interfaceMode', mode);
+    
+    // Apply mode
+    if (mode === 'google') {
+      document.body.classList.add('google-mode');
+      document.title = 'Google';
+      document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
+      
+      // Change logo text
+      document.querySelector('.hub-header h1').textContent = 'Google';
+    } else {
+      document.body.classList.remove('google-mode');
+      document.title = 'PowerSchool LSR7';
+      document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
+      
+      // Restore original logo
+      document.querySelector('.hub-header h1').textContent = '🌐 Link Hub';
+    }
+  });
 });
 </script>
 </body>
