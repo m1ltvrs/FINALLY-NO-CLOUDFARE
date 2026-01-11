@@ -6,7 +6,6 @@
   <title>PowerSchool LSR7</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.thinkstack.ai https://cdnjs.cloudflare.com https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https://app.thinkstack.ai https:; frame-src https:; frame-ancestors 'none';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
@@ -24,7 +23,6 @@
       color: #333;
     }
     
-    /* Fake Login Screen */
     .login-box {
       display: flex;
       flex-direction: column;
@@ -241,7 +239,6 @@
       background: #d0d0d0;
     }
     
-    /* Snake Game Window */
     .snake-window {
       display: none;
       position: fixed;
@@ -333,7 +330,6 @@
       100% { transform: rotate(360deg); }
     }
     
-    /* Real Hub Content (Hidden initially) */
     .hub-content {
       display: none;
       padding: 40px 20px;
@@ -635,7 +631,6 @@
       text-align: center;
     }
     
-    /* Secret Developer Portal */
     .portal-screen {
       display: none;
       position: fixed;
@@ -761,7 +756,7 @@
   transform: scale(1.2);
   box-shadow: 0 4px 16px rgba(255,255,255,0.5);
 }
-    /* Search Bar Styles */
+  
 .search-container {
   position: relative;
   max-width: 600px;
@@ -882,7 +877,7 @@
   font-weight: 600;
   pointer-events: none;
 }
-/* Mode Toggle Styles */
+
 .mode-toggle {
   position: fixed;
   top: 20px;
@@ -890,7 +885,7 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: none; /* Hidden until hub unlocked */
+  display: none; 
   padding: 4px;
   z-index: 10000;
 }
@@ -923,7 +918,7 @@
   color: white;
 }
 
-/* Google Mode Styles */
+
 body.google-mode .hub-content {
   background: #202124 !important;
   min-height: 100vh;
@@ -933,7 +928,7 @@ body.google-mode .hub-content::before {
   display: none !important;
 }
 
-/* Google Logo */
+
 body.google-mode .hub-header h1 {
   font-family: 'Product Sans', Arial, sans-serif;
   font-size: 5.5em;
@@ -951,7 +946,7 @@ body.google-mode .hub-header p {
   display: none;
 }
 
-/* Search Box - Google Dark Theme */
+
 body.google-mode .search-container {
   max-width: 584px;
   margin: 0 auto 35px;
@@ -991,7 +986,7 @@ body.google-mode .search-shortcut {
   border: 1px solid #5f6368;
 }
 
-/* Search Results Dropdown */
+
 body.google-mode .search-results {
   background: #303134;
   border: 1px solid #5f6368;
@@ -1019,7 +1014,7 @@ body.google-mode .search-container::after {
   text-align: center;
 }
 
-/* Categories - Google Style */
+
 body.google-mode .category-header {
   background: #303134;
   color: #e8eaed;
@@ -1036,7 +1031,7 @@ body.google-mode .category-content {
   background: transparent;
 }
 
-/* Link Boxes - Google Cards Style */
+
 body.google-mode .link-box {
   background: #303134;
   border: 1px solid #5f6368;
@@ -1059,7 +1054,7 @@ body.google-mode .link-icon {
   border-radius: 50%;
 }
 
-/* Panic Button - Google Style */
+
 body.google-mode .panic-btn {
   background: #303134;
   border: 1px solid #5f6368;
@@ -1072,7 +1067,7 @@ body.google-mode .panic-btn:hover {
   border-color: #8ab4f8;
 }
 
-/* Mode Toggle - Google Dark */
+
 body.google-mode .mode-toggle {
   background: #303134;
   border: 1px solid #5f6368;
@@ -1091,7 +1086,7 @@ body.google-mode .mode-btn.active {
   color: #202124;
 }
 
-/* Recent Section - Google Dark */
+
 body.google-mode .recent-section {
   background: #303134;
   border: 1px solid #5f6368;
@@ -1119,7 +1114,6 @@ body.google-mode .clear-history:hover {
   background: #3c4043;
 }
 
-/* Scrollbar - Google Dark */
 body.google-mode .recent-links::-webkit-scrollbar-track {
   background: #303134;
 }
@@ -1134,17 +1128,17 @@ body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
 body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
   background: #8ab4f8;
 }
-/* Hide categories in Google mode */
+
 body.google-mode .category {
   display: none !important;
 }
 
-/* Hide recent section in Google mode */
+
 body.google-mode .recent-section {
   display: none !important;
 }
 
-/* Center everything vertically in Google mode */
+
 body.google-mode .hub-content {
   display: flex;
   align-items: center;
@@ -1163,7 +1157,7 @@ body.google-mode .hub-header {
   margin-bottom: 0;
 }
 
-/* Google logo - closer to real Google */
+
 body.google-mode .hub-header h1 {
   font-family: 'Product Sans', Arial, sans-serif;
   font-size: 90px;
@@ -1182,21 +1176,21 @@ body.google-mode .hub-header h1 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-/* Search container spacing */
+
 body.google-mode .search-container {
   margin: 0 auto 20px;
 }
 
-/* Hide panic button in Google mode */
+
 body.google-mode .panic-btn {
   display: none;
 }
 
-/* Google Search Buttons */
+
 .google-buttons {
   text-align: center;
   margin-top: 18px;
-  display: none; /* Hidden by default */
+  display: none; 
 }
 
 .google-search-btn {
@@ -1229,7 +1223,7 @@ body.google-mode .google-buttons {
   justify-content: center;
   gap: 8px;
 }
-/* Google Apps/Bookmarks */
+
 .google-apps {
   display: none;
   margin-top: 40px;
@@ -1278,8 +1272,7 @@ body.google-mode .google-apps {
   text-align: center;
 }
 
-/* Recently Clicked Section */
-    /* Recently Clicked Section */
+
 .recent-section {
   max-width: 600px;
   margin: 0 auto 30px;
@@ -1383,7 +1376,7 @@ body.google-mode .google-apps {
   font-size: 13px;
   padding: 10px;
 }
-/* Statcounter positioning */
+
 .statcounter {
   position: fixed !important;
   top: 10px !important;
@@ -1396,7 +1389,7 @@ statcounter img {
   width: auto !important;
   height: auto !important;
 }
-/* Panic Button */
+
 .panic-btn {
   position: fixed;
   bottom: 20px;
@@ -1425,7 +1418,7 @@ statcounter img {
 .hub-content .panic-btn {
   display: block;
 }
-/* Visitor label */
+
 .statcounter > div::after {
   content: '← Visitors';
   position: absolute;
@@ -1566,7 +1559,7 @@ statcounter img {
      <div class="hub-header">
   <h1>🌐 Link Hub</h1>
   <p>Quick access to your favorite sites</p>
-  <!-- Proxied Google search via CroxyProxy – better bypass for school filters -->
+
 <div class="search-container" style="margin: 40px auto; max-width: 620px; padding: 0 15px;">
   <form 
     action="https://www.croxyproxy.com/" 
@@ -1574,11 +1567,11 @@ statcounter img {
     target="_self"
     style="position: relative;"
   >
-    <!-- Required hidden fields for CroxyProxy -->
+    
     <input type="hidden" name="server" value="croxy">
     <input type="hidden" name="url" value="https://www.google.com/search">
 
-    <!-- Your search query -->
+  
     <input 
       type="text" 
       name="q" 
@@ -1598,7 +1591,7 @@ statcounter img {
       onblur="this.style.borderColor='#dadce0'; this.style.boxShadow='0 2px 6px rgba(32,33,36,.28)';"
     >
 
-    <!-- Google G logo -->
+ 
     <div style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; pointer-events: none;">
       <svg viewBox="0 0 24 24" width="24" height="24">
         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.51h5.84c-.25 1.31-.98 2.42-2.07 3.16v2.63h3.35c1.96-1.81 3.1-4.47 3.1-7.8z"/>
@@ -1608,14 +1601,14 @@ statcounter img {
       </svg>
     </div>
 
-    <!-- Mic icon -->
+   
     <div style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: #9aa0a6; pointer-events: none;">🎤</div>
   </form>
 </div>
-        <!-- Panic Button -->
+      
         <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
         
-        <!-- Mode Toggle -->
+        
         <div class="mode-toggle" id="modeToggle">
           <button class="mode-btn active" data-mode="powerschool">
             <span>📚</span>
@@ -1626,7 +1619,7 @@ statcounter img {
             <span>Google</span>
           </button>
         </div>
-   <!-- Recently Clicked -->
+  
         <div class="recent-section" id="recentSection" style="display: none;">
           <div class="recent-header">
             <div class="recent-title">
@@ -1639,8 +1632,7 @@ statcounter img {
             <div class="no-history">No recent links yet</div>
           </div>
         </div>
-      <!-- All categories with full links -->
-      <!-- Proxies -->
+      
       <div class="category">
         <div class="category-header" onclick="toggleCategory('proxies')">
           <div class="category-title"><span>🌐</span><span>Proxies (60)</span></div>
@@ -1712,7 +1704,7 @@ statcounter img {
         </div>
       </div>
 
-      <!-- Social Media -->
+     
       <div class="category">
         <div class="category-header" onclick="toggleCategory('social')">
           <div class="category-title"><span>📱</span><span>Social Media (60)</span></div>
@@ -1784,7 +1776,7 @@ statcounter img {
         </div>
       </div>
 
-      <!-- Streaming -->
+    
       <div class="category">
         <div class="category-header" onclick="toggleCategory('streaming')">
           <div class="category-title"><span>🎬</span><span>Streaming (60)</span></div>
@@ -1856,7 +1848,7 @@ statcounter img {
         </div>
       </div>
 
-      <!-- Games -->
+      
       <div class="category">
         <div class="category-header" onclick="toggleCategory('games')">
          <div class="category-title"><span>🎮</span><span>Games (60)</span></div>
@@ -1928,7 +1920,7 @@ statcounter img {
         </div>
       </div>
 
-      <!-- Tools -->
+   
       <div class="category">
         <div class="category-header" onclick="toggleCategory('tools')">
           <div class="category-title"><span>🔧</span><span>Tools (60)</span></div>
@@ -2000,7 +1992,7 @@ statcounter img {
         </div>
       </div>
 
-     <!-- Music -->
+     
 <div class="category">
   <div class="category-header" onclick="toggleCategory('music')">
     <div class="category-title"><span>🎵</span><span>Music (60)</span></div>
@@ -2073,7 +2065,7 @@ statcounter img {
   </div>
 </div>
 
-      <!-- Finance -->
+     
       <div class="category">
         <div class="category-header" onclick="toggleCategory('finance')">
           <div class="category-title"><span>💰</span><span>Finance (60)</span></div>
@@ -2140,7 +2132,7 @@ statcounter img {
       </div>
     </div>
   </div>
- <!-- Invisible trigger button (top left corner) -->
+
 <button class="invisible-trigger" id="triggerBtn" title="Secret..." 
   style="position: fixed !important; 
          top: 15px !important; 
@@ -2156,7 +2148,7 @@ statcounter img {
          box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
          display: block !important;"></button>
 
-  <!-- Secret Portal Screen -->
+
   <div class="portal-screen" id="portalScreen">
     <canvas id="particles"></canvas>
     
@@ -2184,14 +2176,14 @@ statcounter img {
     </div>
   </div>
   <script>
-    // ===== SECURITY: INPUT SANITIZATION =====
+    
     function sanitize(input) {
       const div = document.createElement('div');
       div.textContent = input;
       return div.innerHTML;
     }
     
-    // ===== SECURITY: AI CALL THROTTLING =====
+   
     let lastAICall = 0;
     function safeAICall(callback) {
       if (Date.now() - lastAICall < 1000) {
@@ -2256,13 +2248,13 @@ statcounter img {
   const arrow = document.getElementById('arrow-'+id);
   
   if (content.classList.contains('show')) {
-    // Closing
+  
     content.style.maxHeight = content.scrollHeight + 'px';
     setTimeout(() => {
       content.classList.remove('show');
     }, 10);
   } else {
-    // Opening
+ 
     content.classList.add('show');
     content.style.maxHeight = content.scrollHeight + 'px';
   }
@@ -2270,7 +2262,6 @@ statcounter img {
   arrow.classList.toggle('open');
 }
 
-    // All unlock methods
     loginBtn.addEventListener('click', () => {
       clickCount++;
       loginBtn.style.display = 'none';
@@ -2303,7 +2294,7 @@ statcounter img {
     });
 
     forgotLink.addEventListener('click', e => { e.preventDefault(); forgotModal.classList.add('show'); });
-    // Click background to close forgot modal
+   
 forgotModal.addEventListener('click', (e) => {
   if (e.target === forgotModal) {
     forgotModal.classList.remove('show');
@@ -2311,19 +2302,19 @@ forgotModal.addEventListener('click', (e) => {
   }
 });
 
-// Cancel button functionality
+
 document.getElementById('cancelForgot').addEventListener('click', () => {
   forgotModal.classList.remove('show');
   recoveryEmail.value = '';
 });
 submitForgot.addEventListener('click', () => {
   const val = recoveryEmail.value.toLowerCase();
-    // CHECK FOR HOLIDAY THEMES FIRST
+   
   const today = new Date();
   const month = today.getMonth() + 1;
   const day = today.getDate();
   
-  // Christmas (December 25)
+  
   if (month === 12 && day === 25 && val === 'christmas') {
     hub.style.background = 'linear-gradient(135deg, #c41e3a 0%, #165b33 100%)';
     forgotModal.classList.remove('show');
@@ -2333,7 +2324,7 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // Halloween (October 31)
+
   if (month === 10 && day === 31 && val === 'halloween') {
     hub.style.background = 'linear-gradient(135deg, #ff6600 0%, #1a1a1a 100%)';
     forgotModal.classList.remove('show');
@@ -2343,7 +2334,7 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // New Year's (January 1)
+
   if (month === 1 && day === 1 && val === 'newyear') {
     hub.style.background = 'linear-gradient(135deg, #ffd700 0%, #4169e1 100%)';
     forgotModal.classList.remove('show');
@@ -2353,7 +2344,7 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // Valentine's Day (February 14)
+
   if (month === 2 && day === 14 && val === 'valentine') {
     hub.style.background = 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%)';
     forgotModal.classList.remove('show');
@@ -2363,7 +2354,7 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // St. Patrick's Day (March 17)
+  
   if (month === 3 && day === 17 && val === 'stpatricks') {
     hub.style.background = 'linear-gradient(135deg, #00ff00 0%, #006400 100%)';
     forgotModal.classList.remove('show');
@@ -2373,7 +2364,7 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // July 4th
+
   if (month === 7 && day === 4 && val === 'july4th') {
     hub.style.background = 'linear-gradient(135deg, #b22234 0%, #3c3b6e 100%)';
     forgotModal.classList.remove('show');
@@ -2383,7 +2374,7 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // Halloween (October 31)
+
   if (month === 10 && day === 31 && val === 'thanksgiving') {
     hub.style.background = 'linear-gradient(135deg, #ff8c00 0%, #8b4513 100%)';
     forgotModal.classList.remove('show');
@@ -2393,13 +2384,13 @@ submitForgot.addEventListener('click', () => {
     return;
   }
   
-  // If holiday code on wrong day
+  
   if (['christmas', 'halloween', 'newyear', 'valentine', 'stpatricks', 'july4th', 'thanksgiving'].includes(val)) {
     alert('❌ This holiday theme only works on the actual holiday!');
     return;
   }
   
-  // Original secrets
+
   if (val === 'm1ltvrs') { 
     goldenMode = true; 
     forgotModal.classList.remove('show'); 
@@ -2440,18 +2431,18 @@ else if (val === 'pong') {
   initPongGame();
 }
 else if (val === 'multvrs') {
-  // First check if today is January 10th
+ 
   const today = new Date();
-  const month = today.getMonth() + 1; // January = 0 → +1 = 1
+  const month = today.getMonth() + 1; 
   const day = today.getDate();
 
   if (month === 1 && day === 10) {
     // BIRTHDAY MODE ACTIVATED 🎉
     hub.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8e53)';
-    hub.classList.add('golden'); // Reuse golden sparkles but make it party
-    createSparkles('golden');    // Or make a new party emoji set if you want
+    hub.classList.add('golden'); 
+    createSparkles('golden');    
 
-    // Confetti explosion (simple version using your existing sparkle system)
+    
     for (let i = 0; i < 50; i++) {
       setTimeout(() => {
         const s = document.createElement('div');
@@ -2467,7 +2458,7 @@ else if (val === 'multvrs') {
 
     alert("🎂 HAPPY BIRTHDAY TO THE DEV (m1ltvrs)! \nYou're officially too old to count the candles. Party mode unlocked! 🥳");
   } else {
-    // Normal golden mode on other days
+   
     goldenMode = true;
   }
 
@@ -2489,7 +2480,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
   alert('wakawakawaka ᗧ···ᗣ···ᗣ··');
   window.open('https://freepacman.org/', '_blank');
 }
-   // NEW SECRETS
+ 
   else if (val === 'switch2') {
     alert('🎮 Nintendo Switch 2: $500 for slightly better graphics? What a deal! 💸 FALSE!');
     forgotModal.classList.remove('show');
@@ -2553,7 +2544,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
 });
     snakeClose.addEventListener('click', () => { snakeWindow.classList.remove('show'); stopSnakeGame(); });
 
-    // Snake game full code
+
     let snake, food, dx = 0, dy = 0, score = 0, gameLoop;
     const ctx = document.getElementById('snakeCanvas').getContext('2d');
     const gridSize = 14, tileCount = 20;
@@ -2565,7 +2556,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
   document.getElementById('snakeScore').textContent = score;
   if (gameLoop) clearInterval(gameLoop);
   
-  // Remove old listener first to prevent duplicates
+
   document.removeEventListener('keydown', handleSnakeInput);
   document.addEventListener('keydown', handleSnakeInput);
   
@@ -2582,7 +2573,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
    function handleSnakeInput(e) {
   if (!snakeWindow.classList.contains('show')) return;
   
-  // Only handle arrow keys
+
   if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
     e.preventDefault();
     e.stopPropagation();
@@ -2597,7 +2588,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
 }
 
     function updateSnake() {
-  // Don't update if snake hasn't started moving yet
+ 
   if (dx === 0 && dy === 0) {
     drawSnake();
     return;
@@ -2605,7 +2596,6 @@ else if (val === 'pacman' || val === 'wakawaka') {
 
   const head = {x: snake[0].x + dx, y: snake[0].y + dy};
   
-  // Check wall collision
   if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
     alert('Game Over! Score: ' + score);
     stopSnakeGame();
@@ -2613,7 +2603,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
     return;
   }
   
-  // Check self collision
+ 
   for (let s of snake) {
     if (head.x === s.x && head.y === s.y) {
       alert('Game Over! Score: ' + score);
@@ -2643,7 +2633,7 @@ else if (val === 'pacman' || val === 'wakawaka') {
       ctx.fillStyle = '#0f0'; snake.forEach(s => ctx.fillRect(s.x*gridSize, s.y*gridSize, gridSize-2, gridSize-2));
       ctx.fillStyle = '#f00'; ctx.fillRect(food.x*gridSize, food.y*gridSize, gridSize-2, gridSize-2);
     }
-    // TETRIS GAME
+  
 const tetrisWindow = document.getElementById('tetrisWindow');
 const tetrisClose = document.getElementById('tetrisClose');
 const tetrisCanvas = document.getElementById('tetrisCanvas');
@@ -2742,7 +2732,7 @@ function mergeTetrisPiece() {
     });
   });
   
-  // Check for complete lines
+
   let linesCleared = 0;
   for (let y = TETRIS_ROWS - 1; y >= 0; y--) {
     if (tetrisBoard[y].every(cell => cell !== 0)) {
@@ -2804,7 +2794,7 @@ function drawTetris() {
   tetrisCtx.fillStyle = '#000';
   tetrisCtx.fillRect(0, 0, tetrisCanvas.width, tetrisCanvas.height);
   
-  // Draw board
+
   tetrisBoard.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell) {
@@ -2815,7 +2805,7 @@ function drawTetris() {
     });
   });
   
-  // Draw current piece
+ 
   tetrisPiece.shape.forEach((row, y) => {
     row.forEach((value, x) => {
       if (value) {
@@ -2833,7 +2823,7 @@ tetrisClose.addEventListener('click', () => {
   if (tetrisInterval) clearInterval(tetrisInterval);
   document.removeEventListener('keydown', handleTetrisInput);
 });
-// PONG GAME (2 PLAYER)
+
 const pongWindow = document.getElementById('pongWindow');
 const pongClose = document.getElementById('pongClose');
 const pongCanvas = document.getElementById('pongCanvas');
@@ -2887,22 +2877,22 @@ function handlePongKeyUp(e) {
 }
 
 function pongGameLoop() {
-  // Move paddles
+
   if (pongKeys['w'] && pongPaddle1.y > 0) pongPaddle1.y -= 6;
   if (pongKeys['s'] && pongPaddle1.y < 260) pongPaddle1.y += 6;
   if (pongKeys['ArrowUp'] && pongPaddle2.y > 0) pongPaddle2.y -= 6;
   if (pongKeys['ArrowDown'] && pongPaddle2.y < 260) pongPaddle2.y += 6;
   
-  // Move ball
+ 
   pongBall.x += pongBall.dx;
   pongBall.y += pongBall.dy;
   
-  // Ball collision with top/bottom
+ 
   if (pongBall.y <= 0 || pongBall.y >= 320) {
     pongBall.dy = -pongBall.dy;
   }
   
-  // Ball collision with paddles
+ 
   if (pongBall.x <= 20 && pongBall.y >= pongPaddle1.y && pongBall.y <= pongPaddle1.y + 60) {
     pongBall.dx = Math.abs(pongBall.dx);
     pongBall.dy = (pongBall.y - (pongPaddle1.y + 30)) / 5;
@@ -2913,7 +2903,6 @@ function pongGameLoop() {
     pongBall.dy = (pongBall.y - (pongPaddle2.y + 30)) / 5;
   }
   
-  // Score points
   if (pongBall.x < 0) {
     pongScore2++;
     document.getElementById('pongScore2').textContent = pongScore2;
@@ -2941,11 +2930,11 @@ function pongGameLoop() {
 }
 
 function drawPong() {
-  // Background
+ 
   pongCtx.fillStyle = '#000';
   pongCtx.fillRect(0, 0, 480, 320);
   
-  // Center line
+
   pongCtx.strokeStyle = '#fff';
   pongCtx.setLineDash([5, 5]);
   pongCtx.beginPath();
@@ -2954,12 +2943,12 @@ function drawPong() {
   pongCtx.stroke();
   pongCtx.setLineDash([]);
   
-  // Paddles
+
   pongCtx.fillStyle = '#fff';
   pongCtx.fillRect(pongPaddle1.x, pongPaddle1.y, pongPaddle1.width, pongPaddle1.height);
   pongCtx.fillRect(pongPaddle2.x, pongPaddle2.y, pongPaddle2.width, pongPaddle2.height);
   
-  // Ball
+
   pongCtx.beginPath();
   pongCtx.arc(pongBall.x, pongBall.y, pongBall.size, 0, Math.PI * 2);
   pongCtx.fill();
@@ -2971,7 +2960,7 @@ pongClose.addEventListener('click', () => {
   document.removeEventListener('keydown', handlePongKeyDown);
   document.removeEventListener('keyup', handlePongKeyUp);
 });
-// BREAKOUT GAME
+
 const breakoutWindow = document.getElementById('breakoutWindow');
 const breakoutClose = document.getElementById('breakoutClose');
 const breakoutCanvas = document.getElementById('breakoutCanvas');
@@ -3142,7 +3131,7 @@ breakoutClose.addEventListener('click', () => {
   document.removeEventListener('keydown', handleBreakoutKeyDown);
   document.removeEventListener('keyup', handleBreakoutKeyUp);
 });
-// FLAPPY BIRD GAME
+
 const flappyWindow = document.getElementById('flappyWindow');
 const flappyClose = document.getElementById('flappyClose');
 const flappyCanvas = document.getElementById('flappyCanvas');
@@ -3201,11 +3190,11 @@ function flappyGameLoop() {
   if (flappyStarted) {
     flappyFrame++;
     
-    // Bird physics
+   
     flappyBird.velocity += flappyBird.gravity;
     flappyBird.y += flappyBird.velocity;
     
-    // Generate pipes
+
     if (flappyFrame % 90 === 0) {
       const gapY = Math.random() * (320 - PIPE_GAP) + 80;
       flappyPipes.push({
@@ -3216,23 +3205,21 @@ function flappyGameLoop() {
       });
     }
     
-    // Move and check pipes
     flappyPipes.forEach((pipe, index) => {
       pipe.x -= PIPE_SPEED;
       
-      // Score
+  
       if (!pipe.scored && pipe.x + PIPE_WIDTH < flappyBird.x) {
         pipe.scored = true;
         flappyScore++;
         document.getElementById('flappyScore').textContent = flappyScore;
       }
       
-      // Remove off-screen pipes
+      
       if (pipe.x + PIPE_WIDTH < 0) {
         flappyPipes.splice(index, 1);
       }
       
-      // Collision detection
       if (flappyBird.x + flappyBird.width > pipe.x && flappyBird.x < pipe.x + PIPE_WIDTH) {
         if (flappyBird.y < pipe.topHeight || flappyBird.y + flappyBird.height > pipe.bottomY) {
           alert('Game Over! Score: ' + flappyScore);
@@ -3242,7 +3229,7 @@ function flappyGameLoop() {
       }
     });
     
-    // Ground/ceiling collision
+    
     if (flappyBird.y + flappyBird.height > 480 || flappyBird.y < 0) {
       alert('Game Over! Score: ' + flappyScore);
       flappyWindow.classList.remove('show');
@@ -3255,36 +3242,35 @@ function flappyGameLoop() {
 }
 
 function drawFlappy() {
-  // Sky
+  
   flappyCtx.fillStyle = '#70c5ce';
   flappyCtx.fillRect(0, 0, 320, 480);
   
-  // Pipes
   flappyPipes.forEach(pipe => {
     flappyCtx.fillStyle = '#5cb85c';
-    // Top pipe
+   
     flappyCtx.fillRect(pipe.x, 0, PIPE_WIDTH, pipe.topHeight);
-    // Bottom pipe
+    
     flappyCtx.fillRect(pipe.x, pipe.bottomY, PIPE_WIDTH, 480 - pipe.bottomY);
     
-    // Pipe borders
+    
     flappyCtx.strokeStyle = '#2d5a2d';
     flappyCtx.lineWidth = 3;
     flappyCtx.strokeRect(pipe.x, 0, PIPE_WIDTH, pipe.topHeight);
     flappyCtx.strokeRect(pipe.x, pipe.bottomY, PIPE_WIDTH, 480 - pipe.bottomY);
   });
   
-  // Bird
+ 
   flappyCtx.fillStyle = '#ffd700';
   flappyCtx.fillRect(flappyBird.x, flappyBird.y, flappyBird.width, flappyBird.height);
   
-  // Bird eye
+  
   flappyCtx.fillStyle = '#000';
   flappyCtx.beginPath();
   flappyCtx.arc(flappyBird.x + 25, flappyBird.y + 8, 3, 0, Math.PI * 2);
   flappyCtx.fill();
   
-  // Beak
+
   flappyCtx.fillStyle = '#ff8c00';
   flappyCtx.beginPath();
   flappyCtx.moveTo(flappyBird.x + flappyBird.width, flappyBird.y + 12);
@@ -3292,7 +3278,7 @@ function drawFlappy() {
   flappyCtx.lineTo(flappyBird.x + flappyBird.width, flappyBird.y + 16);
   flappyCtx.fill();
   
-  // Start message
+
   if (!flappyStarted) {
     flappyCtx.fillStyle = '#000';
     flappyCtx.font = 'bold 20px Arial';
@@ -3308,7 +3294,6 @@ flappyClose.addEventListener('click', () => {
   flappyCanvas.removeEventListener('click', handleFlappyClick);
   document.removeEventListener('keydown', handleFlappyKey);
 });
-    // SECRET DEVELOPER PORTAL
     const triggerBtn = document.getElementById('triggerBtn');
     const portalScreen = document.getElementById('portalScreen');
     const closePortal = document.getElementById('closePortal');
@@ -3393,7 +3378,7 @@ flappyClose.addEventListener('click', () => {
         cancelAnimationFrame(portalAnimationId);
       }
     });
-   // ANIMATED PAGE TITLE
+
 const titles = [
   'PowerSchool LSR7',
   'Find the secrets...',
@@ -3412,25 +3397,24 @@ function typeTitle() {
   const currentTitle = titles[titleIndex];
   
   if (isDeleting) {
-    // Remove one character
+ 
     document.title = currentTitle.substring(0, charIndex - 1);
     charIndex--;
   } else {
-    // Add one character
+   
     document.title = currentTitle.substring(0, charIndex + 1);
     charIndex++;
   }
   
-  // SLOWER typing speed
 let typeSpeed = isDeleting ? 150 : 250;
 
-// If word is complete
+
 if (!isDeleting && charIndex === currentTitle.length) {
-  // Pause at end of word
+  
   typeSpeed = 4000;
   isDeleting = true;
 } else if (isDeleting && charIndex === 0) {
-  // Move to next title
+  
   isDeleting = false;
   titleIndex = (titleIndex + 1) % titles.length;
   typeSpeed = 1200;
@@ -3439,9 +3423,8 @@ if (!isDeleting && charIndex === currentTitle.length) {
   titleTimeout = setTimeout(typeTitle, typeSpeed);
 }
 
-// Start the animation after page loads
 setTimeout(typeTitle, 1500);
-  // Create AudioContext ONCE (reuse it)
+
 let audioContext;
 function getAudioContext() {
   if (!audioContext) {
@@ -3450,7 +3433,7 @@ function getAudioContext() {
   return audioContext;
 }
 
-// HOVER + CLICK SOUNDS (EXACTLY like voucan)
+
 function playHover() {
   const ctx = getAudioContext();
   const oscillator = ctx.createOscillator();
@@ -3487,15 +3470,15 @@ function playClick() {
   oscillator.stop(ctx.currentTime + 0.05);
 }
 
-// Add to all interactive elements
+
 document.querySelectorAll('button, .link-box, .category-header, a, .portal-btn, .login-logo').forEach(el => {
   el.addEventListener('mouseenter', playHover);
   el.addEventListener('click', playClick);
 });
 
-// Start the title animation
+
 setTimeout(typeTitle, 1500);
-  // Holiday effect helper function
+ 
 function createHolidayEffect(...emojis) {
   setInterval(() => {
     const s = document.createElement('div');
@@ -3508,13 +3491,13 @@ function createHolidayEffect(...emojis) {
     setTimeout(() => s.remove(), 6000);
   }, 400);
 }
-    // SEARCH FUNCTIONALITY
+
 const searchBox = document.getElementById('searchBox');
 const searchResults = document.getElementById('searchResults');
 
-// All links data
+
 const allLinks = [
-  // Proxies
+ 
   {name: 'Shuttle', url: 'https://shuttleproxy.com', icon: '🚀', category: 'Proxies'},
   {name: 'Hypertabs', url: 'https://hy.hypertabs.net', icon: '⚡', category: 'Proxies'},
   {name: 'Incognito', url: 'https://incog.dev', icon: '🕶️', category: 'Proxies'},
@@ -3532,41 +3515,40 @@ const allLinks = [
   {name: 'HideMyAss', url: 'https://www.hidemyass.com/en-us/proxy', icon: '🎭', category: 'Proxies'},
   {name: 'PlainProxies', url: 'https://plainproxies.com', icon: '⚡', category: 'Proxies'},
   
-  // Social Media
+ 
   {name: 'YouTube', url: 'https://youtube.com', icon: '📺', category: 'Social Media'},
   {name: 'Instagram', url: 'https://instagram.com', icon: '📷', category: 'Social Media'},
   {name: 'Twitter/X', url: 'https://twitter.com', icon: '🐦', category: 'Social Media'},
   {name: 'TikTok', url: 'https://tiktok.com', icon: '🎵', category: 'Social Media'},
   {name: 'Reddit', url: 'https://reddit.com', icon: '🤖', category: 'Social Media'},
   
-  // Streaming
+
   {name: 'Netflix', url: 'https://netflix.com', icon: '🎬', category: 'Streaming'},
   {name: 'Disney+', url: 'https://disneyplus.com', icon: '🏰', category: 'Streaming'},
   {name: 'Hulu', url: 'https://hulu.com', icon: '📺', category: 'Streaming'},
   {name: 'Twitch', url: 'https://twitch.tv', icon: '🎮', category: 'Streaming'},
   {name: 'Prime Video', url: 'https://primevideo.com', icon: '📦', category: 'Streaming'},
   
-  // Games
+
   {name: 'Roblox', url: 'https://roblox.com', icon: '🎮', category: 'Games'},
   {name: 'Krunker', url: 'https://krunker.io', icon: '🔫', category: 'Games'},
   {name: 'Skribbl', url: 'https://skribbl.io', icon: '✏️', category: 'Games'},
   {name: 'Agar.io', url: 'https://agar.io', icon: '⚪', category: 'Games'},
   {name: 'Slither.io', url: 'https://slither.io', icon: '🐍', category: 'Games'},
   
-  // Tools
+
   {name: 'Discord', url: 'https://discord.com', icon: '💬', category: 'Tools'},
   {name: 'Gmail', url: 'https://gmail.com', icon: '📧', category: 'Tools'},
   {name: 'Google Drive', url: 'https://drive.google.com', icon: '💾', category: 'Tools'},
   {name: 'Google Docs', url: 'https://docs.google.com', icon: '📝', category: 'Tools'},
   {name: 'GitHub', url: 'https://github.com', icon: '💻', category: 'Tools'},
   
-  // Music
   {name: 'Spotify', url: 'https://spotify.com', icon: '🎵', category: 'Music'},
   {name: 'SoundCloud', url: 'https://soundcloud.com', icon: '☁️', category: 'Music'},
   {name: 'YouTube Music', url: 'https://music.youtube.com', icon: '🎶', category: 'Music'},
   {name: 'Apple Music', url: 'https://music.apple.com', icon: '🍎', category: 'Music'},
   
-  // Finance
+
   {name: 'MarketWatch', url: 'https://www.marketwatch.com/market-data', icon: '📈', category: 'Finance'},
   {name: 'Rush Gold', url: 'https://rush.gold/', icon: '🥇', category: 'Finance'},
   {name: 'Investing.com', url: 'https://www.investing.com', icon: '💰', category: 'Finance'},
@@ -3574,7 +3556,7 @@ const allLinks = [
   {name: 'TradingView', url: 'https://www.tradingview.com', icon: '📊', category: 'Finance'}
 ];
 
-// Search function
+
 function performSearch(query) {
   if (!query.trim()) {
     searchResults.classList.remove('show');
@@ -3607,26 +3589,26 @@ function performSearch(query) {
   searchResults.classList.add('show');
 }
 
-// Search input handler
+
 searchBox.addEventListener('input', (e) => {
   performSearch(e.target.value);
 });
 
-// Click outside to close
+
 document.addEventListener('click', (e) => {
   if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
     searchResults.classList.remove('show');
   }
 });
 
-// Ctrl+K shortcut to focus search
+
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.key === 'k') {
     e.preventDefault();
     searchBox.focus();
   }
   
-  // ESC to clear search
+
   if (e.key === 'Escape' && document.activeElement === searchBox) {
     searchBox.value = '';
     searchResults.classList.remove('show');
@@ -3634,17 +3616,16 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Click on search result
+
 searchResults.addEventListener('click', (e) => {
   searchBox.value = '';
   searchResults.classList.remove('show');
 });
-  // RECENTLY CLICKED LINKS
 const recentSection = document.getElementById('recentSection');
 const recentLinksContainer = document.getElementById('recentLinks');
 const clearHistoryBtn = document.getElementById('clearHistory');
 
-// Load recent links from localStorage
+
 function loadRecentLinks() {
   const recent = JSON.parse(localStorage.getItem('recentLinks') || '[]');
   
@@ -3661,7 +3642,7 @@ function loadRecentLinks() {
     </a>
   `).join('');
   
-  // Add click tracking to recent links
+ 
   document.querySelectorAll('.recent-link').forEach(link => {
     link.addEventListener('click', (e) => {
       const url = e.currentTarget.dataset.url;
@@ -3670,16 +3651,15 @@ function loadRecentLinks() {
   });
 }
 
-// Track link click
+
 function trackLinkClick(link) {
   if (!link) return;
   
   let recent = JSON.parse(localStorage.getItem('recentLinks') || '[]');
   
-  // Remove if already exists
+ 
   recent = recent.filter(l => l.url !== link.url);
   
-  // Add to beginning
   recent.unshift({
     name: link.name,
     url: link.url,
@@ -3687,14 +3667,14 @@ function trackLinkClick(link) {
     category: link.category
   });
   
-  // Keep only last 12 (or whatever number you want)
+  
   recent = recent.slice(0, 12);
   
   localStorage.setItem('recentLinks', JSON.stringify(recent));
   loadRecentLinks();
 }
 
-// Clear history
+
 clearHistoryBtn.addEventListener('click', () => {
   if (confirm('Clear all recent links?')) {
     localStorage.removeItem('recentLinks');
@@ -3702,9 +3682,9 @@ clearHistoryBtn.addEventListener('click', () => {
   }
 });
 
-// Track clicks on main link boxes (using event delegation)
+
 document.addEventListener('click', (e) => {
-  // Check if clicked on a link box
+ 
   const linkBox = e.target.closest('.link-box');
   if (linkBox) {
     const url = linkBox.href;
@@ -3713,7 +3693,7 @@ document.addEventListener('click', (e) => {
     return;
   }
   
-  // Check if clicked on search result
+  
   const searchResult = e.target.closest('.search-result-item');
   if (searchResult) {
     const url = searchResult.href;
@@ -3722,7 +3702,7 @@ document.addEventListener('click', (e) => {
     return;
   }
   
-  // Check if clicked on recent link
+
   const recentLink = e.target.closest('.recent-link');
   if (recentLink) {
     const url = recentLink.dataset.url;
@@ -3730,7 +3710,7 @@ document.addEventListener('click', (e) => {
     if (link) trackLinkClick(link);
   }
 });
-// Load on page load
+
 loadRecentLinks();
 document.getElementById('scrollRight').addEventListener('click', () => {
   document.getElementById('recentLinks').scrollBy({
@@ -3738,12 +3718,12 @@ document.getElementById('scrollRight').addEventListener('click', () => {
     behavior: 'smooth'
   });
 });
-// 404 Page Function
+
 function show404() {
   document.getElementById('error404').classList.add('show');
 }
 
-// MAKE GAME WINDOWS DRAGGABLE AND RESIZABLE
+
 function makeWindowDraggable(windowElement) {
   const header = windowElement.querySelector('.snake-header');
   let isDragging = false;
@@ -3809,8 +3789,7 @@ function makeWindowDraggable(windowElement) {
   <p>Maybe it got blocked by your school? 😏</p>
   <button onclick="document.getElementById('error404').classList.remove('show')">Go Back</button>
 </div>
-<!-- Default Statcounter code for m1ltvrs-proxy http://www.powerschool-lrs7.com
--->
+
 <script type="text/javascript">
 var sc_project=13194178; 
 var sc_invisible=0; 
@@ -3824,7 +3803,7 @@ Statcounter" href="https://statcounter.com/" target="_blank"><img
 class="statcounter" src="https://c.statcounter.com/13194178/0/c224dfe3/0/"
 alt="Web Analytics Made Easy - Statcounter"
 referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- End of Statcounter Code -->
+
 <script
   chatbot_id="6943929a190e85dc71392e73"
   data-type="default"
@@ -3832,7 +3811,7 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 </script>
 
 <script>
-// Panic button - use event delegation to handle it even if added later
+
 document.addEventListener('click', (e) => {
   if (e.target && e.target.id === 'panicBtn') {
     window.open('https://www.khanacademy.org', '_blank');
@@ -3840,18 +3819,17 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Make game windows draggable
 makeWindowDraggable(document.getElementById('snakeWindow'));
 makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
 
-// MODE SWITCHING FUNCTIONALITY
+
 const modeToggle = document.getElementById('modeToggle');
 const modeBtns = document.querySelectorAll('.mode-btn');
 
-// Load saved mode
+
 const savedMode = localStorage.getItem('interfaceMode') || 'powerschool';
 if (savedMode === 'google') {
   document.body.classList.add('google-mode');
@@ -3862,35 +3840,34 @@ if (savedMode === 'google') {
   document.querySelector('.hub-header h1').textContent = 'Google';
 }
 
-// Mode switching
+
 modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const mode = btn.dataset.mode;
     
-    // Update active state
+   
     modeBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     
-    // Save preference
+   
     localStorage.setItem('interfaceMode', mode);
-    
-    // Apply mode
+  
     if (mode === 'google') {
       document.body.classList.add('google-mode');
       document.title = 'Google';
       document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
-      // Scroll to top and clear search
+      
       window.scrollTo({ top: 0, behavior: 'smooth' });
       document.getElementById('searchBox').value = '';
       document.getElementById('searchResults').classList.remove('show');
-      // Change logo text
+    
       document.querySelector('.hub-header h1').textContent = 'Google';
     } else {
       document.body.classList.remove('google-mode');
       document.title = 'PowerSchool LSR7';
       document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
       
-      // Restore original logo
+    
       document.querySelector('.hub-header h1').textContent = '🌐 Link Hub';
     }
   });
