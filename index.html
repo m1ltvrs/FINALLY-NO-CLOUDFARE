@@ -1566,22 +1566,23 @@ statcounter img {
      <div class="hub-header">
   <h1>🌐 Link Hub</h1>
   <p>Quick access to your favorite sites</p>
+  <!-- Proxied Google search via CroxyProxy – better bypass for school filters -->
+<div class="search-container" style="margin: 40px auto; max-width: 620px; padding: 0 15px;">
+  <form 
+    action="https://www.croxyproxy.com/" 
+    method="get" 
+    target="_self"
+    style="position: relative;"
+  >
+    <!-- Required hidden fields for CroxyProxy -->
+    <input type="hidden" name="server" value="croxy">
+    <input type="hidden" name="url" value="https://www.google.com/search">
 
-  <!-- Simple real Google search with igu=1 – opens in SAME tab -->
-  <div class="search-container" style="margin: 40px auto; max-width: 620px; padding: 0 15px;">
-    <form
-      action="https://www.google.com/search"
-      method="get"
-      target="_self"
-      style="position: relative;"
-    >
-      <!-- Hidden igu=1 → cleaner/lighter Google interface -->
-      <input type="hidden" name="igu" value="1">
-    <!-- Search box – looks like modern Google -->
+    <!-- Your search query -->
     <input 
       type="text" 
       name="q" 
-      placeholder="Google Search…" 
+      placeholder="Google Search (proxied)…" 
       autocomplete="off"
       style="
         width: 100%;
@@ -1597,7 +1598,7 @@ statcounter img {
       onblur="this.style.borderColor='#dadce0'; this.style.boxShadow='0 2px 6px rgba(32,33,36,.28)';"
     >
 
-    <!-- Google G logo on left (optional but nice) -->
+    <!-- Google G logo -->
     <div style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; pointer-events: none;">
       <svg viewBox="0 0 24 24" width="24" height="24">
         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.51h5.84c-.25 1.31-.98 2.42-2.07 3.16v2.63h3.35c1.96-1.81 3.1-4.47 3.1-7.8z"/>
@@ -1607,7 +1608,7 @@ statcounter img {
       </svg>
     </div>
 
-    <!-- Optional mic icon (placeholder) -->
+    <!-- Mic icon -->
     <div style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: #9aa0a6; pointer-events: none;">🎤</div>
   </form>
 </div>
