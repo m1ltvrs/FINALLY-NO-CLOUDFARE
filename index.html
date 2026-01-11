@@ -1566,6 +1566,48 @@ statcounter img {
       <div class="hub-header">
         <h1>🌐 Link Hub</h1>
         <p>Quick access to your favorite sites</p>
+        <!-- Real working Google Search (Programmable Search Engine) -->
+<div class="search-container" style="margin: 40px auto; max-width: 620px; padding: 0 15px;">
+  <!-- Load the Google Programmable Search script (your cx is already correct!) -->
+  <script async src="https://cse.google.com/cse.js?cx=c7054d8b803e8484f"></script>
+  
+  <!-- This div becomes your search box + results area -->
+  <div class="gcse-search"
+       data-resultsUrl=""              <!-- results appear below the box -->
+       data-newWindow="true"           <!-- links open in new tab -->
+       data-enableAutoComplete="true"  <!-- shows search suggestions -->
+       data-enableImageSearch="false"  <!-- no image tab (cleaner) -->
+       data-enableHistory="true"       <!-- remembers previous searches -->
+  ></div>
+</div>
+
+<!-- Optional: Better visual styling for the Google search box -->
+<style>
+  .gsc-input-box {
+    border-radius: 30px !important;
+    border: 1px solid #dadce0 !important;
+    box-shadow: 0 2px 6px rgba(32,33,36,.28) !important;
+    height: 50px !important;
+    background: white !important;
+  }
+  .gsc-search-button {
+    border-radius: 0 30px 30px 0 !important;
+    background: #1a73e8 !important;
+  }
+  .gsc-search-button-v2 {
+    background: #1a73e8 !important;
+    color: white !important;
+  }
+  /* Dark mode support (when you switch to Google mode) */
+  body.google-mode .gsc-input-box {
+    background: #303134 !important;
+    border-color: #5f6368 !important;
+    color: #e8eaed !important;
+  }
+  body.google-mode .gsc-search-button {
+    background: #8ab4f8 !important;
+  }
+</style>
        <!-- Google Custom Search -->
        <div class="search-container">
        <div class="gcse-search"></div>
