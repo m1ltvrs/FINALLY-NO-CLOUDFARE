@@ -1,347 +1,611 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doge Breaking Through</title>
+
+    <title>stick ur cock in my pussy *whimpers *</title>
+
     <style>
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
         }
 
         body {
+
+            font-family: 'Arial', sans-serif;
+
+            background: #1a1a2e;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: Arial, sans-serif;
+
         }
 
-        #container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            perspective: 1000px;
-        }
+        .consent-screen {
 
-        #doge {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) translateZ(0px) rotateY(0deg);
-            width: 150px;
-            height: 150px;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
-            transform-style: preserve-3d;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
-
-        .crack {
-            position: absolute;
-            background: white;
-            opacity: 0;
-            box-shadow: 0 0 10px white;
-        }
-
-        .crack.active {
-            animation: crackAppear 0.3s forwards;
-        }
-
-        @keyframes crackAppear {
-            to { opacity: 0.8; }
-        }
-
-        .glass-shard {
-            position: absolute;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @keyframes shardFly {
-            to {
-                transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
-                opacity: 0;
-            }
-        }
-
-        .shake {
-            animation: shake 0.1s infinite;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(var(--shake-x, -5px), var(--shake-y, 5px)); }
-            75% { transform: translate(var(--shake-x, 5px), var(--shake-y, -5px)); }
-        }
-
-        #warning {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        #startPrompt {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 28px;
             text-align: center;
+
+            padding: 40px;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 20px;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+            max-width: 600px;
+
             z-index: 1000;
-            text-shadow: 0 0 10px black;
-            background: rgba(0,0,0,0.7);
-            padding: 30px 50px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
+
         }
 
-        #startPrompt:hover {
-            background: rgba(0,0,0,0.9);
-            transform: translate(-50%, -50%) scale(1.05);
+        .consent-screen h1 {
+
+            color: #e74c3c;
+
+            margin-bottom: 20px;
+
+            font-size: 2.5em;
+
         }
+
+        .warning-box {
+
+            background: #fff3cd;
+
+            border: 3px solid #ffc107;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            margin: 20px 0;
+
+            color: #856404;
+
+            text-align: left;
+
+        }
+
+        .warning-box strong {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            font-size: 1.2em;
+
+            color: #e74c3c;
+
+        }
+
+        .warning-box ul {
+
+            margin-left: 20px;
+
+            margin-top: 10px;
+
+        }
+
+        .warning-box li {
+
+            margin: 5px 0;
+
+        }
+
+        button {
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            color: white;
+
+            border: none;
+
+            padding: 15px 40px;
+
+            font-size: 1.2em;
+
+            border-radius: 50px;
+
+            cursor: pointer;
+
+            margin: 10px;
+
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            font-weight: bold;
+
+        }
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+
+        }
+
+        button:active {
+
+            transform: translateY(0);
+
+        }
+
+        .decline-btn {
+
+            background: #6c757d;
+
+        }
+
+        .decline-btn:hover {
+
+            box-shadow: 0 10px 25px rgba(108, 117, 125, 0.4);
+
+        }
+
+        .experience-container {
+
+            display: none;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            position: relative;
+
+            background: #000;
+
+        }
+
+        .experience-container.active {
+
+            display: block;
+
+        }
+
+        .spinning-content {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition: transform 3s linear;
+
+        }
+
+        .carnival-text {
+
+            font-size: 4em;
+
+            color: white;
+
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+
+            font-weight: bold;
+
+            z-index: 10;
+
+        }
+
+        .green-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: radial-gradient(circle, rgba(0, 255, 100, 0.6) 0%, rgba(0, 200, 80, 0) 70%);
+
+            pointer-events: none;
+
+            opacity: 0;
+
+            animation: nauseaPulse 4s ease-in-out infinite;
+
+        }
+
+        @keyframes nauseaPulse {
+
+            0%, 100% { opacity: 0; }
+
+            50% { opacity: 0.7; }
+
+        }
+
+        .stop-button {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 20px;
+
+            background: #e74c3c;
+
+            color: white;
+
+            border: 3px solid white;
+
+            padding: 20px 40px;
+
+            font-size: 1.5em;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            z-index: 9999;
+
+            font-weight: bold;
+
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.6);
+
+            animation: pulse 2s infinite;
+
+        }
+
+        @keyframes pulse {
+
+            0%, 100% { transform: scale(1); }
+
+            50% { transform: scale(1.05); }
+
+        }
+
+        .stop-button:hover {
+
+            background: #c0392b;
+
+            transform: scale(1.1);
+
+        }
+
+        .timer {
+
+            position: fixed;
+
+            top: 20px;
+
+            left: 20px;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            padding: 15px 25px;
+
+            border-radius: 10px;
+
+            font-size: 1.3em;
+
+            font-weight: bold;
+
+            color: #333;
+
+            z-index: 9999;
+
+        }
+
+        .completion-screen {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 40px;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 20px;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+            max-width: 500px;
+
+            z-index: 1000;
+
+        }
+
+        .completion-screen.active {
+
+            display: block;
+
+        }
+
+        .completion-screen h2 {
+
+            color: #27ae60;
+
+            font-size: 2.5em;
+
+            margin-bottom: 20px;
+
+        }
+
+        .completion-screen p {
+
+            font-size: 1.2em;
+
+            margin: 15px 0;
+
+            color: #555;
+
+        }
+
+        .spacebar-hint {
+
+            background: #667eea;
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 10px;
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            font-weight: bold;
+
+        }
+
+        .hidden {
+
+            display: none;
+
+        }
+
     </style>
+
 </head>
+
 <body>
-    <div id="startPrompt">🐕 Click to Start 🐕</div>
-    <div id="container">
-        <div id="warning">⚠️ INCOMING ⚠️</div>
-      <img id="doge" src="https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg" alt="Doge" crossorigin="anonymous">
+
+    <div class="consent-screen" id="consentScreen">
+
+        <h1>My hamsters balls are itchy</h1>
+
+        
+
+        <div class="warning-box">
+
+            <strong>hurry ur dumbass up and click start </strong>
+
+            <p>This experience includes:</p>
+
+            <ul>
+
+                <li>some balls being grown</li>
+
+                <li>confusing the shit out of u</li>
+
+                <li>Effects designed to simulate me eating the baby</li>
+
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>DO PROCEED if you have:</strong></p>
+
+            <ul>
+
+                <li>Motion sickness or vestibular disorders</li>
+
+                <li>Epilepsy or photosensitivity</li>
+
+                <li>Migraines or vertigo</li>
+
+                <li>Any condition affected by flashing/moving visuals</li>
+
+            </ul>
+
+            <p style="margin-top: 15px; font-weight: bold;">
+
+        </div>
+
+        <p style="margin: 20px 0; font-size: 1.1em;">Do you consent to being touched?</p>
+
+        
+
+        <button onclick="startExperience()">YES - Start Experience</button>
+
+        <button class="decline-btn" onclick="declineExperience()">NO - Go Back</button>
+
+    </div>
+
+    <div class="experience-container" id="experienceContainer">
+
+        <div class="timer" id="timer">30:00</div>
+
+        <button class="stop-button" onclick="stopExperience()">STOP</button>
+
+        <div class="green-overlay"></div>
+
+        <div class="spinning-content" id="spinningContent">
+
+            <div class="carnival-text">TORTURE BEGINS </div>
+
+        </div>
+
+    </div>
+
+    <div class="completion-screen" id="completionScreen">
+
+        <h2>U finally grew some balls</h2>
+
+        <p>how did it feel jackass!</p>
+
+        <div class="spacebar-hint">
+
+            Press SPACEBAR to be my lil slut
+
+        </div>
+
     </div>
 
     <script>
-        const container = document.getElementById('container');
-        const doge = document.getElementById('doge');
-        const startPrompt = document.getElementById('startPrompt');
-        let time = 0;
-        let shakeIntensity = 0;
-        let audioContext;
-        let barkGain, glassGain;
-        let animationStarted = false;
 
-        startPrompt.addEventListener('click', () => {
-            startPrompt.style.display = 'none';
-            initAudio();
-        });
+        let rotationDegree = 0;
 
-        function initAudio() {
-            if (audioContext || animationStarted) return;
-            animationStarted = true;
-            
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
-            // Create bark sound (synthesized dog bark)
-            barkGain = audioContext.createGain();
-            barkGain.connect(audioContext.destination);
-            barkGain.gain.value = 0.1;
-            
-            // Create glass break sound
-            glassGain = audioContext.createGain();
-            glassGain.connect(audioContext.destination);
-            glassGain.gain.value = 0;
-            
-            startAnimation();
+        let rotationInterval;
+
+        let timerInterval;
+
+        let timeRemaining = 180; // 3 minutes in seconds
+
+        let experienceActive = false;
+
+        function startExperience() {
+
+            document.getElementById('consentScreen').classList.add('hidden');
+
+            document.getElementById('experienceContainer').classList.add('active');
+
+            experienceActive = true;
+
+            timeRemaining = 300;
+
+            updateTimer();
+
+            startRotation();
+
+            startTimer();
+
         }
 
-        function playBark() {
-            if (!audioContext) return;
-            
-            const osc = audioContext.createOscillator();
-            const gain = audioContext.createGain();
-            
-            osc.connect(gain);
-            gain.connect(barkGain);
-            
-            osc.frequency.setValueAtTime(200, audioContext.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
-            
-            gain.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-            
-            osc.start(audioContext.currentTime);
-            osc.stop(audioContext.currentTime + 0.2);
+        function startRotation() {
+
+            const content = document.getElementById('spinningContent');
+
+            rotationInterval = setInterval(() => {
+
+                rotationDegree += 6; // 6 degrees every 100ms = 100 degrees per second = full rotation every 3 seconds
+
+                content.style.transform = `rotate(${rotationDegree}deg)`;
+
+            }, 100);
+
         }
 
-        function playGlassBreak() {
-            if (!audioContext) return;
-            
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    const osc = audioContext.createOscillator();
-                    const gain = audioContext.createGain();
-                    const filter = audioContext.createBiquadFilter();
-                    
-                    osc.connect(filter);
-                    filter.connect(gain);
-                    gain.connect(glassGain);
-                    
-                    filter.type = 'highpass';
-                    filter.frequency.value = 2000;
-                    
-                    osc.frequency.value = Math.random() * 2000 + 3000;
-                    
-                    gain.gain.setValueAtTime(0.3, audioContext.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                    
-                    osc.start(audioContext.currentTime);
-                    osc.stop(audioContext.currentTime + 0.3);
-                }, i * 30);
-            }
-        }
+        function startTimer() {
 
-        function createCrack(x, y, angle, length) {
-            const crack = document.createElement('div');
-            crack.className = 'crack';
-            crack.style.left = x + 'px';
-            crack.style.top = y + 'px';
-            crack.style.width = length + 'px';
-            crack.style.height = '2px';
-            crack.style.transform = `rotate(${angle}deg)`;
-            crack.style.transformOrigin = '0 0';
-            container.appendChild(crack);
-            
-            setTimeout(() => crack.classList.add('active'), 10);
-        }
+            timerInterval = setInterval(() => {
 
-        function createGlassShards(x, y) {
-            for (let i = 0; i < 20; i++) {
-                const shard = document.createElement('div');
-                shard.className = 'glass-shard';
-                shard.style.left = x + 'px';
-                shard.style.top = y + 'px';
-                shard.style.width = Math.random() * 30 + 10 + 'px';
-                shard.style.height = Math.random() * 30 + 10 + 'px';
-                
-                const tx = (Math.random() - 0.5) * 1000;
-                const ty = (Math.random() - 0.5) * 1000;
-                const rot = Math.random() * 720 - 360;
-                
-                shard.style.setProperty('--tx', tx + 'px');
-                shard.style.setProperty('--ty', ty + 'px');
-                shard.style.setProperty('--rot', rot + 'deg');
-                
-                container.appendChild(shard);
-                
-                setTimeout(() => {
-                    shard.style.opacity = '1';
-                    shard.style.animation = 'shardFly 1s ease-out forwards';
-                }, 10);
-                
-                setTimeout(() => shard.remove(), 1100);
-            }
-        }
+                timeRemaining--;
 
-        function startAnimation() {
-            // Bark every 1 second, getting louder
-            setInterval(() => {
-                if (barkGain) {
-                    barkGain.gain.value = Math.min(0.1 + time * 0.03, 1.0);
+                updateTimer();
+
+                
+
+                if (timeRemaining <= 0) {
+
+                    completeExperience();
+
                 }
-                playBark();
+
             }, 1000);
 
-            // Main animation loop - realistic 3D approach like Times Square billboards
-            const animate = () => {
-                time += 0.016; // ~60fps
-                
-                // Calculate exponential growth for realistic "coming at you" effect
-                const progress = Math.min(time / 16, 1);
-                const exponentialProgress = Math.pow(progress, 2.5); // Accelerates dramatically
-                
-                // Scale grows exponentially (like real objects approaching)
-                const scale = 1 + (exponentialProgress * 15); // 1x to 16x
-                
-                // Rotation speed increases as it gets closer
-                const rotationSpeed = time * 50 * (1 + exponentialProgress * 2);
-                
-                // Z-axis translation for true 3D depth
-                const zDistance = exponentialProgress * 1500;
-                
-                // Apply realistic 3D transformation
-                doge.style.transform = `translate(-50%, -50%) translateZ(${zDistance}px) rotateY(${rotationSpeed}deg) scale(${scale})`;
-                
-                // Dynamic lighting - gets brighter and more intense as it approaches
-                const blurSize = 20 + (exponentialProgress * 120);
-                const glowOpacity = 0.5 + (exponentialProgress * 0.5);
-                const brightness = 1 + (exponentialProgress * 0.5);
-                doge.style.filter = `drop-shadow(0 0 ${blurSize}px rgba(255,255,255,${glowOpacity})) brightness(${brightness})`;
-                
-                // Increase shake intensity exponentially
-                shakeIntensity = Math.min(exponentialProgress * 40, 40);
-                container.style.setProperty('--shake-x', `${shakeIntensity}px`);
-                container.style.setProperty('--shake-y', `${shakeIntensity}px`);
-                
-                if (time > 2) {
-                    container.classList.add('shake');
-                }
-
-                // Create cracks at intervals, increasing frequency dramatically
-                const crackChance = Math.min(exponentialProgress * 0.3, 0.25);
-                if (time > 5 && Math.random() < crackChance) {
-                    const x = Math.random() * window.innerWidth;
-                    const y = Math.random() * window.innerHeight;
-                    const angle = Math.random() * 360;
-                    const length = Math.random() * 300 + 150;
-                    createCrack(x, y, angle, length);
-                }
-
-                // Final breakthrough at 15.5 seconds
-                if (time > 15.5 && time < 15.6) {
-                    if (glassGain) {
-                        glassGain.gain.value = 0.6;
-                    }
-                    playGlassBreak();
-                    
-                    // Create massive crack explosion from center
-                    for (let i = 0; i < 40; i++) {
-                        const x = window.innerWidth / 2;
-                        const y = window.innerHeight / 2;
-                        const angle = (i * 9) + Math.random() * 9;
-                        const length = Math.random() * 600 + 400;
-                        createCrack(x, y, angle, length);
-                    }
-                    
-                    // Glass shards everywhere
-                    for (let i = 0; i < 8; i++) {
-                        setTimeout(() => {
-                            createGlassShards(
-                                window.innerWidth / 2 + (Math.random() - 0.5) * 300,
-                                window.innerHeight / 2 + (Math.random() - 0.5) * 300
-                            );
-                        }, i * 80);
-                    }
-                }
-
-                if (time < 18) {
-                    requestAnimationFrame(animate);
-                }
-            };
-
-            animate();
         }
+
+        function updateTimer() {
+
+            const minutes = Math.floor(timeRemaining / 60);
+
+            const seconds = timeRemaining % 60;
+
+            document.getElementById('timer').textContent = 
+
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        }
+
+        function stopExperience() {
+
+            clearInterval(rotationInterval);
+
+            clearInterval(timerInterval);
+
+            experienceActive = false;
+
+            document.getElementById('experienceContainer').classList.remove('active');
+
+            document.getElementById('consentScreen').classList.remove('hidden');
+
+            rotationDegree = 0;
+
+            document.getElementById('spinningContent').style.transform = 'rotate(0deg)';
+
+        }
+
+        function completeExperience() {
+
+            clearInterval(rotationInterval);
+
+            clearInterval(timerInterval);
+
+            experienceActive = false;
+
+            document.getElementById('experienceContainer').classList.remove('active');
+
+            document.getElementById('completionScreen').classList.add('active');
+
+            rotationDegree = 0;
+
+            document.getElementById('spinningContent').style.transform = 'rotate(0deg)';
+
+        }
+
+        function declineExperience() {
+
+            alert('Ill be your good discord kitten');
+
+        }
+
+        // Spacebar to restart
+
+        document.addEventListener('keydown', (e) => {
+
+            if (e.code === 'Space' && document.getElementById('completionScreen').classList.contains('active')) {
+
+                e.preventDefault();
+
+                document.getElementById('completionScreen').classList.remove('active');
+
+                startExperience();
+
+            }
+
+        });
+
     </script>
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
