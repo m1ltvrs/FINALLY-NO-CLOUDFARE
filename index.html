@@ -1418,6 +1418,41 @@ statcounter img {
 .hub-content .panic-btn {
   display: block;
 }
+.home-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 30px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+  z-index: 10001;
+  transition: all 0.3s;
+  display: none;
+}
+
+.home-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.6);
+}
+
+.hub-content .home-btn {
+  display: block;
+}
+
+body.google-mode .home-btn {
+  background: #4285f4;
+}
+
+body.google-mode .home-btn:hover {
+  background: #3367d6;
+}
 
 .statcounter > div::after {
   content: '← Visitors';
@@ -1607,6 +1642,7 @@ statcounter img {
 </div>
       
         <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
+        <button class="home-btn" id="homeBtn">🏠 Home</button>
         
         
         <div class="mode-toggle" id="modeToggle">
@@ -3824,6 +3860,93 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
+
+
+const homeBtn = document.getElementById('homeBtn');
+
+homeBtn.addEventListener('click', () => {
+  if (confirm('Return to login screen? This will reset your session.')) {
+    resetToLogin();
+  }
+});
+
+function resetToLogin() {
+
+  hub.style.display = 'none';
+  hub.classList.remove('golden', 'lucky', 'forkknife', 'fnf');
+  
+
+  document.body.classList.remove('google-mode');
+  
+ 
+  cloak.style.display = 'flex';
+  
+ 
+  clickCount = 0;
+  goldenMode = false;
+  luckyMode = false;
+  forkknifeMode = false;
+  fnfMode = false;
+  
+ 
+  usernameInput.value = '';
+  passwordInput.value = '';
+  errorMsg.style.display = 'none';
+  
+
+  hub.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+  hub.style.backgroundImage = '';
+  hub.style.backgroundSize = '';
+  hub.style.backgroundPosition = '';
+  hub.style.backgroundRepeat = '';
+  
+  document.title = 'PowerSchool LSR7';
+  
+  
+  document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
+  
+  const powerschoolBtn = document.querySelector('[data-mode="powerschool"]');
+  const googleBtn = document.querySelector('[data-mode="google"]');
+  if (powerschoolBtn) powerschoolBtn.classList.add('active');
+  if (googleBtn) googleBtn.classList.remove('active');
+  
+
+  const searchBox = document.getElementById('searchBox');
+  const searchResults = document.getElementById('searchResults');
+  if (searchBox) searchBox.value = '';
+  if (searchResults) searchResults.classList.remove('show');
+  
+ 
+  document.querySelectorAll('.sparkle').forEach(s => s.remove());
+  
+  
+  const hubHeader = document.querySelector('.hub-header h1');
+  if (hubHeader) hubHeader.textContent = '🌐 Link Hub';
+  
+
+  snakeWindow.classList.remove('show');
+  tetrisWindow.classList.remove('show');
+  pongWindow.classList.remove('show');
+  breakoutWindow.classList.remove('show');
+  flappyWindow.classList.remove('show');
+  portalScreen.classList.remove('show');
+  const error404 = document.getElementById('error404');
+  if (error404) error404.classList.remove('show');
+  
+ 
+  if (typeof gameLoop !== 'undefined' && gameLoop) clearInterval(gameLoop);
+  if (typeof tetrisInterval !== 'undefined' && tetrisInterval) clearInterval(tetrisInterval);
+  if (typeof pongGame !== 'undefined' && pongGame) cancelAnimationFrame(pongGame);
+  if (typeof breakoutGame !== 'undefined' && breakoutGame) cancelAnimationFrame(breakoutGame);
+  if (typeof flappyGame !== 'undefined' && flappyGame) cancelAnimationFrame(flappyGame);
+  if (typeof portalAnimationId !== 'undefined' && portalAnimationId) cancelAnimationFrame(portalAnimationId);
+  
+
+  localStorage.removeItem('interfaceMode');
+  
+  
+  window.scrollTo(0, 0);
+}
 
 
 const modeToggle = document.getElementById('modeToggle');
