@@ -1453,7 +1453,12 @@ body.google-mode .home-btn {
 body.google-mode .home-btn:hover {
   background: #3367d6;
 }
-
+#thinkstack-chatbot-container,
+#thinkstack-chatbot-widget,
+[id^="thinkstack"] {
+  z-index: 999999 !important;
+  position: fixed !important;
+}
 .statcounter > div::after {
   content: '← Visitors';
   position: absolute;
@@ -1643,6 +1648,11 @@ body.google-mode .home-btn:hover {
       
         <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
         <button class="home-btn" id="homeBtn">🏠 Home</button>
+       <script
+       chatbot_id="6943929a190e85dc71392e73"
+       data-type="default"
+       src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js">
+       </script>
         
         
         <div class="mode-toggle" id="modeToggle">
@@ -3840,11 +3850,6 @@ class="statcounter" src="https://c.statcounter.com/13194178/0/c224dfe3/0/"
 alt="Web Analytics Made Easy - Statcounter"
 referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 
-<script
-  chatbot_id="6943929a190e85dc71392e73"
-  data-type="default"
-  src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js">
-</script>
 
 <script>
 
@@ -3999,6 +4004,11 @@ document.querySelectorAll('.link-box').forEach(a => {
   a.style.pointerEvents = 'auto';
   a.style.cursor = 'pointer';
 });
+setTimeout(() => {
+  if (window.ThinkStackAI && window.ThinkStackAI.reload) {
+    window.ThinkStackAI.reload();
+  }
+}, 2000);
 </script>
 </body>
 </html>
