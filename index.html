@@ -1472,6 +1472,128 @@ body.google-mode .home-btn:hover {
   white-space: nowrap;
   pointer-events: none;
 }
+
+.notification-popup {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #36393f;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  padding: 16px 20px;
+  max-width: 340px;
+  z-index: 100000;
+  animation: slideIn 0.3s ease-out;
+  border-left: 4px solid #5865f2;
+}
+
+.notification-popup.show {
+  display: block;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.notification-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification-close-btn {
+  background: none;
+  border: none;
+  color: #b9bbbe;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.notification-close-btn:hover {
+  background: #4e5058;
+  color: #fff;
+}
+
+.notification-body {
+  color: #dcddde;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.notification-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #2f3136;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.notification-link:hover {
+  background: #3a3c43;
+  border-color: #5865f2;
+}
+
+.notification-link-icon {
+  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-link-info {
+  flex: 1;
+}
+
+.notification-link-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+}
+
+.notification-link-username {
+  font-size: 12px;
+  color: #b9bbbe;
+}
     @media (max-width: 768px) {
       .portal-title {
         font-size: 2em;
@@ -1593,7 +1715,35 @@ body.google-mode .home-btn:hover {
     <div class="snake-controls">Arrow Keys: Move | Space: Rotate</div>
   </div>
 </div>
-
+  
+  <div class="notification-popup" id="socialNotification">
+    <div class="notification-header">
+      <div class="notification-title">
+        <span>📱</span>
+        <span>Follow the Dev!</span>
+      </div>
+      <button class="notification-close-btn" id="notificationCloseBtn">×</button>
+    </div>
+    <div class="notification-body">
+      Hey! Check out my socials for updates and cool stuff! 🚀
+    </div>
+    <div class="notification-links">
+      <a href="https://github.com/TheMltivrs" target="_blank" class="notification-link">
+        <span class="notification-link-icon">💻</span>
+        <div class="notification-link-info">
+          <div class="notification-link-name">GitHub</div>
+          <div class="notification-link-username">@TheMltivrs</div>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@hiddengamevault" target="_blank" class="notification-link">
+        <span class="notification-link-icon">🎵</span>
+        <div class="notification-link-info">
+          <div class="notification-link-name">TikTok</div>
+          <div class="notification-link-username">@hiddengamevault</div>
+        </div>
+      </a>
+    </div>
+  </div>
   <div class="hub-content" id="hub">
     <div class="container">
      <div class="hub-header">
@@ -4009,6 +4159,66 @@ setTimeout(() => {
     window.ThinkStackAI.reload();
   }
 }, 2000);
+
+function playDiscordPing() {
+  const ctx = getAudioContext();
+  
+ 
+  const times = [0, 0.05]; 
+  const frequencies = [700, 1000]; 
+  
+  times.forEach((time, index) => {
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    oscillator.frequency.value = frequencies[index];
+    oscillator.type = 'sine';
+    
+    const startTime = ctx.currentTime + time;
+    const duration = 0.08; 
+    
+   
+    gainNode.gain.setValueAtTime(0, startTime);
+    gainNode.gain.linearRampToValueAtTime(0.15, startTime + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+    
+    oscillator.start(startTime);
+    oscillator.stop(startTime + duration);
+  });
+}
+
+function showSocialNotification() {
+  const notification = document.getElementById('socialNotification');
+  
+  
+  if (cloak.style.display !== 'none') {
+    return;
+  }
+  
+ 
+  playDiscordPing();
+  
+  notification.classList.add('show');
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 10000);
+}
+
+
+document.getElementById('notificationCloseBtn').addEventListener('click', () => {
+  document.getElementById('socialNotification').classList.remove('show');
+});
+
+
+setInterval(showSocialNotification, 1800000);
+
+
+setTimeout(showSocialNotification, 1800000);
+setTimeout(showSocialNotification, 3000);
 </script>
 </body>
 </html>
