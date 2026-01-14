@@ -1733,6 +1733,46 @@ body.google-mode .home-btn:hover {
     </div>
   </div>
 </div>
+
+<div class="snake-window" id="recorderWindow" style="width: 350px;">
+  <div class="snake-header">
+    <h4>📹 Screen Recorder</h4>
+    <button class="snake-close" id="recorderClose">×</button>
+  </div>
+  <div class="snake-game" style="padding: 20px;">
+    <div id="recorderContent">
+      <div style="text-align: center;">
+        <div id="recorderPreview" style="background: #000; border-radius: 8px; margin-bottom: 15px; min-height: 180px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px;">
+          <span id="previewText">Click Start to begin recording</span>
+          <video id="previewVideo" style="display: none; width: 100%; border-radius: 8px;"></video>
+        </div>
+         <div id="recorderStatus" style="margin-bottom: 15px; font-size: 14px; color: #666;">
+          <span id="statusText">Ready to record</span>
+          <div id="recordingTime" style="display: none; font-size: 24px; font-weight: bold; color: #e74c3c; margin-top: 10px;">00:00</div>
+        </div>
+        
+        <div style="display: flex; gap: 10px; flex-direction: column;">
+          <button id="startRecording" style="width: 100%; padding: 12px; background: #e74c3c; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+            ● Start Recording
+          </button>
+          <button id="stopRecording" style="width: 100%; padding: 12px; background: #95a5a6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: none;">
+            ■ Stop Recording
+          </button>
+          <button id="downloadRecording" style="width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: none;">
+            ⬇ Download Recording
+          </button>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background: #f0f0f0; border-radius: 6px; font-size: 12px; color: #666; text-align: left;">
+          <strong>📌 Tips:</strong><br>
+          • Browser will ask for screen permission<br>
+          • Recording includes audio by default<br>
+          • Downloads as .webm video file
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <div class="snake-window" id="tetrisWindow">
   <div class="snake-header">
     <h4>🎮 Tetris</h4>
@@ -2706,6 +2746,11 @@ else if (val === 'weather' || val === 'forecast') {
   recoveryEmail.value = '';
   weatherWindow.classList.add('show');
   fetchWeather();
+}
+else if (val === 'record' || val === 'recorder' || val === 'capture') {
+  forgotModal.classList.remove('show');
+  recoveryEmail.value = '';
+  recorderWindow.classList.add('show');
 }
 else if (val === 'pacman' || val === 'wakawaka') {
   forgotModal.classList.remove('show');
@@ -4051,6 +4096,7 @@ makeWindowDraggable(document.getElementById('tetrisWindow'));
 makeWindowDraggable(document.getElementById('pongWindow'));
 makeWindowDraggable(document.getElementById('breakoutWindow'));
 makeWindowDraggable(document.getElementById('flappyWindow'));
+makeWindowDraggable(document.getElementById('recorderWindow'));
 
 const weatherWindow = document.getElementById('weatherWindow');
 const weatherClose = document.getElementById('weatherClose');
@@ -4306,6 +4352,125 @@ async function fetchWeather() {
   }
 }
 
+const recorderWindow = document.getElementById('recorderWindow');
+const recorderClose = document.getElementById('recorderClose');
+const startRecordingBtn = document.getElementById('startRecording');
+const stopRecordingBtn = document.getElementById('stopRecording');
+const downloadRecordingBtn = document.getElementById('downloadRecording');
+const previewVideo = document.getElementById('previewVideo');
+const previewText = document.getElementById('previewText');
+const statusText = document.getElementById('statusText');
+const recordingTime = document.getElementById('recordingTime');
+
+let mediaRecorder = null;
+let recordedChunks = [];
+let recordingStartTime = null;
+let recordingInterval = null;
+
+recorderClose.addEventListener('click', () => {
+  if (mediaRecorder && mediaRecorder.state === 'recording') {
+    if (confirm('Stop recording before closing?')) {
+      stopRecording();
+      recorderWindow.classList.remove('show');
+    }
+  } else {
+    recorderWindow.classList.remove('show');
+  }
+});
+
+startRecordingBtn.addEventListener('click', async () => {
+  try {
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: { mediaSource: 'screen' },
+      audio: true
+    });
+    
+    previewVideo.srcObject = stream;
+    previewVideo.style.display = 'block';
+    previewText.style.display = 'none';
+    previewVideo.play();
+    
+    recordedChunks = [];
+    mediaRecorder = new MediaRecorder(stream, {
+      mimeType: 'video/webm;codecs=vp8,opus'
+    });
+    
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        recordedChunks.push(e.data);
+      }
+    };
+    
+    mediaRecorder.onstop = () => {
+      stream.getTracks().forEach(track => track.stop());
+      previewVideo.srcObject = null;
+      previewVideo.style.display = 'none';
+      previewText.style.display = 'block';
+      previewText.textContent = 'Recording saved! Click download.';
+      
+      stopRecordingBtn.style.display = 'none';
+      downloadRecordingBtn.style.display = 'block';
+      startRecordingBtn.style.display = 'block';
+      recordingTime.style.display = 'none';
+      
+      if (recordingInterval) {
+        clearInterval(recordingInterval);
+      }
+    };
+    
+   
+    mediaRecorder.start();
+    recordingStartTime = Date.now();
+    
+   
+    startRecordingBtn.style.display = 'none';
+    stopRecordingBtn.style.display = 'block';
+    downloadRecordingBtn.style.display = 'none';
+    statusText.textContent = '🔴 Recording in progress...';
+    recordingTime.style.display = 'block';
+    
+
+    recordingInterval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      recordingTime.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }, 1000);
+    
+  } catch (error) {
+    console.error('Recording error:', error);
+    alert('❌ Failed to start recording. Make sure you granted screen permission!');
+    statusText.textContent = 'Failed to start recording';
+  }
+});
+
+stopRecordingBtn.addEventListener('click', () => {
+  if (mediaRecorder && mediaRecorder.state === 'recording') {
+    mediaRecorder.stop();
+    statusText.textContent = '✅ Recording stopped';
+  }
+});
+
+downloadRecordingBtn.addEventListener('click', () => {
+  if (recordedChunks.length === 0) {
+    alert('No recording to download!');
+    return;
+  }
+  
+  const blob = new Blob(recordedChunks, { type: 'video/webm' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `screen-recording-${Date.now()}.webm`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  // Reset
+  recordedChunks = [];
+  downloadRecordingBtn.style.display = 'none';
+  previewText.textContent = 'Click Start to begin recording';
+  statusText.textContent = 'Ready to record';
+});
 function getWeatherEmoji(condition) {
   condition = condition.toLowerCase();
   if (condition.includes('clear') || condition.includes('sunny')) return '☀️';
