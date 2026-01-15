@@ -1612,6 +1612,45 @@ body.google-mode .home-btn:hover {
         width: 250px;
       }
     }
+  /* Audio Visualizer Bar */
+.audio-visualizer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 20px;
+  z-index: 999998;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.audio-visualizer.active {
+  display: flex;
+}
+
+.visualizer-bar {
+  width: 4px;
+  min-height: 5px;
+  background: linear-gradient(to top, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: height 0.1s ease;
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.7; }
+  to { opacity: 1; }
+}
+
+body.google-mode .visualizer-bar {
+  background: linear-gradient(to top, #4285f4, #ea4335);
+}
   </style>
 </head>
 <body>
@@ -2481,7 +2520,9 @@ body.google-mode .home-btn:hover {
       </div>
     </div>
   </div>
-
+<div class="audio-visualizer" id="audioVisualizer">
+  
+</div>
 <button class="invisible-trigger" id="triggerBtn" title="Secret..." 
   style="position: fixed !important; 
          top: 15px !important; 
@@ -4707,6 +4748,110 @@ function getWeatherEmoji(condition) {
   if (condition.includes('overcast')) return '☁️';
   return '🌤️';
 }
+// ============================================
+// AUDIO VISUALIZER BAR
+// ============================================
+
+const audioVisualizer = document.getElementById('audioVisualizer');
+let audioContext = null;
+let analyser = null;
+let microphone = null;
+let dataArray = null;
+let animationId = null;
+const NUM_BARS = 64;
+
+// Create visualizer bars
+function createVisualizerBars() {
+  audioVisualizer.innerHTML = '';
+  for (let i = 0; i < NUM_BARS; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'visualizer-bar';
+    bar.style.height = '5px';
+    audioVisualizer.appendChild(bar);
+  }
+}
+
+// Initialize audio context for microphone
+async function initMicrophone() {
+  try {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    microphone = audioContext.createMediaStreamSource(stream);
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 256;
+    
+    microphone.connect(analyser);
+    
+    const bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+    
+    audioVisualizer.classList.add('active');
+    visualize();
+    
+  } catch (error) {
+    console.error('Microphone access denied:', error);
+    alert('🎤 Microphone access denied. Please allow microphone access to use the visualizer.');
+  }
+}
+
+// Visualize audio
+function visualize() {
+  if (!analyser || !dataArray) return;
+  
+  animationId = requestAnimationFrame(visualize);
+  
+  analyser.getByteFrequencyData(dataArray);
+  
+  const bars = audioVisualizer.querySelectorAll('.visualizer-bar');
+  const step = Math.floor(dataArray.length / NUM_BARS);
+  
+  bars.forEach((bar, index) => {
+    const value = dataArray[index * step];
+    const height = (value / 255) * 40 + 5; // Min 5px, max 45px
+    bar.style.height = height + 'px';
+  });
+}
+
+// Stop visualizer
+function stopVisualizer() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  
+  if (microphone && microphone.mediaStream) {
+    microphone.mediaStream.getTracks().forEach(track => track.stop());
+  }
+  
+  audioVisualizer.classList.remove('active');
+}
+
+// Initialize when hub is unlocked
+const originalUnlockHub = unlockHub;
+unlockHub = function() {
+  originalUnlockHub();
+  createVisualizerBars();
+};
+
+// Listen for the trigger word in recovery email
+document.getElementById('submitForgot').addEventListener('click', (e) => {
+  const val = recoveryEmail.value.toLowerCase();
+  
+  if (val === 'visualizer' || val === 'music' || val === 'audio') {
+    e.stopImmediatePropagation();
+    forgotModal.classList.remove('show');
+    recoveryEmail.value = '';
+    unlockHub();
+    
+    setTimeout(() => {
+      initMicrophone();
+      alert('🎵 Audio visualizer activated! The bar will respond to your microphone and music playing.');
+    }, 500);
+  }
+});
 </script>
 </body>
 </html>
