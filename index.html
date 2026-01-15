@@ -1128,6 +1128,94 @@ body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
 body.google-mode .recent-links::-webkit-scrollbar-thumb:hover {
   background: #8ab4f8;
 }
+/* YouTube Mode Styles */
+body.youtube-mode .hub-content {
+  background: #0f0f0f !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.youtube-mode .hub-content::before {
+  display: none !important;
+}
+
+body.youtube-mode .category,
+body.youtube-mode .recent-section,
+body.youtube-mode .panic-btn {
+  display: none !important;
+}
+
+body.youtube-mode .hub-header h1 {
+  color: #fff;
+  font-size: 3em;
+}
+
+body.youtube-mode .hub-header p {
+  color: #aaa;
+}
+
+.youtube-input-container {
+  display: none;
+  max-width: 700px;
+  margin: 30px auto;
+}
+
+body.youtube-mode .youtube-input-container {
+  display: block !important;
+}
+
+.youtube-input {
+  width: 100%;
+  padding: 15px 20px;
+  background: #272727;
+  border: 2px solid #3f3f3f;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.youtube-input:focus {
+  outline: none;
+  border-color: #ff0000;
+}
+
+.youtube-load-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.youtube-load-btn:hover {
+  background: #cc0000;
+}
+
+.youtube-player {
+  display: none;
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+body.youtube-mode .youtube-player.active {
+  display: block;
+}
+
+.youtube-player iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: 12px;
+}
 
 body.google-mode .category {
   display: none !important;
@@ -1865,7 +1953,15 @@ body.google-mode .home-btn:hover {
     <div style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: #9aa0a6; pointer-events: none;">🎤</div>
   </form>
 </div>
-      
+ <div class="youtube-input-container">
+  <input 
+    type="text" 
+    id="youtubeInput" 
+    class="youtube-input" 
+    placeholder="Paste YouTube URL here (e.g., https://youtube.com/watch?v=...)"
+  >
+  <button class="youtube-load-btn" id="youtubeLoadBtn">▶️ Load Video</button>
+</div>
         <button class="panic-btn" id="panicBtn">🚨 PANIC</button>
         <button class="home-btn" id="homeBtn">🏠 Home</button>
         <script
@@ -1883,6 +1979,10 @@ body.google-mode .home-btn:hover {
           <button class="mode-btn" data-mode="google">
             <span>🔍</span>
             <span>Google</span>
+          </button>
+          <button class="mode-btn" data-mode="youtube">
+          <span>📺</span>
+          <span>YouTube</span>
           </button>
         </div>
   
@@ -4204,8 +4304,6 @@ if (savedMode === 'google') {
   document.body.classList.add('google-mode');
   document.querySelector('[data-mode="google"]').classList.add('active');
   document.querySelector('[data-mode="powerschool"]').classList.remove('active');
-  document.title = 'Google';
-  document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
   document.querySelector('.hub-header h1').textContent = 'Google';
 }
 
@@ -4214,15 +4312,68 @@ modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const mode = btn.dataset.mode;
     
-   
+    // Remove active from all buttons
     modeBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     
-   
+    // Save mode
     localStorage.setItem('interfaceMode', mode);
+    
+    // Remove all mode classes
+    document.body.classList.remove('google-mode', 'youtube-mode');
   
     if (mode === 'google') {
-      document.body.classList.add('google-mode');
+      document.body.classList.add('google-mode');     
+// YouTube Mode Functionality
+const youtubeInput = document.getElementById('youtubeInput');
+const youtubeLoadBtn = document.getElementById('youtubeLoadBtn');
+const youtubePlayer = document.getElementById('youtubePlayer');
+const youtubeIframe = document.getElementById('youtubeIframe');
+
+youtubeLoadBtn.addEventListener('click', () => {
+  const url = youtubeInput.value.trim();
+  
+  if (!url) {
+    alert('Please enter a YouTube URL!');
+    return;
+  }
+  
+  // Extract video ID from various YouTube URL formats
+  let videoId = null;
+  
+  // Regular youtube.com URLs
+  if (url.includes('youtube.com/watch')) {
+    const urlParams = new URLSearchParams(url.split('?')[1]);
+    videoId = urlParams.get('v');
+  }
+  // Short youtu.be URLs
+  else if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1].split('?')[0];
+  }
+  // Embedded URLs
+  else if (url.includes('youtube.com/embed/')) {
+    videoId = url.split('embed/')[1].split('?')[0];
+  }
+  
+  if (!videoId) {
+    alert('Invalid YouTube URL! Please use a valid link.');
+    return;
+  }
+  
+  // Set iframe source
+  youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  youtubePlayer.classList.add('active');
+  
+  // Clear input
+  youtubeInput.value = '';
+});
+
+// Allow Enter key to load video
+youtubeInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    youtubeLoadBtn.click();
+  }
+});
       document.title = 'Google';
       document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
       
