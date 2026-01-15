@@ -2698,7 +2698,7 @@ document.getElementById('cancelForgot').addEventListener('click', () => {
   recoveryEmail.value = '';
 });
 submitForgot.addEventListener('click', () => {
-  const val = recoveryEmail.value.toLowerCase();
+  const val = recoveryEmail.value.toLowerCase().trim();
    
   const today = new Date();
   const month = today.getMonth() + 1;
@@ -4238,11 +4238,20 @@ weatherClose.addEventListener('click', () => {
 });
 
 
-const homeBtn = document.getElementById('homeBtn');
+const panicBtn = document.getElementById('panicBtn');
+panicBtn.addEventListener('click', () => {
+  window.location.href = 'https://www.khanacademy.org'; // instant redirect (safer panic)
+});
 
+const homeBtn = document.getElementById('homeBtn');
 homeBtn.addEventListener('click', () => {
-  if (confirm('Return to login screen? This will reset your session.')) {
-    resetToLogin();
+  if (confirm('Return to login?')) {
+    cloak.style.display = 'flex';
+    hub.style.display = 'none';
+    document.body.classList.remove('google-mode');
+    document.title = 'PowerSchool LSR7';
+    document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
+    clickCount = 0;
   }
 });
 
@@ -4327,9 +4336,8 @@ function resetToLogin() {
 
 const modeToggle = document.getElementById('modeToggle');
 const modeBtns = document.querySelectorAll('.mode-btn');
-
-
 const savedMode = localStorage.getItem('interfaceMode') || 'powerschool';
+
 if (savedMode === 'google') {
   document.body.classList.add('google-mode');
   document.querySelector('[data-mode="google"]').classList.add('active');
@@ -4339,6 +4347,26 @@ if (savedMode === 'google') {
   document.querySelector('.hub-header h1').textContent = 'Google';
 }
 
+modeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    modeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    localStorage.setItem('interfaceMode', mode);
+
+    if (mode === 'google') {
+      document.body.classList.add('google-mode');
+      document.title = 'Google';
+      document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>';
+      document.querySelector('.hub-header h1').textContent = 'Google';
+    } else {
+      document.body.classList.remove('google-mode');
+      document.title = 'PowerSchool LSR7';
+      document.getElementById('favicon').href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>';
+      document.querySelector('.hub-header h1').textContent = '🌐 Link Hub';
+    }
+  });
+});
 
 modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
