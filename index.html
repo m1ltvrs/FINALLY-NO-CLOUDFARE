@@ -2069,7 +2069,7 @@ body.google-mode .home-btn:hover {
     
     <p class="migration-text">
       This old site's officially <strong>dying on Feb 5th</strong> – 20-sec loads RIP 💀<br>
-      New spot loads in <strong>2 seconds</strong>, has live chat to clown on these gas station heroes/Walmart trolls together, same energy but faster.
+      New spot loads in <strong>2 seconds</strong>, has live chat to clown on these gas station heroes/Walmart trolls together, same unhinged energy.
     </p>
     
     <a href="https://tiny.cc/pwrschoollrs7" target="_blank" class="migration-btn">
@@ -4795,7 +4795,7 @@ downloadRecordingBtn.addEventListener('click', () => {
   a.click();
   URL.revokeObjectURL(url);
   
-  /
+  // Reset
   recordedChunks = [];
   downloadRecordingBtn.style.display = 'none';
   previewText.textContent = 'Click Start to begin recording';
@@ -4815,7 +4815,6 @@ function getWeatherEmoji(condition) {
   return '🌤️';
 }
 
-
 const migrationPopup = document.getElementById('migrationPopup');
 const migrationClose = document.getElementById('migrationClose');
 
@@ -4825,15 +4824,17 @@ function showMigrationPopup() {
   if (!hasSeenPopup) {
     setTimeout(() => {
       migrationPopup.classList.add('show');
-      playDiscordPing();
-    }, 2000);
+      playDiscordPing(); 
+    }, 2000); 
   }
 }
+
 
 migrationClose.addEventListener('click', () => {
   migrationPopup.classList.remove('show');
   localStorage.setItem('hasSeenMigrationPopup', 'true');
 });
+
 
 migrationPopup.addEventListener('click', (e) => {
   if (e.target === migrationPopup) {
@@ -4841,6 +4842,7 @@ migrationPopup.addEventListener('click', (e) => {
     localStorage.setItem('hasSeenMigrationPopup', 'true');
   }
 });
+
 
 const originalUnlockHub = unlockHub;
 unlockHub = function() {
@@ -4850,6 +4852,10 @@ unlockHub = function() {
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
