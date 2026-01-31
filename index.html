@@ -4795,7 +4795,7 @@ downloadRecordingBtn.addEventListener('click', () => {
   a.click();
   URL.revokeObjectURL(url);
   
-  // Reset
+  /
   recordedChunks = [];
   downloadRecordingBtn.style.display = 'none';
   previewText.textContent = 'Click Start to begin recording';
@@ -4815,6 +4815,7 @@ function getWeatherEmoji(condition) {
   return '🌤️';
 }
 
+
 const migrationPopup = document.getElementById('migrationPopup');
 const migrationClose = document.getElementById('migrationClose');
 
@@ -4824,17 +4825,15 @@ function showMigrationPopup() {
   if (!hasSeenPopup) {
     setTimeout(() => {
       migrationPopup.classList.add('show');
-      playDiscordPing(); 
-    }, 2000); 
+      playDiscordPing();
+    }, 2000);
   }
 }
-
 
 migrationClose.addEventListener('click', () => {
   migrationPopup.classList.remove('show');
   localStorage.setItem('hasSeenMigrationPopup', 'true');
 });
-
 
 migrationPopup.addEventListener('click', (e) => {
   if (e.target === migrationPopup) {
@@ -4842,7 +4841,6 @@ migrationPopup.addEventListener('click', (e) => {
     localStorage.setItem('hasSeenMigrationPopup', 'true');
   }
 });
-
 
 const originalUnlockHub = unlockHub;
 unlockHub = function() {
